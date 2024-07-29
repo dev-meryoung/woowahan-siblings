@@ -1,31 +1,73 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './pages/Home';
+import Schedule from './pages/Schedule/Schedule';
+import ScheduleDetail from './pages/Schedule/ScheduleDetail';
+import Wage from './pages/Wage/Wage';
+import WageCheck from './pages/Wage/WageCheck/WageCheck';
+import WageCheckDetail from './pages/Wage/WageCheck/WageCheckDetail';
+import Correction from './pages/Wage/Correction/Correction';
+import CorrectionDetail from './pages/Wage/Correction/CorrectionDetail';
+import Profile from './pages/Profile';
+import './index.css';
+import CorrectionRequest from './pages/Wage/Correction/CorrectionRequest';
+
+export const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Home />,
+	},
+	{
+		path: 'schedule',
+		element: <Schedule />,
+	},
+	{
+		path: 'schedule/:id',
+		element: <ScheduleDetail />,
+	},
+	{
+		path: 'wage',
+		element: <Wage />,
+		children: [
+			{
+				path: 'check',
+				children: [
+					{
+						index: true,
+						element: <WageCheck />,
+					},
+				],
+			},
+			{
+				path: 'correction',
+				children: [
+					{
+						index: true,
+						element: <Correction />,
+					},
+				],
+			},
+		],
+	},
+	{
+		path: 'wage/check/:id',
+		element: <WageCheckDetail />,
+	},
+	{
+		path: 'wage/correction/create',
+		element: <CorrectionRequest />,
+	},
+	{
+		path: 'wage/correction/:id',
+		element: <CorrectionDetail />,
+	},
+	{
+		path: 'profile',
+		element: <Profile />,
+	},
+]);
 
 function App() {
-	const [count, setCount] = useState(0);
-
-	return (
-		<>
-			<div>
-				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-		</>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
