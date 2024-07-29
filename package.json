@@ -36,9 +36,12 @@
     "vite": "^5.3.4"
   },
   "lint-staged": {
-    "*.ts?(x)": [
-      "eslint --fix",
-      "prettier --write"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --quiet --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{json,html,css}": [
+      "prettier --write --ignore-unknown"
     ]
   }
 }
