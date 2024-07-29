@@ -1,37 +1,51 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
-import PersonalWorkSchedule from './pages/PersonalWorkSchedule';
-import PersonalWorkScheduleDetail from './pages/PersonalWorkScheduleDetail';
-import WageVerification from './pages/WageVerification';
-import WageVerificationDetail from './pages/WageVerificationDetail';
-import WorkScheduleCorrectionRequest from './pages/WorkScheduleCorrectionRequest';
-import WorkScheduleCorrectionRequestDetail from './pages/WorkScheduleCorrectionRequestDetail';
-import MyProfile from './pages/MyProfile';
+import Schedule from './pages/Schedule';
+import ScheduleDetail from './pages/ScheduleDetail';
+import Wage from './pages/Wage';
+import WageDetail from './pages/WageDetail';
+import Correction from './pages/Correction';
+import CorrectionDetail from './pages/CorrectionDetail';
+import Profile from './pages/Profile';
+import './index.css';
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Home />,
+	},
+	{
+		path: 'schedule',
+		element: <Schedule />,
+	},
+	{
+		path: 'schedule/:id',
+		element: <ScheduleDetail />,
+	},
+	{
+		path: 'wage',
+		element: <Wage />,
+	},
+	{
+		path: 'wage/:id',
+		element: <WageDetail />,
+	},
+	{
+		path: 'correction',
+		element: <Correction />,
+	},
+	{
+		path: 'correction/:id',
+		element: <CorrectionDetail />,
+	},
+	{
+		path: 'profile',
+		element: <Profile />,
+	},
+]);
 
 function App() {
-	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/personal-work-schedule" element={<PersonalWorkSchedule />} />
-				<Route
-					path="/personal-work-schedule-detail"
-					element={<PersonalWorkScheduleDetail />}
-				/>
-				<Route path="/wage-verification" element={<WageVerification />} />
-				<Route path="/wage-verification-detail" element={<WageVerificationDetail />} />
-				<Route
-					path="/work-schedule-correction-request"
-					element={<WorkScheduleCorrectionRequest />}
-				/>
-				<Route
-					path="/work-schedule-correction-request-detail"
-					element={<WorkScheduleCorrectionRequestDetail />}
-				/>
-				<Route path="/my-profile" element={<MyProfile />} />
-			</Routes>
-		</Router>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
