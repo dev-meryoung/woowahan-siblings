@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
-import Schedule from './pages/Schedule/Schedule';
-import ScheduleDetail from './pages/Schedule/ScheduleDetail';
-import Wage from './pages/Wage/Wage';
-import WageCheck from './pages/Wage/WageCheck/WageCheck';
-import WageCheckDetail from './pages/Wage/WageCheck/WageCheckDetail';
-import Correction from './pages/Wage/Correction/Correction';
-import CorrectionDetail from './pages/Wage/Correction/CorrectionDetail';
-import Profile from './pages/Profile';
-import './index.css';
-import CorrectionRequest from './pages/Wage/Correction/CorrectionRequest';
+import Home from '@/pages/Home';
+import Schedule from '@/pages/Schedule/Schedule';
+import ScheduleDetail from '@/pages/Schedule/ScheduleDetail';
+import Wage from '@/pages/Wage/Wage';
+import WageCheck from '@/pages/Wage/WageCheck/WageCheck';
+import WageCheckDetail from '@/pages/Wage/WageCheck/WageCheckDetail';
+import Correction from '@/pages/Wage/Correction/Correction';
+import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
+import Profile from '@/pages/Profile';
+import '@/index.css';
+import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
 
 export const router = createBrowserRouter([
 	{
