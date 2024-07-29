@@ -1,10 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
-
-const textStyle = css`
-	color: #646cff;
-`;
 
 const CorrectionDetail = () => {
 	const { id: correctionId } = useParams<{ id: string }>();
@@ -12,3 +7,7 @@ const CorrectionDetail = () => {
 };
 
 export default CorrectionDetail;
+
+const textStyle = css`
+	color: #646cff;
+`;
