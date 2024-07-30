@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
-import { INavItemProps } from '@/interfaces/INavItemProps.ts';
+import { INavItemProps } from '@/interfaces/INavItemProps';
 import { colors } from '@/constants/colors';
 
 const NavItem = ({ to, icon, label, isActive }: INavItemProps) => (
 	<li css={navItemStyle}>
 		<Link to={to} css={linkStyle(isActive)}>
-			<div>{icon}</div>
+			<div css={iconWrapperStyle}>{icon}</div>
 			<span css={linkTextStyle(isActive)}>{label}</span>
 		</Link>
 	</li>
@@ -31,7 +31,15 @@ const linkStyle = (isActive: boolean) => css`
 	}
 `;
 
+const iconWrapperStyle = css`
+	width: 26px;
+	height: 26px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
 const linkTextStyle = (isActive: boolean) => css`
-	font-size: 14px;
+	font-size: 12px;
 	color: ${isActive ? colors.black : colors.gray};
 `;
