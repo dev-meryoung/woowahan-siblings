@@ -1,49 +1,57 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from '@emotion/react';
 import 'normalize.css';
-
-export const colors = {
-	primaryYellow: '#FFC700',
-	black: '#141414',
-	darkestGray: '#333D4B',
-	gray: '#8B95A1',
-	lightGray: '#E3E5EB',
-	lightestGray: '#F2F3F6',
-	veryLightGray: '#FCFCFC',
-	white: '#FFFFFF',
-	afternoonPink: '#F39ACD',
-	nightGreen: '#1DC18D',
-};
+import { colors } from '@/constants/colors';
 
 const GlobalStyles = () => (
 	<Global
-		styles={css({
-			'*': {
-				margin: 0,
-				padding: 0,
-				boxSizing: 'border-box',
-			},
-			'html, body, #root': {
-				height: '100%',
-				fontFamily: 'Arial, sans-serif',
-			},
-			body: {
-				lineHeight: 1.5,
-				backgroundColor: colors.veryLightGray,
-				color: colors.black,
-			},
-			'ol, ul': {
-				listStyle: 'none',
-			},
-			a: {
-				textDecoration: 'none',
-				color: 'inherit',
-			},
-			table: {
-				borderCollapse: 'collapse',
-				borderSpacing: 0,
-			},
-		})}
+		styles={css`
+			@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html,
+			body,
+			#root {
+				height: 100%;
+				font-family:
+					'Pretendard Variable',
+					Pretendard,
+					-apple-system,
+					BlinkMacSystemFont,
+					system-ui,
+					Roboto,
+					'Helvetica Neue',
+					'Segoe UI',
+					'Apple SD Gothic Neo',
+					'Noto Sans KR',
+					'Malgun Gothic',
+					'Apple Color Emoji',
+					'Segoe UI Emoji',
+					'Segoe UI Symbol',
+					sans-serif;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 1.4;
+				letter-spacing: -0.14px;
+				background-color: ${colors.white};
+				color: ${colors.black};
+			}
+			ol,
+			ul {
+				list-style: none;
+			}
+			a {
+				text-decoration: none;
+				color: inherit;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+		`}
 	/>
 );
 
