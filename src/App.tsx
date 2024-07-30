@@ -10,6 +10,7 @@ import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
 import Profile from '@/pages/Profile';
 import '@/index.css';
 import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
+import GlobalStyles from '@/styles/GlobalStyles.tsx';
 
 export const router = createBrowserRouter([
 	{
@@ -67,7 +68,12 @@ export const router = createBrowserRouter([
 ]);
 
 function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<>
+			<GlobalStyles />
+			<RouterProvider router={router} />
+		</>
+	);
 }
 
 export default App;
