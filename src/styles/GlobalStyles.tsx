@@ -15,6 +15,7 @@ const GlobalStyles = () => (
 			html,
 			body,
 			#root {
+				width: 100%;
 				height: 100%;
 				font-family:
 					'Pretendard Variable',
@@ -38,6 +39,12 @@ const GlobalStyles = () => (
 				letter-spacing: -0.14px;
 				background-color: ${colors.white};
 				color: ${colors.black};
+				overflow: hidden;
+			}
+			#root {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
 			}
 			ol,
 			ul {

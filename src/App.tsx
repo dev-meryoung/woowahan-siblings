@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from '@/pages/Home';
 import Schedule from '@/pages/Schedule/Schedule';
@@ -11,69 +12,37 @@ import Profile from '@/pages/Profile';
 import '@/index.css';
 import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
 import GlobalStyles from '@/styles/GlobalStyles.tsx';
+import RootLayout from '@/components/RootLayout';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Home />,
-	},
-	{
-		path: 'schedule',
-		element: <Schedule />,
-	},
-	{
-		path: 'schedule/:id',
-		element: <ScheduleDetail />,
-	},
-	{
-		path: 'wage',
-		element: <Wage />,
+		element: <RootLayout />,
 		children: [
+			{ index: true, element: <Home /> },
+			{ path: 'schedule', element: <Schedule /> },
+			{ path: 'schedule/:id', element: <ScheduleDetail /> },
 			{
-				path: 'check',
+				path: 'wage',
+				element: <Wage />,
 				children: [
-					{
-						index: true,
-						element: <WageCheck />,
-					},
+					{ path: 'check', element: <WageCheck /> },
+					{ path: 'correction', element: <Correction /> },
 				],
 			},
-			{
-				path: 'correction',
-				children: [
-					{
-						index: true,
-						element: <Correction />,
-					},
-				],
-			},
+			{ path: 'wage/check/:id', element: <WageCheckDetail /> },
+			{ path: 'wage/correction/create', element: <CorrectionRequest /> },
+			{ path: 'wage/correction/:id', element: <CorrectionDetail /> },
+			{ path: 'profile', element: <Profile /> },
 		],
-	},
-	{
-		path: 'wage/check/:id',
-		element: <WageCheckDetail />,
-	},
-	{
-		path: 'wage/correction/create',
-		element: <CorrectionRequest />,
-	},
-	{
-		path: 'wage/correction/:id',
-		element: <CorrectionDetail />,
-	},
-	{
-		path: 'profile',
-		element: <Profile />,
 	},
 ]);
 
-function App() {
-	return (
-		<>
-			<GlobalStyles />
-			<RouterProvider router={router} />
-		</>
-	);
-}
+const App = () => (
+	<>
+		<GlobalStyles />
+		<RouterProvider router={router} />
+	</>
+);
 
 export default App;
