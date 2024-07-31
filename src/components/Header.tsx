@@ -10,7 +10,7 @@ const Header = () => {
 	const navigate = useNavigate();
 
 	const isDeepPage = useMemo(() => {
-		const mainPages = ['/schedule', '/wage', '/home', '/profile'];
+		const mainPages = ['/schedule', '/wage/check', '/home', '/profile'];
 		return !mainPages.includes(location.pathname) && location.pathname !== '/';
 	}, [location.pathname]);
 
@@ -23,7 +23,7 @@ const Header = () => {
 			{isDeepPage ? (
 				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
 			) : (
-				<img src={logo} alt="logo" css={logoStyle} />
+				<h1><img src={logo} alt="logo" css={logoStyle} /></h1>
 			)}
 		</header>
 	);
@@ -36,7 +36,7 @@ const headerStyle = css`
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	padding-left: 15px;
+	padding: 0 20px;
 `;
 
 const logoStyle = css`
