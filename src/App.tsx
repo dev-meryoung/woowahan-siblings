@@ -12,12 +12,12 @@ import Profile from '@/pages/Profile';
 import '@/index.css';
 import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
 import GlobalStyles from '@/styles/GlobalStyles.tsx';
-import RootLayout from '@/components/RootLayout';
+import Layout from '@/components/Layout';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <RootLayout />,
+		element: <Layout />,
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: 'schedule', element: <Schedule /> },
