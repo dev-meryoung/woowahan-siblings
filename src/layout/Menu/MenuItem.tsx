@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { INavItemProps } from '@/interfaces/INavItemProps';
+import { IMenuItemProps } from '@/interfaces/menu';
 import { colors } from '@/constants/colors';
 
-const NavItem = ({ to, icon, label, isActive }: INavItemProps) => (
-	<NavItemContainer>
+const MenuItem = ({ to, icon, label, isActive }: IMenuItemProps) => (
+	<MenuItemContainer>
 		<StyledLink to={to} isActive={isActive}>
 			<IconWrapper>{icon}</IconWrapper>
 			<LinkText isActive={isActive}>{label}</LinkText>
 		</StyledLink>
-	</NavItemContainer>
+	</MenuItemContainer>
 );
 
-export default NavItem;
+export default MenuItem;
 
-const NavItemContainer = styled.li`
+const MenuItemContainer = styled.li`
 	display: flex;
 	align-items: center;
 `;

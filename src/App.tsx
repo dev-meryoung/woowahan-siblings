@@ -9,10 +9,9 @@ import WageCheckDetail from '@/pages/Wage/WageCheck/WageCheckDetail';
 import Correction from '@/pages/Wage/Correction/Correction';
 import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
 import Profile from '@/pages/Profile';
-import '@/index.css';
 import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
 import GlobalStyles from '@/styles/GlobalStyles.tsx';
-import Layout from '@/components/Layout';
+import Layout from '@/layout/Layout';
 
 const router = createBrowserRouter([
 	{

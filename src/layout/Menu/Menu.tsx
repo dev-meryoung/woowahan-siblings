@@ -4,7 +4,7 @@ import { css, SerializedStyles } from '@emotion/react';
 import { useLocation } from 'react-router-dom';
 import { Home, Calendar, WalletMinimal, User } from 'lucide-react';
 import { colors } from '@/constants/colors';
-import NavItem from '@/components/NavItem';
+import MenuItem from './MenuItem';
 
 const Menu = ({ css }: { css?: SerializedStyles }) => {
 	const location = useLocation();
@@ -13,7 +13,7 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 		<Header css={css}>
 			<Nav>
 				<NavList>
-					<NavItem
+					<MenuItem
 						to="/"
 						icon={
 							<Home
@@ -28,7 +28,7 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 							location.pathname === '/' || location.pathname.startsWith('/home')
 						}
 					/>
-					<NavItem
+					<MenuItem
 						to="/schedule"
 						icon={
 							<Calendar css={iconStyle(location.pathname.startsWith('/schedule'))} />
@@ -36,7 +36,7 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 						label="일정표"
 						isActive={location.pathname.startsWith('/schedule')}
 					/>
-					<NavItem
+					<MenuItem
 						to="/wage/check"
 						icon={
 							<WalletMinimal css={iconStyle(location.pathname.startsWith('/wage'))} />
@@ -44,7 +44,7 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 						label="급여"
 						isActive={location.pathname.startsWith('/wage')}
 					/>
-					<NavItem
+					<MenuItem
 						to="/profile"
 						icon={<User css={iconStyle(location.pathname.startsWith('/profile'))} />}
 						label="프로필"
