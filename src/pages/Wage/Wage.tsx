@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { Link, Outlet } from 'react-router-dom';
 
 const Wage = () => {
 	return (
-		<div>
-			<h1 css={textStyle}>Wage Page</h1>
+		<>
+			<h1>Wage Page</h1>
 			<div>
 				<ul>
 					<li>
@@ -17,12 +16,8 @@ const Wage = () => {
 				</ul>
 				<Outlet />
 			</div>
-		</div>
+		</>
 	);
 };
 
 export default Wage;
-
-const textStyle = css`
-	color: #b8ff79;
-`;

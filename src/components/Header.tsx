@@ -1,91 +1,54 @@
 /** @jsxImportSource @emotion/react */
-import { css, SerializedStyles } from '@emotion/react';
-import { useLocation } from 'react-router-dom';
-import { Home, Calendar, WalletMinimal, User } from 'lucide-react';
-import { colors } from '@/constants/colors';
-import NavItem from '@/components/NavItem';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
+import { useMemo } from 'react';
+import logo from '@/assets/logo.svg';
 
-const Header = ({ css }: { css?: SerializedStyles }) => {
+const Header = () => {
 	const location = useLocation();
+	const navigate = useNavigate();
+
+	const isDeepPage = useMemo(() => {
+		const mainPages = ['/schedule', '/wage/check', '/home', '/profile'];
+		return !mainPages.includes(location.pathname) && location.pathname !== '/';
+	}, [location.pathname]);
+
+	const handleBackClick = () => {
+		navigate(-1);
+	};
 
 	return (
-		<header css={[headerStyle, css]}>
-			<nav css={navStyle}>
-				<ul css={navListStyle}>
-					<NavItem
-						to="/"
-						icon={
-							<Home
-								css={iconStyle(
-									location.pathname === '/' ||
-										location.pathname.startsWith('/home'),
-								)}
-							/>
-						}
-						label="홈"
-						isActive={
-							location.pathname === '/' || location.pathname.startsWith('/home')
-						}
-					/>
-					<NavItem
-						to="/schedule"
-						icon={
-							<Calendar css={iconStyle(location.pathname.startsWith('/schedule'))} />
-						}
-						label="일정표"
-						isActive={location.pathname.startsWith('/schedule')}
-					/>
-					<NavItem
-						to="/wage"
-						icon={
-							<WalletMinimal css={iconStyle(location.pathname.startsWith('/wage'))} />
-						}
-						label="급여"
-						isActive={location.pathname.startsWith('/wage')}
-					/>
-					<NavItem
-						to="/profile"
-						icon={<User css={iconStyle(location.pathname.startsWith('/profile'))} />}
-						label="프로필"
-						isActive={location.pathname.startsWith('/profile')}
-					/>
-				</ul>
-			</nav>
-		</header>
+		<HeaderContainer>
+			{isDeepPage ? (
+				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
+			) : (
+				<h1>
+					<Logo src={logo} alt="logo" />
+				</h1>
+			)}
+		</HeaderContainer>
 	);
 };
 
 export default Header;
 
-const headerStyle = css`
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	max-width: 430px;
-	height: 60px;
-	background-color: ${colors.veryLightGray};
+const HeaderContainer = styled.header`
+	height: 52px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	border-top: 1px solid ${colors.lightGray};
+	justify-content: flex-start;
+	padding: 0 20px;
 `;
 
-const navStyle = css`
-	display: flex;
-	padding: 6px 0 12px 0;
+const Logo = styled.img`
+	height: 23px;
 `;
 
-const navListStyle = css`
-	display: flex;
-	gap: 54px;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-`;
-
-const iconStyle = (isActive: boolean) => css`
+const iconStyle = css`
 	width: 26px;
 	height: 26px;
+	cursor: pointer;
 	stroke-width: 1.4;
-	color: ${isActive ? colors.black : colors.gray};
 `;

@@ -1,5 +1,5 @@
 const CorrectionRequest = () => {
-	return <div>CorrectionRequest</div>;
+	return <>CorrectionRequest</>;
 };
 
 export default CorrectionRequest;
