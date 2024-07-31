@@ -19,7 +19,7 @@ const Home = () => {
 						</Link>
 					</li>
 					<li>
-						<Link to="/wage" css={textStyle}>
+						<Link to="/wage/check" css={textStyle}>
 							급여확인
 						</Link>
 					</li>
