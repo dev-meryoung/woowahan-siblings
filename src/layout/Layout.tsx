@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import Header from '@/components/Header';
-import Content from '@/components/Content';
-import Menu from '@/components/Menu';
+import Header from '@/layout/Header';
+import Content from '@/layout/Content';
+import Menu from './Menu/Menu';
 
 const Layout = () => (
 	<LayoutContainer>

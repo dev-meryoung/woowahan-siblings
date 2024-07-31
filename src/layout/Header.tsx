@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
 import logo from '@/assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 	const location = useLocation();
@@ -25,7 +26,9 @@ const Header = () => {
 				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
 			) : (
 				<h1>
-					<Logo src={logo} alt="logo" />
+					<Link to="/">
+						<Logo src={logo} alt="logo" />
+					</Link>
 				</h1>
 			)}
 		</HeaderContainer>
