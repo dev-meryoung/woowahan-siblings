@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Correction = () => {
 	const corrections = [1, 2, 3, 4, 7];
 	return (
-		<div>
+		<>
 			<div>
 				<Link to="/wage/correction/create">정정 신청하기</Link>
 			</div>
@@ -15,7 +15,7 @@ const Correction = () => {
 					</li>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 };
 

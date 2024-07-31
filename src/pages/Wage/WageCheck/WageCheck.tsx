@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const WageCheck = () => {
 	const wages = [1, 2, 3];
 	return (
-		<div>
+		<>
 			<ul>
 				{wages.map((id) => (
 					<li key={id}>
@@ -12,7 +12,7 @@ const WageCheck = () => {
 					</li>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 };
 

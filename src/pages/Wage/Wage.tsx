@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 const Wage = () => {
 	return (
-		<div>
+		<>
 			<h1>Wage Page</h1>
 			<div>
 				<ul>
@@ -16,7 +16,7 @@ const Wage = () => {
 				</ul>
 				<Outlet />
 			</div>
-		</div>
+		</>
 	);
 };
 

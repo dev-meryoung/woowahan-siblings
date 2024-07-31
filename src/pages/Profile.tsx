@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 const Profile = () => {
-	return <div>Profile Page</div>;
+	return <>Profile Page</>;
 };
 
 export default Profile;

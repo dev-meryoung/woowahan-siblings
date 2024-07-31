@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Schedule = () => {
 	const schedules = [1, 2];
 	return (
-		<div>
+		<>
 			<h1>Schedule Page</h1>
 			<ul>
 				{schedules.map((id) => (
@@ -13,7 +13,7 @@ const Schedule = () => {
 					</li>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 };
 

@@ -37,7 +37,7 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 						isActive={location.pathname.startsWith('/schedule')}
 					/>
 					<NavItem
-						to="/wage"
+						to="/wage/check"
 						icon={
 							<WalletMinimal css={iconStyle(location.pathname.startsWith('/wage'))} />
 						}
