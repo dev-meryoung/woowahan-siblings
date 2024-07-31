@@ -1,20 +1,21 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import Header from '@/components/Header';
 import Content from '@/components/Content';
 import Menu from '@/components/Menu';
 
 const Layout = () => (
-	<div css={layoutContainerStyle}>
+	<LayoutContainer>
 		<Header />
 		<Content />
-		<Menu css={menuStyle} />
-	</div>
+		<MenuWrapper>
+			<Menu />
+		</MenuWrapper>
+	</LayoutContainer>
 );
 
 export default Layout;
 
-const layoutContainerStyle = css`
+const LayoutContainer = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -26,7 +27,7 @@ const layoutContainerStyle = css`
 	flex-direction: column;
 `;
 
-const menuStyle = css`
+const MenuWrapper = styled.div`
 	position: fixed;
 	bottom: 0;
 	width: 100%;

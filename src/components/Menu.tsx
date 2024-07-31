@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import styled from '@emotion/styled';
 import { css, SerializedStyles } from '@emotion/react';
 import { useLocation } from 'react-router-dom';
 import { Home, Calendar, WalletMinimal, User } from 'lucide-react';
@@ -9,9 +10,9 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 	const location = useLocation();
 
 	return (
-		<header css={[headerStyle, css]}>
-			<nav css={navStyle}>
-				<ul css={navListStyle}>
+		<Header css={css}>
+			<Nav>
+				<NavList>
 					<NavItem
 						to="/"
 						icon={
@@ -49,15 +50,15 @@ const Menu = ({ css }: { css?: SerializedStyles }) => {
 						label="프로필"
 						isActive={location.pathname.startsWith('/profile')}
 					/>
-				</ul>
-			</nav>
-		</header>
+				</NavList>
+			</Nav>
+		</Header>
 	);
 };
 
 export default Menu;
 
-const headerStyle = css`
+const Header = styled.header`
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -70,12 +71,12 @@ const headerStyle = css`
 	border-top: 1px solid ${colors.lightGray};
 `;
 
-const navStyle = css`
+const Nav = styled.nav`
 	display: flex;
 	padding: 6px 0 12px 0;
 `;
 
-const navListStyle = css`
+const NavList = styled.ul`
 	display: flex;
 	gap: 54px;
 	list-style: none;

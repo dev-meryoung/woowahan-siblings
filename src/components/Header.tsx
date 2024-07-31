@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/logo.svg';
 
 const Header = () => {
 	const location = useLocation();
@@ -19,19 +20,21 @@ const Header = () => {
 	};
 
 	return (
-		<header css={headerStyle}>
+		<HeaderContainer>
 			{isDeepPage ? (
 				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
 			) : (
-				<h1><img src={logo} alt="logo" css={logoStyle} /></h1>
+				<h1>
+					<Logo src={logo} alt="logo" />
+				</h1>
 			)}
-		</header>
+		</HeaderContainer>
 	);
 };
 
 export default Header;
 
-const headerStyle = css`
+const HeaderContainer = styled.header`
 	height: 52px;
 	display: flex;
 	align-items: center;
@@ -39,7 +42,7 @@ const headerStyle = css`
 	padding: 0 20px;
 `;
 
-const logoStyle = css`
+const Logo = styled.img`
 	height: 23px;
 `;
 

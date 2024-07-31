@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 
 const Correction = () => {
@@ -12,9 +11,7 @@ const Correction = () => {
 			<ul>
 				{corrections.map((id) => (
 					<li key={id}>
-						<Link to={`${id}`} css={textStyle}>
-							Correction Detail {id}
-						</Link>
+						<Link to={`${id}`}>Correction Detail {id}</Link>
 					</li>
 				))}
 			</ul>
@@ -23,7 +20,3 @@ const Correction = () => {
 };
 
 export default Correction;
-
-const textStyle = css`
-	color: #red;
-`;

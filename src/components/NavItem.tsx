@@ -1,37 +1,36 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { INavItemProps } from '@/interfaces/INavItemProps';
 import { colors } from '@/constants/colors';
 
 const NavItem = ({ to, icon, label, isActive }: INavItemProps) => (
-	<li css={navItemStyle}>
-		<Link to={to} css={linkStyle(isActive)}>
-			<div css={iconWrapperStyle}>{icon}</div>
-			<span css={linkTextStyle(isActive)}>{label}</span>
-		</Link>
-	</li>
+	<NavItemContainer>
+		<StyledLink to={to} isActive={isActive}>
+			<IconWrapper>{icon}</IconWrapper>
+			<LinkText isActive={isActive}>{label}</LinkText>
+		</StyledLink>
+	</NavItemContainer>
 );
 
 export default NavItem;
 
-const navItemStyle = css`
+const NavItemContainer = styled.li`
 	display: flex;
 	align-items: center;
 `;
 
-const linkStyle = (isActive: boolean) => css`
+const StyledLink = styled(Link)<{ isActive: boolean }>`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	color: ${isActive ? colors.black : colors.gray};
+	color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 	text-decoration: none;
 	&:hover {
-		color: ${isActive ? colors.black : colors.gray};
+		color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 	}
 `;
 
-const iconWrapperStyle = css`
+const IconWrapper = styled.div`
 	width: 26px;
 	height: 26px;
 	display: flex;
@@ -39,7 +38,7 @@ const iconWrapperStyle = css`
 	justify-content: center;
 `;
 
-const linkTextStyle = (isActive: boolean) => css`
+const LinkText = styled.span<{ isActive: boolean }>`
 	font-size: 12px;
-	color: ${isActive ? colors.black : colors.gray};
+	color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 `;

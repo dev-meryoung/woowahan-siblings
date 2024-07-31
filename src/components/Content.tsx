@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
 
 const Content = () => (
-	<div css={contentStyle}>
+	<StyledContent>
 		<Outlet />
-	</div>
+	</StyledContent>
 );
 
 export default Content;
 
-const contentStyle = css`
+const StyledContent = styled.div`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
