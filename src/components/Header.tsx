@@ -1,19 +1,51 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { colors } from '@/constants/colors';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
+import { useMemo } from 'react';
+import logo from '@/assets/우아한_치즈케잌.svg';
 
-const Header = () => (
-	<header css={headerStyle}>
-		<h2>우아한 치즈케잌</h2>
-	</header>
-);
+const Header = () => {
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const isDeepPage = useMemo(() => {
+		const mainPages = ['/schedule', '/wage', '/home', '/profile'];
+		return !mainPages.includes(location.pathname) && location.pathname !== '/';
+	}, [location.pathname]);
+
+	const handleBackClick = () => {
+		navigate(-1);
+	};
+
+	return (
+		<header css={headerStyle}>
+			{isDeepPage ? (
+				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
+			) : (
+				<img src={logo} alt="우아한 치즈케잌 로고" css={logoStyle} />
+			)}
+		</header>
+	);
+};
 
 export default Header;
 
 const headerStyle = css`
 	height: 52px;
-	background-color: ${colors.primaryYellow};
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
+	padding-left: 15px;
+`;
+
+const logoStyle = css`
+	height: 23px;
+`;
+
+const iconStyle = css`
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+	stroke-width: 1.4;
 `;
