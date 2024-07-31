@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
-import logo from '@/assets/우아한_치즈케잌.svg';
+import logo from '@/assets/logo.svg';
 
 const Header = () => {
 	const location = useLocation();
@@ -23,7 +23,7 @@ const Header = () => {
 			{isDeepPage ? (
 				<ChevronLeft css={iconStyle} onClick={handleBackClick} />
 			) : (
-				<img src={logo} alt="우아한 치즈케잌 로고" css={logoStyle} />
+				<img src={logo} alt="logo" css={logoStyle} />
 			)}
 		</header>
 	);
