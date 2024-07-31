@@ -11,7 +11,7 @@ import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
 import Profile from '@/pages/Profile';
 import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
 import GlobalStyles from '@/styles/GlobalStyles.tsx';
-import Layout from '@/components/Layout';
+import Layout from '@/layout/Layout';
 
 const router = createBrowserRouter([
 	{
