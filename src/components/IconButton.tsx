@@ -6,7 +6,7 @@ const IconButton = ({
 	IconComponent,
 	shape,
 	color = 'gray',
-	size = 24,
+	size = 28,
 	onClick,
 }: IIconButtonProps) => {
 	return (
@@ -30,7 +30,7 @@ const StyledIconButton = styled.div<{ shape: string; color: string; size: number
 	border: ${(props) => {
 		switch (props.shape) {
 			case 'line':
-				return `1px solid ${colors.lightestGray}`;
+				return `1px solid ${colors.lightGray}`;
 			case 'transparent':
 				return `1px solid transparent`;
 			default:
