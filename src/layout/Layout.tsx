@@ -16,10 +16,7 @@ const Layout = () => (
 export default Layout;
 
 const LayoutContainer = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	margin: 0 auto;
 	width: 100%;
 	max-width: 430px;
 	height: 100%;
