@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import WageTab from '@/components/WageTab';
+
+import Divider from '@/components/Divider';
+import WageTab from '@/components/Wage/WageTab';
 import { Outlet } from 'react-router-dom';
 
 const Wage = () => {
@@ -7,6 +9,7 @@ const Wage = () => {
 		<>
 			<div>
 				<WageTab />
+				<Divider />
 				<Outlet />
 			</div>
 		</>

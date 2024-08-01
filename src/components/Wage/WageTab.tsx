@@ -39,6 +39,9 @@ const StyledLi = styled.li`
 		background-color: #f2f3f6;
 		border-radius: 5px;
 	}
+	&.active {
+		border-bottom: 2px solid #ffc700; /* 활성 상태일 때 아래쪽 색상을 빨간색으로 설정 */
+	}
 `;
 
 const StyledNavLink = styled(NavLink)`
