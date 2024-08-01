@@ -6,6 +6,7 @@ import { RootState } from '@/stores/store';
 import { closeModal } from '@/stores/modalSlice.ts';
 import { colors } from '@/constants/colors';
 import { X } from 'lucide-react';
+import React from 'react';
 
 const ScheduleModal = () => {
 	const dispatch = useDispatch();
