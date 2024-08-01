@@ -86,6 +86,36 @@ const workHistoryData: IWorkHistoryItem[] = [
 		workingTimes: '마감(17:00~22:00) | 휴게 30분',
 		amount: 45135,
 	},
+	{
+		date: Timestamp.fromDate(new Date(2021, 6, 26, 17, 0)),
+		workPlace: '패스트캠퍼스점',
+		workingTimes: '마감(17:00~22:00) | 휴게 30분',
+		amount: 45135,
+	},
+	{
+		date: Timestamp.fromDate(new Date(2021, 6, 26, 17, 0)),
+		workPlace: '패스트캠퍼스점',
+		workingTimes: '마감(17:00~22:00) | 휴게 30분',
+		amount: 45135,
+	},
+	{
+		date: Timestamp.fromDate(new Date(2021, 6, 26, 17, 0)),
+		workPlace: '패스트캠퍼스점',
+		workingTimes: '마감(17:00~22:00) | 휴게 30분',
+		amount: 45135,
+	},
+	{
+		date: Timestamp.fromDate(new Date(2021, 6, 26, 17, 0)),
+		workPlace: '패스트캠퍼스점',
+		workingTimes: '마감(17:00~22:00) | 휴게 30분',
+		amount: 45135,
+	},
+	{
+		date: Timestamp.fromDate(new Date(2021, 6, 26, 17, 0)),
+		workPlace: '패스트캠퍼스점',
+		workingTimes: '마감(17:00~22:00) | 휴게 30분',
+		amount: 45135,
+	},
 ];
 
 export default workHistoryData;

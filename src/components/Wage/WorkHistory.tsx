@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
 import workHistoryData, { IWorkHistoryItem } from '@/components/Wage/workHistoryData';
+import Button from '../Button';
 
 const formatTimestamp = (timestamp: Timestamp) => {
 	const date = timestamp.toDate();
@@ -13,7 +14,7 @@ const WorkHistory = () => {
 	const [visibleItems, setVisibleItems] = useState(8);
 
 	const handleLoadMore = () => {
-		setVisibleItems((prevVisibleItems) => prevVisibleItems + 1);
+		setVisibleItems((prevVisibleItems) => prevVisibleItems + 3);
 	};
 
 	return (
@@ -30,7 +31,13 @@ const WorkHistory = () => {
 				</HistoryItem>
 			))}
 			{visibleItems < workHistoryData.length && (
-				<MoreButton onClick={handleLoadMore}>더보기</MoreButton>
+				<Button
+					label="더보기"
+					onClick={handleLoadMore}
+					size="normal"
+					theme="primary"
+					buttonWidth="100%"
+				/>
 			)}
 		</Container>
 	);
@@ -62,12 +69,4 @@ const Amount = styled.div`
 	font-weight: bold;
 `;
 
-const MoreButton = styled.button`
-	width: 100%;
-	padding: 10px;
-	background-color: #f2f3f6;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-`;
 export default WorkHistory;
