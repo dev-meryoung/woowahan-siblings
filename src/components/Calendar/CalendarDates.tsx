@@ -1,7 +1,6 @@
 import { mockdata, IMockDate } from '@/components/Calendar/mockdata';
 import { ICalendarDatesProps } from '@/interfaces/calendar';
 import { colors } from '@/constants/colors';
-import { fontSize } from '@/constants/font';
 import CalendarBadge from '@/components/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
 
@@ -49,7 +48,6 @@ export default CalendarDates;
 
 const DayContainer = styled.span<{ isWeekend: boolean }>`
 	color: ${(props) => (props.isWeekend ? colors.gray : colors.black)};
-	font-size: ${fontSize.xs};
 `;
 
 const DateListContainer = styled.ul`
