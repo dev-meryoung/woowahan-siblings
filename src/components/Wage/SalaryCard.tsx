@@ -5,10 +5,9 @@ interface ISalaryCardProps {
 	title: string;
 	wagecount: number;
 	workinghours: number;
-	icon: React.ReactNode;
 }
 
-const SalaryCard = ({ title, wagecount, workinghours, icon }: ISalaryCardProps) => {
+const SalaryCard = ({ title, wagecount, workinghours }: ISalaryCardProps) => {
 	return (
 		<Card>
 			<TextContainer>

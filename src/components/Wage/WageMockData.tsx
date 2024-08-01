@@ -1,11 +1,11 @@
-export interface WorkHistoryItem {
+export interface IWorkHistoryItem {
 	date: string;
 	location: string;
 	time: string;
 	amount: number;
 }
 
-const workHistoryData: WorkHistoryItem[] = [
+const workHistoryData: IWorkHistoryItem[] = [
 	{
 		date: '07.23',
 		location: '패스트캠퍼스점',

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import IconButton from '@/components/IconButton'; // IconButton 컴포넌트 임포트
+import IconButton from '@/components/IconButton';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
