@@ -16,7 +16,7 @@ const CalendarBadge = ({ workType }: ICalendarBadgeProps) => {
 
 	return (
 		<Badge>
-			<Clock4 size={10} />
+			<Clock4 size={14} />
 			{workTypeLabels[workType]}
 		</Badge>
 	);
@@ -28,9 +28,9 @@ const BaseBadge = styled.li`
 	display: flex;
 	align-items: center;
 	border-radius: 4px;
-	gap: 2px;
-	padding: 2px 3px;
-	font-size: ${fontSize.xxs};
+	gap: 4px;
+	padding: 2px 4px;
+	font-size: ${fontSize.sm};
 `;
 const BadgeContainer = {
 	open: styled(BaseBadge)`

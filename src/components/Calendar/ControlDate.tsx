@@ -37,7 +37,7 @@ const Container = styled.div`
 	padding: 0 20px;
 
 	span {
-		font-size: ${fontSize.md};
+		font-size: ${fontSize.lg};
 	}
 `;
 
