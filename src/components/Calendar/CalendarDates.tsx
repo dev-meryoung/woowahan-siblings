@@ -22,7 +22,7 @@ const CalendarDates = ({ date, isOfficial }: ICalendarDatesProps) => {
 		return day === 0 || day === 6;
 	};
 
-	const workTypeOrder = ['오픈', '미들', '마감'];
+	const workTypeOrder = ['open', 'middle', 'close'];
 	const sortByWorkType = (a: IMockDate, b: IMockDate) => {
 		return workTypeOrder.indexOf(a.workType) - workTypeOrder.indexOf(b.workType);
 	};
@@ -36,7 +36,7 @@ const CalendarDates = ({ date, isOfficial }: ICalendarDatesProps) => {
 						index < 3 && (
 							<CalendarBadge
 								key={data.userId}
-								workType={data.workType as '오픈' | '미들' | '마감'}
+								workType={data.workType as 'open' | 'middle' | 'close'}
 							/>
 						),
 				)}

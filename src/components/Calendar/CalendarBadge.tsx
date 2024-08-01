@@ -6,13 +6,18 @@ import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
 
 const CalendarBadge = ({ workType }: ICalendarBadgeProps) => {
-	const validWorkType = workType in BadgeContainer ? workType : 'default';
-	const Badge = BadgeContainer[validWorkType as keyof typeof BadgeContainer];
+	const Badge = BadgeContainer[workType];
+
+	const workTypeLabels = {
+		open: '오픈',
+		middle: '미들',
+		close: '마감',
+	};
 
 	return (
 		<Badge>
 			<Clock4 size={10} />
-			{workType}
+			{workTypeLabels[workType]}
 		</Badge>
 	);
 };
@@ -27,23 +32,22 @@ const BaseBadge = styled.li`
 	padding: 2px 3px;
 	font-size: ${fontSize.xxs};
 `;
-
 const BadgeContainer = {
-	오픈: styled(BaseBadge)`
+	open: styled(BaseBadge)`
 		background-color: ${badgeColors.primaryYellow};
 		color: ${colors.black};
 		svg {
 			color: ${colors.primaryYellow};
 		}
 	`,
-	미들: styled(BaseBadge)`
+	middle: styled(BaseBadge)`
 		background-color: ${badgeColors.afternoonPink};
 		color: ${colors.black};
 		svg {
 			color: ${colors.afternoonPink};
 		}
 	`,
-	마감: styled(BaseBadge)`
+	close: styled(BaseBadge)`
 		background-color: ${badgeColors.nightGreen};
 		color: ${colors.black};
 		svg {

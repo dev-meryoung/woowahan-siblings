@@ -22,5 +22,5 @@ export interface ICalendarWeekProps {
 }
 
 export interface ICalendarBadgeProps {
-	workType: '오픈' | '미들' | '마감';
+	workType: 'open' | 'middle' | 'close';
 }
