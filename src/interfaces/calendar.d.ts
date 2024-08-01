@@ -20,3 +20,7 @@ export interface ICalendarDatesProps {
 export interface ICalendarWeekProps {
 	weekName: string;
 }
+
+export interface ICalendarBadgeProps {
+	workType: 'open' | 'middle' | 'close';
+}
