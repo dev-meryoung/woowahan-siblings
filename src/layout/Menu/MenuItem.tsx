@@ -5,7 +5,7 @@ import { colors } from '@/constants/colors';
 
 const MenuItem = ({ to, icon, label, isActive }: IMenuItemProps) => (
 	<MenuItemContainer>
-		<StyledLink to={to} isActive={isActive}>
+		<StyledLink to={to} className={isActive ? 'active' : ''}>
 			<IconWrapper>{icon}</IconWrapper>
 			<LinkText isActive={isActive}>{label}</LinkText>
 		</StyledLink>
@@ -19,14 +19,19 @@ const MenuItemContainer = styled.li`
 	align-items: center;
 `;
 
-const StyledLink = styled(Link)<{ isActive: boolean }>`
+const StyledLink = styled(Link)`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 	text-decoration: none;
+	color: ${colors.gray};
+
+	&.active {
+		color: ${colors.black};
+	}
+
 	&:hover {
-		color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
+		color: ${colors.black};
 	}
 `;
 
