@@ -7,15 +7,21 @@ import { closeModal } from '@/stores/modalSlice.ts';
 import { colors } from '@/constants/colors';
 import { X } from 'lucide-react';
 
-const Modal = () => {
+const ScheduleModal = () => {
 	const dispatch = useDispatch();
 	const { isOpen, content } = useSelector((state: RootState) => state.modal);
 
 	if (!isOpen) return null;
 
+	const handleOverlayClick = (e: React.MouseEvent) => {
+		if (e.target === e.currentTarget) {
+			dispatch(closeModal());
+		}
+	};
+
 	return (
-		<ModalOverlay>
-			<ModalContent>
+		<ModalOverlay onClick={handleOverlayClick}>
+			<ModalContent onClick={(e) => e.stopPropagation()}>
 				<ModalHeader>
 					<HeaderContent>
 						{content === 'add'
@@ -42,7 +48,7 @@ const Modal = () => {
 	);
 };
 
-export default Modal;
+export default ScheduleModal;
 
 const ModalOverlay = styled.div`
 	position: fixed;

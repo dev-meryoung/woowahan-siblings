@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/stores/modalSlice';
-import Modal from '@/components/Modal';
+import ScheduleModal from '@/components/ScheduleModal.tsx';
 
 const Schedule = () => {
 	const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Schedule = () => {
 				<button onClick={() => dispatch(openModal('view'))}>일정 조회</button>
 				<button onClick={() => dispatch(openModal('edit'))}>일정 수정</button>
 			</div>
-			<Modal />
+			<ScheduleModal />
 		</>
 	);
 };
