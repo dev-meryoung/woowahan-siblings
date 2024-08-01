@@ -39,7 +39,6 @@ const GlobalStyles = () => (
 				letter-spacing: -0.14px;
 				background-color: ${colors.white};
 				color: ${colors.black};
-				overflow: hidden;
 			}
 			#root {
 				display: flex;
