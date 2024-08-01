@@ -1,7 +1,8 @@
-import CalendarWeek from './CalendarWeek';
-import CalendarDates from './CalendarDates';
-import monthList from '../../hooks/useCalendar';
-import { ICalenderDateProps } from '../../interfaces/calendar';
+import CalendarWeek from '@/components/Calendar/CalendarWeek';
+import CalendarDates from '@/components/Calendar/CalendarDates';
+import monthList from '@/utils/getMonthList';
+import { ICalenderDateProps } from '@/interfaces/calendar';
+import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
 
 const CalenderContents = ({ nowDate, isOfficial }: ICalenderDateProps) => {
@@ -20,9 +21,25 @@ const CalenderContents = ({ nowDate, isOfficial }: ICalenderDateProps) => {
 	);
 };
 
+export default CalenderContents;
+
 const Container = styled.div`
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-`;
+	text-align: center;
+	gap: 2px;
+	padding: 0 2px;
 
-export default CalenderContents;
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		border-bottom: 1px solid ${colors.lightGray};
+		min-height: 70px;
+		padding: 2px 0;
+
+		&:nth-last-of-type(-n + 7) {
+			border-bottom: 0;
+		}
+	}
+`;
