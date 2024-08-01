@@ -12,7 +12,7 @@ const Header = () => {
 	const navigate = useNavigate();
 
 	const isDeepPage = useMemo(() => {
-		const mainPages = ['/schedule', '/wage/check', '/home', '/profile'];
+		const mainPages = ['/schedule', '/wage/check', '/wage/correction', '/home', '/profile'];
 		return !mainPages.includes(location.pathname) && location.pathname !== '/';
 	}, [location.pathname]);
 

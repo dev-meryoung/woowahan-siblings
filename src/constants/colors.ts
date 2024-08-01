@@ -9,4 +9,6 @@ export const colors = {
 	white: '#FFFFFF',
 	afternoonPink: '#F39ACD',
 	nightGreen: '#1DC18D',
+	primaryYellowHover: '#FAB400',
+	lightestGrayHover: '#E7EAF2',
 };
