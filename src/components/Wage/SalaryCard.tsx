@@ -16,7 +16,7 @@ const SalaryCard = ({ title, wagecount, workinghours, icon }: ISalaryCardProps) 
 				<WageCount>{wagecount.toLocaleString()}원</WageCount>
 				<WorkingHours>근무시간 | {workinghours}시간</WorkingHours>
 			</TextContainer>
-			<IconContainer>{icon}</IconContainer>
+			<IconContainer>{/* TODO 일러스트 추가*/}</IconContainer>
 		</Card>
 	);
 };

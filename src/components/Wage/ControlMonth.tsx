@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react';
-import styled from '@emotion/styled';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import IconButton from '@/components/IconButton'; // IconButton 컴포넌트 임포트
+import styled from '@emotion/styled';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
 const ControlMonth = () => {
 	const [date, setDate] = useState(new Date());
@@ -22,7 +22,7 @@ const ControlMonth = () => {
 	return (
 		<CalendarContainer>
 			<IconButton
-				IconComponent={FaChevronLeft}
+				IconComponent={ChevronLeft}
 				shape="line"
 				color="gray"
 				size={24}
@@ -30,7 +30,7 @@ const ControlMonth = () => {
 			/>
 			<MonthDisplay>{formatDate(date)}</MonthDisplay>
 			<IconButton
-				IconComponent={FaChevronRight}
+				IconComponent={ChevronRight}
 				shape="line"
 				color="gray"
 				size={24}
