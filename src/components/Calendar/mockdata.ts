@@ -1,8 +1,19 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export interface IMockDate {
 	userId: string;
 	workDate: string;
 	workType: string;
 	isOfficial: boolean;
+}
+
+export interface ISchedule {
+	userId: string;
+	workDate: string;
+	wage: string;
+	workTime: string;
+	breakTime: string;
+	memo: string;
 }
 
 export const mockdata: IMockDate[] = [
@@ -20,33 +31,52 @@ export const mockdata: IMockDate[] = [
 	{ userId: '12', workDate: '2024-08-14', workType: 'close', isOfficial: false },
 ];
 
-export const scheduleData = [
+export const scheduleData: ISchedule[] = [
 	{
+		userId: '1',
 		workDate: '2024-08-01',
 		wage: '10,030원',
-		workTime: '미들 (12:00~17:00)',
+		workTime: 'middle',
 		breakTime: '30분',
 		memo: '',
 	},
 	{
+		userId: '2',
 		workDate: '2024-07-31',
 		wage: '10,030원',
-		workTime: '오픈 (07:00~12:00)',
+		workTime: 'open',
 		breakTime: '30분',
 		memo: '아 퇴근하고 싶다',
 	},
 	{
+		userId: '3',
 		workDate: '2024-07-30',
 		wage: '10,030원',
-		workTime: '미들 (12:00~17:00)',
+		workTime: 'close',
 		breakTime: '30분',
-		memo: '오늘 몰래 음료수를 한개 빼먹었따',
-	},
-	{
-		workDate: '2024-07-29',
-		wage: '10,030원',
-		workTime: '미들 (12:00~17:00)',
-		breakTime: '30분',
-		memo: '푸하하',
+		memo: '어제 음료수 한개 뺴먹음 ㅋ',
 	},
 ];
+
+export const addSchedule = (newSchedule: Omit<ISchedule, 'userId'>) => {
+	const newEntry: ISchedule = { ...newSchedule, userId: uuidv4() };
+	scheduleData.push(newEntry);
+};
+
+export const updateSchedule = (userId: string, updatedData: { workTime: string; memo: string }) => {
+	const scheduleIndex = scheduleData.findIndex((schedule) => schedule.userId === userId);
+	if (scheduleIndex !== -1) {
+		scheduleData[scheduleIndex] = {
+			...scheduleData[scheduleIndex],
+			workTime: updatedData.workTime,
+			memo: updatedData.memo,
+		};
+	}
+};
+
+export const deleteSchedule = (userId: string) => {
+	const index = scheduleData.findIndex((item) => item.userId === userId);
+	if (index !== -1) {
+		scheduleData.splice(index, 1);
+	}
+};
