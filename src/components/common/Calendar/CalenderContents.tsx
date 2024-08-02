@@ -3,13 +3,14 @@ import CalendarDates from '@/components/common/Calendar/CalendarDates';
 import monthList from '@/utils/getMonthList';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
 export interface ICalenderDateProps {
 	nowDate: Date;
 	isOfficial: boolean;
 }
 
-const CalenderContents = ({ nowDate, isOfficial }: ICalenderDateProps) => {
+const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 	const calendarDates = monthList(nowDate);
 

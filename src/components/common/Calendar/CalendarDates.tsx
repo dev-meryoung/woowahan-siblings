@@ -2,13 +2,14 @@ import { mockdata, IMockDate } from '@/data/mockdata';
 import { colors } from '@/constants/colors';
 import CalendarBadge from '@/components/common/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
 export interface ICalendarDatesProps {
 	date: Date;
 	isOfficial: boolean;
 }
 
-const CalendarDates = ({ date, isOfficial }: ICalendarDatesProps) => {
+const CalendarDates: FC<ICalendarDatesProps> = ({ date, isOfficial }) => {
 	// 날짜별 데이터 필터링
 	const filterdDate = (date: Date, isOfficial: boolean) => {
 		return mockdata

@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import { useLocation } from 'react-router-dom';
 import { Home, Calendar, WalletMinimal, User } from 'lucide-react';
 import { colors } from '@/constants/colors';
 import MenuItem from './MenuItem';
 
-const Menu = ({ css }: { css?: SerializedStyles }) => {
+const Menu = () => {
 	const location = useLocation();
 
 	return (
-		<Nav css={css}>
+		<Nav>
 			<NavList>
 				<MenuItem
 					to="/"

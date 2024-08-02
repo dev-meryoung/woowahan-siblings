@@ -3,12 +3,13 @@ import { colors } from '@/constants/colors';
 import { badgeColors } from '@/constants/badgeColors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
 export interface ICalendarBadgeProps {
 	workType: 'open' | 'middle' | 'close';
 }
 
-const CalendarBadge = ({ workType }: ICalendarBadgeProps) => {
+const CalendarBadge: FC<ICalendarBadgeProps> = ({ workType }) => {
 	const Badge = BadgeContainer[workType];
 
 	const workTypeLabels = {
