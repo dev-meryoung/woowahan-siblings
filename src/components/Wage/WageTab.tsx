@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { colors } from '@/constants/colors';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';

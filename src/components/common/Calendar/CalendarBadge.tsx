@@ -1,11 +1,15 @@
 import { Clock4 } from 'lucide-react';
-import { ICalendarBadgeProps } from '@/interfaces/calendar';
 import { colors } from '@/constants/colors';
 import { badgeColors } from '@/constants/badgeColors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
-const CalendarBadge = ({ workType }: ICalendarBadgeProps) => {
+export interface ICalendarBadgeProps {
+	workType: 'open' | 'middle' | 'close';
+}
+
+const CalendarBadge: FC<ICalendarBadgeProps> = ({ workType }) => {
 	const Badge = BadgeContainer[workType];
 
 	const workTypeLabels = {

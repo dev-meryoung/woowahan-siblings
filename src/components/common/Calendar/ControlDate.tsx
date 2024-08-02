@@ -1,10 +1,15 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { IControlDateProps } from '@/interfaces/calendar';
 import { fontSize } from '@/constants/font';
-import IconButton from '@/components/IconButton';
 import styled from '@emotion/styled';
+import { FC } from 'react';
+import IconButton from '@/components/common/Button/IconButton';
 
-const ControlDate = ({ nowDate, setNowDate }: IControlDateProps) => {
+export interface IControlDateProps {
+	nowDate: Date;
+	setNowDate: React.Dispatch<React.SetStateAction<Date>>;
+}
+
+const ControlDate: FC<IControlDateProps> = ({ nowDate, setNowDate }) => {
 	const changeMonth = (month: number) => {
 		setNowDate(new Date(nowDate.getFullYear(), nowDate.getMonth() + month, 1));
 	};

@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { IPrivateRouteProps } from '@/interfaces/privateRoute';
 import checkAuth from '@/api/auth/checkAuth';
 import Home from '@/pages/Home';
 import Schedule from '@/pages/Schedule/Schedule';
@@ -11,10 +9,14 @@ import WageCheckDetail from '@/pages/Wage/WageCheck/WageCheckDetail';
 import Correction from '@/pages/Wage/Correction/Correction';
 import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
 import Profile from '@/pages/Profile';
-import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
-import GlobalStyles from '@/styles/GlobalStyles.tsx';
+import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
+import GlobalStyles from '@/styles/GlobalStyles';
 import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
+
+export interface IPrivateRouteProps {
+	element: JSX.Element;
+}
 
 // 로그인한 사용자만 접근할 수 있는 라우팅 페이지를 관리하기 위한 PrivateRoute
 const PrivateRoute = ({ element }: IPrivateRouteProps) => {

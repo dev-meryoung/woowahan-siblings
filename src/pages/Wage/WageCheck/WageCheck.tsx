@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import ControlMonth from '@/components/Wage/ControlMonth';
 import SalaryCard from '@/components/Wage/SalaryCard';
 import WorkHistory from '@/components/Wage/WorkHistory';

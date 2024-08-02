@@ -1,8 +1,17 @@
-import { IInputProps } from '@/interfaces/input';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
-const Input = ({
+export interface IInputProps {
+	value: string;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	inputWidth?: string;
+	placeholder?: string;
+	type?: 'text' | 'password' | 'date';
+	disabled?: boolean;
+}
+
+const Input: FC<IInputProps> = ({
 	value,
 	onChange,
 	inputWidth = '100%',

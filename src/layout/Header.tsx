@@ -1,11 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
 import logo from '@/assets/logo.svg';
 import { Link } from 'react-router-dom';
-import IconButton from '@/components/IconButton';
+import IconButton from '@/components/common/Button/IconButton';
 
 const Header = () => {
 	const location = useLocation();

@@ -1,15 +1,24 @@
-import { IButtonProps } from '@/interfaces/button';
+import { FC } from 'react';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
 
-const Button = ({
+export interface IButtonProps {
+	label: string;
+	onClick: () => void;
+	size?: 'small' | 'normal';
+	theme?: 'primary' | 'secondary';
+	buttonWidth?: string;
+	disabled?: boolean;
+}
+
+const Button: FC<IButtonProps> = ({
 	label,
 	onClick,
 	size = 'normal',
 	theme = 'primary',
 	buttonWidth = '100%',
 	disabled = false,
-}: IButtonProps) => {
+}) => {
 	return (
 		<ButtonComponent
 			onClick={onClick}

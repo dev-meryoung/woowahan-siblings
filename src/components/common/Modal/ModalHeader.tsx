@@ -1,9 +1,29 @@
+/** @jsxImportSource @emotion/react */
+import { FC } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { X } from 'lucide-react';
-import { colors } from '@/constants/colors.ts';
+import { colors } from '@/constants/colors';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/stores/modalSlice.ts';
+import { closeModal } from '@/stores/modalSlice';
+
+interface IModalHeaderComponentProps {
+	title: string;
+}
+
+const ModalHeaderComponent: FC<IModalHeaderComponentProps> = ({ title }) => {
+	const dispatch = useDispatch();
+	return (
+		<ModalHeader>
+			<HeaderContent>{title}</HeaderContent>
+			<CloseButton onClick={() => dispatch(closeModal())}>
+				<X css={iconStyle} />
+			</CloseButton>
+		</ModalHeader>
+	);
+};
+
+export default ModalHeaderComponent;
 
 const ModalHeader = styled.div`
 	display: flex;
@@ -32,17 +52,3 @@ const iconStyle = css`
 	height: 28px;
 	stroke-width: 0.5;
 `;
-
-const ModalHeaderComponent = ({ title }: { title: string }) => {
-	const dispatch = useDispatch();
-	return (
-		<ModalHeader>
-			<HeaderContent>{title}</HeaderContent>
-			<CloseButton onClick={() => dispatch(closeModal())}>
-				<X css={iconStyle} />
-			</CloseButton>
-		</ModalHeader>
-	);
-};
-
-export default ModalHeaderComponent;

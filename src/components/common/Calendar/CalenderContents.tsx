@@ -1,11 +1,16 @@
-import CalendarWeek from '@/components/Calendar/CalendarWeek';
-import CalendarDates from '@/components/Calendar/CalendarDates';
+import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
+import CalendarDates from '@/components/common/Calendar/CalendarDates';
 import monthList from '@/utils/getMonthList';
-import { ICalenderDateProps } from '@/interfaces/calendar';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
-const CalenderContents = ({ nowDate, isOfficial }: ICalenderDateProps) => {
+export interface ICalenderDateProps {
+	nowDate: Date;
+	isOfficial: boolean;
+}
+
+const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 	const calendarDates = monthList(nowDate);
 

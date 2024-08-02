@@ -1,10 +1,13 @@
-import { useState } from 'react';
-import { ICalendarProps } from '@/interfaces/calendar';
-import ControlDate from '@/components/Calendar/ControlDate';
-import CalenderContents from '@/components/Calendar/CalenderContents';
+import { FC, useState } from 'react';
+import ControlDate from '@/components/common/Calendar/ControlDate';
+import CalenderContents from '@/components/common/Calendar/CalenderContents';
 import styled from '@emotion/styled';
 
-const Calendar = ({ isOfficial }: ICalendarProps) => {
+export interface ICalendarProps {
+	isOfficial: boolean;
+}
+
+const Calendar: FC<ICalendarProps> = ({ isOfficial }) => {
 	const [nowDate, setNowDate] = useState<Date>(new Date());
 
 	return (

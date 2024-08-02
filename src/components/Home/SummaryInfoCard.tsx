@@ -1,4 +1,4 @@
-import { mockdata } from '@/components/Calendar/mockdata';
+import { mockdata } from '@/data/mockdata';
 import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
