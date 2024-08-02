@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { IPrivateRouteProps } from '@/interfaces/privateRoute';
+import checkAuth from '@/api/auth/checkAuth';
 import Home from '@/pages/Home';
 import Schedule from '@/pages/Schedule/Schedule';
 import ScheduleDetail from '@/pages/Schedule/ScheduleDetail';
@@ -17,8 +18,7 @@ import Login from '@/pages/Login';
 
 // 로그인한 사용자만 접근할 수 있는 라우팅 페이지를 관리하기 위한 PrivateRoute
 const PrivateRoute = ({ element }: IPrivateRouteProps) => {
-	// 수정 예정
-	return element ? element : <Navigate to="/login" replace />;
+	return checkAuth() ? element : <Navigate to="/login" replace />;
 };
 
 const router = createBrowserRouter([

@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import Header from '@/layout/Header';
 import Content from '@/layout/Content';
 import Menu from '@/layout/Menu/Menu';
+import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
-	const isLoginPage = window.location.pathname === '/login';
+	const location = useLocation();
+	const isLoginPage = location.pathname === '/login';
 
 	return (
 		<LayoutContainer>
