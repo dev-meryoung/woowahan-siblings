@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import workHistoryData from '@/data/workHistoryData';

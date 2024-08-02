@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import WageTab from '@/components/Wage/WageTab';
 import { Outlet } from 'react-router-dom';
 

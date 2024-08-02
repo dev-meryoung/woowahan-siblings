@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import workHistoryData, { IWorkHistoryItem } from '@/data/workHistoryData';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';

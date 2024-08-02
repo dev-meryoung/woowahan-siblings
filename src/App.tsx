@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import checkAuth from '@/api/auth/checkAuth';
 import Home from '@/pages/Home';
