@@ -12,11 +12,7 @@ const Layout = () => {
 		<LayoutContainer>
 			{!isLoginPage && <Header />}
 			<Content />
-			{!isLoginPage && (
-				<MenuWrapper>
-					<Menu />
-				</MenuWrapper>
-			)}
+			{!isLoginPage && <Menu />}
 		</LayoutContainer>
 	);
 };
@@ -31,15 +27,25 @@ const LayoutContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: relative;
-`;
 
-const MenuWrapper = styled.div`
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	max-width: 430px;
-	height: 60px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	&::before {
+		left: 50%;
+		transform: translateX(-215px);
+	}
+
+	&::after {
+		right: 50%;
+		transform: translateX(215px);
+	}
+
+	&::before,
+	&::after {
+		width: 1px;
+		position: fixed;
+		top: 0px;
+		bottom: 0px;
+		background-color: rgba(138, 138, 138, 0.1);
+		content: '';
+		z-index: 99999;
+	}
 `;

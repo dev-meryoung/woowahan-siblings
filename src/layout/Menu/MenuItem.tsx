@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { IMenuItemProps } from '@/interfaces/menu';
 import { colors } from '@/constants/colors';
+import { NavLink } from 'react-router-dom';
+import { fontSize } from '@/constants/font';
 
 const MenuItem = ({ to, icon, label, isActive }: IMenuItemProps) => (
 	<MenuItemContainer>
@@ -19,7 +21,7 @@ const MenuItemContainer = styled.li`
 	align-items: center;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -38,12 +40,13 @@ const StyledLink = styled(Link)`
 const IconWrapper = styled.div`
 	width: 26px;
 	height: 26px;
+	margin: 1px 0 3px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 `;
 
 const LinkText = styled.span<{ isActive: boolean }>`
-	font-size: 12px;
+	font-size: ${fontSize.sm};
 	color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 `;
