@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
-import workHistoryData from '@/components/Wage/workHistoryData';
-import Divider from '@/components/Divider';
+import workHistoryData from '@/data/workHistoryData';
 import { Timestamp } from 'firebase/firestore';
 import { fontSize } from '@/constants/font';
 
@@ -39,7 +38,6 @@ const WageCheckDetail = () => {
 					<WageLabel>{item.amount.toLocaleString()}원</WageLabel>
 				</WageRow>
 			</HeaderWrapper>
-			<Divider />
 			<DetailWrapper>
 				<DetailRow>
 					<Label>근무일</Label>

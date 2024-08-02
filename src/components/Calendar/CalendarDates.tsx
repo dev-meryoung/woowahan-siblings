@@ -1,4 +1,4 @@
-import { mockdata, IMockDate } from '@/components/Calendar/mockdata';
+import { mockdata, IMockDate } from '@/data/mockdata';
 import { colors } from '@/constants/colors';
 import CalendarBadge from '@/components/Calendar/CalendarBadge';
 import styled from '@emotion/styled';

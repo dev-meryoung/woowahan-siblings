@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import workHistoryData, { IWorkHistoryItem } from '@/components/Wage/workHistoryData';
+import workHistoryData, { IWorkHistoryItem } from '@/data/workHistoryData';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';

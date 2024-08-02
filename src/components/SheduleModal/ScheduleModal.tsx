@@ -2,12 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/stores/store.ts';
 import { closeModal, openModal } from '@/stores/modalSlice.ts';
-import {
-	scheduleData,
-	addSchedule,
-	updateSchedule,
-	deleteSchedule,
-} from '@/components/Calendar/mockdata.ts';
+import { addSchedule, deleteSchedule, scheduleData, updateSchedule } from '@/data/mockdata';
 import ModalOverlay from '@/components/Modal/ModalOverlay.tsx';
 import ModalContent from '@/components/Modal/ModalContent.tsx';
 import ModalHeaderComponent from '@/components/Modal/ModalHeader.tsx';
