@@ -1,9 +1,14 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { IMenuItemProps } from '@/interfaces/menu';
 import { colors } from '@/constants/colors';
 import { NavLink } from 'react-router-dom';
 import { fontSize } from '@/constants/font';
+
+export interface IMenuItemProps {
+	to: string;
+	icon: JSX.Element;
+	label: string;
+	isActive: boolean;
+}
 
 const MenuItem = ({ to, icon, label, isActive }: IMenuItemProps) => (
 	<MenuItemContainer>

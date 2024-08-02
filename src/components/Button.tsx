@@ -1,6 +1,14 @@
-import { IButtonProps } from '@/interfaces/button';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+
+export interface IButtonProps {
+	label: string;
+	onClick: () => void;
+	size?: 'small' | 'normal';
+	theme?: 'primary' | 'secondary';
+	buttonWidth?: string;
+	disabled?: boolean;
+}
 
 const Button = ({
 	label,

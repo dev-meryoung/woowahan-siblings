@@ -1,6 +1,13 @@
-import { IIconButtonProps } from '@/interfaces/iconButton';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+
+export interface IIconButtonProps {
+	IconComponent: React.ComponentType;
+	shape: 'transparent' | 'line';
+	color?: 'gray' | 'black';
+	size?: number;
+	onClick?: () => void;
+}
 
 const IconButton = ({
 	IconComponent,

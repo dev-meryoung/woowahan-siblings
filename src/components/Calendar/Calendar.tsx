@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { ICalendarProps } from '@/interfaces/calendar';
 import ControlDate from '@/components/Calendar/ControlDate';
 import CalenderContents from '@/components/Calendar/CalenderContents';
 import styled from '@emotion/styled';
+
+export interface ICalendarProps {
+	isOfficial: boolean;
+}
 
 const Calendar = ({ isOfficial }: ICalendarProps) => {
 	const [nowDate, setNowDate] = useState<Date>(new Date());

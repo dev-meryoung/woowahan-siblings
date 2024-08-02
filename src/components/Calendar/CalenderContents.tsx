@@ -1,9 +1,13 @@
 import CalendarWeek from '@/components/Calendar/CalendarWeek';
 import CalendarDates from '@/components/Calendar/CalendarDates';
 import monthList from '@/utils/getMonthList';
-import { ICalenderDateProps } from '@/interfaces/calendar';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+
+export interface ICalenderDateProps {
+	nowDate: Date;
+	isOfficial: boolean;
+}
 
 const CalenderContents = ({ nowDate, isOfficial }: ICalenderDateProps) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];

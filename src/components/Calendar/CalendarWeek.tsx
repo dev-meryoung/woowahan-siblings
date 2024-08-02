@@ -1,6 +1,9 @@
-import { ICalendarWeekProps } from '@/interfaces/calendar';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+
+export interface ICalendarWeekProps {
+	weekName: string;
+}
 
 const CalendarWeek = ({ weekName }: ICalendarWeekProps) => {
 	return <Container>{weekName}</Container>;
