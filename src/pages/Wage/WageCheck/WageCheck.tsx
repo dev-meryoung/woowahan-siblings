@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import ControlMonth from '@/components/Wage/ControlMonth';
 import SalaryCard from '@/components/Wage/SalaryCard';
+import WorkHistory from '@/components/Wage/WorkHistory';
 import { Link } from 'react-router-dom';
 
 const WageCheck = () => {
@@ -18,6 +19,7 @@ const WageCheck = () => {
 				wagecount={1025440}
 				workinghours={104}
 			/>
+			<WorkHistory />
 			<ul>
 				{wages.map((id) => (
 					<li key={id}>
