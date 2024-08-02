@@ -63,13 +63,14 @@ export const addSchedule = (newSchedule: Omit<ISchedule, 'userId'>) => {
 	scheduleData.push(newEntry);
 };
 
-export const updateSchedule = (
-	userId: string,
-	updatedSchedule: Partial<Omit<ISchedule, 'userId'>>,
-) => {
-	const index = scheduleData.findIndex((item) => item.userId === userId);
-	if (index !== -1) {
-		scheduleData[index] = { ...scheduleData[index], ...updatedSchedule };
+export const updateSchedule = (userId: string, updatedData: { workTime: string; memo: string }) => {
+	const scheduleIndex = scheduleData.findIndex((schedule) => schedule.userId === userId);
+	if (scheduleIndex !== -1) {
+		scheduleData[scheduleIndex] = {
+			...scheduleData[scheduleIndex],
+			workTime: updatedData.workTime,
+			memo: updatedData.memo,
+		};
 	}
 };
 
