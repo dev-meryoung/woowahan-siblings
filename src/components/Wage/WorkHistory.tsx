@@ -5,6 +5,8 @@ import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
+import { fontSize } from '@/constants/font';
+import { colors } from '@/constants/colors';
 
 const formatTimestamp = (timestamp: Timestamp) => {
 	const date = timestamp.toDate();
@@ -31,7 +33,7 @@ const WorkHistory = () => {
 					<Date>{formatTimestamp(item.date)}</Date>
 					<Details>
 						<div>{item.workPlace}</div>
-						<div>{item.workingTimes}</div>
+						<span>{item.workingTimes}</span>
 					</Details>
 					<Amount>{item.amount.toLocaleString()}원</Amount>
 				</HistoryItem>
@@ -51,31 +53,41 @@ const WorkHistory = () => {
 
 const Container = styled.div`
 	padding: 20px;
+	margin-bottom: 60px;
 	overflow: auto;
 `;
 
 const Title = styled.div`
-	font-size: 24px;
+	font-size: ${fontSize.xxl};
 	font-weight: 700;
-	margin-bottom: 10px;
+	margin-bottom: 23px;
 `;
 
 const HistoryItem = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
+	margin-bottom: 26px;
 	cursor: pointer;
+
+	div {
+		font-size: ${fontSize.lg};
+	}
+
+	span {
+		font-size: ${fontSize.md};
+		color: ${colors.gray};
+	}
 `;
 
 const Date = styled.div`
-	font-size: 14px;
+	font-size: ${fontSize.lg};
 	font-weight: bold;
 	color: #8b95a1;
 `;
 
 const Details = styled.div`
 	flex: 1;
-	margin-left: 10px;
+	margin-left: 20px;
 `;
 
 const Amount = styled.div`

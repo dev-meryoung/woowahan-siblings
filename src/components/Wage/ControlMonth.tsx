@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import IconButton from '@/components/IconButton';
+import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
@@ -21,21 +22,9 @@ const ControlMonth = () => {
 
 	return (
 		<CalendarContainer>
-			<IconButton
-				IconComponent={ChevronLeft}
-				shape="line"
-				color="gray"
-				size={24}
-				onClick={handlePreviousMonth}
-			/>
+			<IconButton IconComponent={ChevronLeft} shape="line" onClick={handlePreviousMonth} />
 			<MonthDisplay>{formatDate(date)}</MonthDisplay>
-			<IconButton
-				IconComponent={ChevronRight}
-				shape="line"
-				color="gray"
-				size={24}
-				onClick={handleNextMonth}
-			/>
+			<IconButton IconComponent={ChevronRight} shape="line" onClick={handleNextMonth} />
 		</CalendarContainer>
 	);
 };
@@ -48,8 +37,8 @@ const CalendarContainer = styled.div`
 `;
 
 const MonthDisplay = styled.div`
-	font-size: 24px;
-	font-weight: bold;
+	font-size: ${fontSize.xxl};
+	font-weight: ${fontWeight.bold};
 `;
 
 export default ControlMonth;

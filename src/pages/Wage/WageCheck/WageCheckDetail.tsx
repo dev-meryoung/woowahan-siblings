@@ -76,27 +76,23 @@ const HeaderWrapper = styled.div`
 const DetailWrapper = styled.div`
 	padding: 20px;
 	flex: 1 1 auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
 `;
 
 const Title = styled.h2`
-	font-size: 32px;
+	font-size: ${fontSize.xxl};
 	margin-bottom: 40px;
 `;
 
 const DetailRow = styled.div`
 	display: flex;
 	justify-content: space-between;
-	padding: 10px 0;
+	margin-bottom: 20px;
 	flex-grow: 1;
 `;
 
 const WageRow = styled.div`
 	padding: 10px 0;
-	margin-bottom: 20px;
-	font-size: ${fontSize.xl};
+	font-size: ${fontSize.lg};
 	font-weight: bold;
 `;
 
@@ -104,29 +100,26 @@ const WorkPlaceRow = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 0;
-	font-size: ${fontSize.xl};
+	font-size: ${fontSize.lg};
 `;
 
 const Label = styled.div`
-	margin-bottom: 20px;
 	font-weight: 600;
-	font-size: ${fontSize.xl};
+	font-size: ${fontSize.lg};
 `;
 const WageLabel = styled.div`
-	margin-bottom: 10px;
 	font-weight: 600;
-	font-size: ${fontSize.xxxl};
+	font-size: 32px;
 `;
 
 const Value = styled.div`
 	text-align: right;
 	font-weight: bold;
-	font-size: ${fontSize.xl};
+	font-size: ${fontSize.lg};
 `;
 const WorkValue = styled.div`
 	text-align: right;
 	font-weight: bold;
-	font-size: ${fontSize.lg};
 `;
 
 export default WageCheckDetail;

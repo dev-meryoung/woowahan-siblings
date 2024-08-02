@@ -2,10 +2,8 @@
 import ControlMonth from '@/components/Wage/ControlMonth';
 import SalaryCard from '@/components/Wage/SalaryCard';
 import WorkHistory from '@/components/Wage/WorkHistory';
-import { Link } from 'react-router-dom';
 
 const WageCheck = () => {
-	const wages = [1, 2, 3];
 	return (
 		<>
 			<ControlMonth />
@@ -20,13 +18,6 @@ const WageCheck = () => {
 				workinghours={104}
 			/>
 			<WorkHistory />
-			<ul>
-				{wages.map((id) => (
-					<li key={id}>
-						<Link to={`${id}`}>Wage Detail {id}</Link>
-					</li>
-				))}
-			</ul>
 		</>
 	);
 };

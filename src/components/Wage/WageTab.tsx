@@ -1,58 +1,76 @@
 /** @jsxImportSource @emotion/react */
+import { colors } from '@/constants/colors';
+import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
-
-interface INavLinkProps {
-	isActive: boolean;
-}
 
 const WageTab = () => {
 	return (
 		<StyledUl>
-			<StyledNavLink to="check">
-				{({ isActive }: INavLinkProps) => (
-					<StyledLi className={isActive ? 'active' : ''}>급여 확인</StyledLi>
-				)}
-			</StyledNavLink>
-			<StyledNavLink to="correction">
-				{({ isActive }: INavLinkProps) => (
-					<StyledLi className={isActive ? 'active' : ''}>정정 신청</StyledLi>
-				)}
-			</StyledNavLink>
+			<StyledLi>
+				<StyledNavLink to="check" className={({ isActive }) => (isActive ? 'active' : '')}>
+					급여확인
+				</StyledNavLink>
+			</StyledLi>
+
+			<StyledLi>
+				<StyledNavLink
+					to="correction"
+					className={({ isActive }) => (isActive ? 'active' : '')}
+				>
+					정정 신청
+				</StyledNavLink>
+			</StyledLi>
 		</StyledUl>
 	);
 };
 
 const StyledUl = styled.ul`
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
+	height: 50px;
 	display: flex;
-	gap: 10px;
-	border-radius: 5px;
+	border-bottom: 1px solid ${colors.lightestGray};
 `;
 
 const StyledLi = styled.li`
-	margin: 0;
-	padding: 10px 20px;
-	&:hover {
-		background-color: #f2f3f6;
-		border-radius: 5px;
-	}
-	&.active {
-		border-bottom: 2px solid #ffc700; /* 활성 상태일 때 아래쪽 색상을 빨간색으로 설정 */
+	margin-left: 20px;
+	& + & {
+		margin-left: 10px;
 	}
 `;
 
 const StyledNavLink = styled(NavLink)`
-	text-decoration: none;
-	color: #333;
-	font-weight: bold;
+	position: relative;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	font-size: ${fontSize.lg};
+	font-weight: ${fontWeight.bold};
+	color: ${colors.gray};
+
 	&:hover {
-		color: black;
+		color: ${colors.black};
 	}
+
 	&.active {
-		color: #ffc700;
+		color: ${colors.black};
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background-color: ${colors.black};
+		transition: transform 0.2s ease;
+		transform: scaleX(0);
+		transform-origin: left center;
+	}
+
+	&.active::after {
+		transform: scaleX(1);
 	}
 `;
 
