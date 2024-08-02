@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import logo from '@/assets/logo.svg';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import Input from '@/components/common/Input';
+import Button from '@/components/common/Button/Button';
 import login from '@/api/auth/login';
 import { messages } from '@/constants/messages';
 import { colors } from '@/constants/colors';

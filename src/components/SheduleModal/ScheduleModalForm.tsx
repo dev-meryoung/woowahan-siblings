@@ -1,7 +1,7 @@
 // ScheduleModalForm.tsx
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors.ts';
-import Input from '@/components/Input.tsx';
+import Input from '@/components/common/Input';
 
 const ModalFormComponent = ({
 	workDate,

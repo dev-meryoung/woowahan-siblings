@@ -4,9 +4,10 @@ import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+
 import { fontSize } from '@/constants/font';
 import { colors } from '@/constants/colors';
+import Button from '../common/Button/Button';
 
 const formatTimestamp = (timestamp: Timestamp) => {
 	const date = timestamp.toDate();
