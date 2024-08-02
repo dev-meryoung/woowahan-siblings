@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/stores/store';
+import { RootState } from '@/stores/store.ts';
 import { closeModal, openModal } from '@/stores/modalSlice.ts';
-import { colors } from '@/constants/colors';
+import { colors } from '@/constants/colors.ts';
 import { X } from 'lucide-react';
-import Input from '@/components/Input';
+import Input from '@/components/Input.tsx';
 import { css } from '@emotion/react';
-import { scheduleData } from '@/components/Calendar/mockdata';
+import {
+	scheduleData,
+	addSchedule,
+	updateSchedule,
+	deleteSchedule,
+} from '@/components/Calendar/mockdata.ts';
 
 type ModalContent = 'add' | 'edit' | 'view' | null;
-
 const ScheduleModal = () => {
 	const dispatch = useDispatch();
 	const { isOpen, content } = useSelector(
@@ -27,6 +31,19 @@ const ScheduleModal = () => {
 	const [workTime, setWorkTime] = useState(defaultWorkTime);
 	const [memo, setMemo] = useState(defaultMemo);
 
+	const convertWorkTime = (time: string) => {
+		switch (time) {
+			case 'open':
+				return '오픈 (07:00~12:00)';
+			case 'middle':
+				return '미들 (12:00~17:00)';
+			case 'close':
+				return '마감 (17:00~22:00)';
+			default:
+				return '';
+		}
+	};
+
 	useEffect(() => {
 		if (content === 'add') {
 			setWorkDate(today);
@@ -36,7 +53,7 @@ const ScheduleModal = () => {
 		} else {
 			setWorkDate(scheduleData[0].workDate);
 			setWage(scheduleData[0].wage);
-			setWorkTime(scheduleData[0].workTime);
+			setWorkTime(convertWorkTime(scheduleData[0].workTime));
 			setMemo(scheduleData[0].memo);
 		}
 	}, [content, today, defaultWage, defaultWorkTime, defaultMemo]);
@@ -60,24 +77,16 @@ const ScheduleModal = () => {
 
 	const handleSave = () => {
 		if (content === 'edit') {
-			scheduleData[0].workTime = workTime;
-			scheduleData[0].memo = memo;
+			updateSchedule(scheduleData[0].userId, { workTime, memo });
+		} else if (content === 'add') {
+			addSchedule({ workDate, wage, workTime, breakTime: '30분', memo });
 		}
 		dispatch(closeModal());
 	};
 
 	const handleDelete = () => {
 		if (content === 'view') {
-			const index = scheduleData.findIndex(
-				(item) =>
-					item.workDate === workDate &&
-					item.wage === wage &&
-					item.workTime === workTime &&
-					item.memo === memo,
-			);
-			if (index !== -1) {
-				scheduleData.splice(index, 1);
-			}
+			deleteSchedule(scheduleData[0].userId);
 			dispatch(closeModal());
 		}
 	};
@@ -180,10 +189,13 @@ const ScheduleModal = () => {
 
 export default ScheduleModal;
 
+// 스타일 컴포넌트 생략
+
 const ModalOverlay = styled.div`
 	position: fixed;
 	bottom: 0;
-	left: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -191,6 +203,7 @@ const ModalOverlay = styled.div`
 	justify-content: center;
 	align-items: flex-end;
 	z-index: 9999;
+	max-width: 430px;
 `;
 
 const ModalContent = styled.div`
