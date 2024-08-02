@@ -1,17 +1,23 @@
 import styled from '@emotion/styled';
 import Header from '@/layout/Header';
 import Content from '@/layout/Content';
-import Menu from './Menu/Menu';
+import Menu from '@/layout/Menu/Menu';
 
-const Layout = () => (
-	<LayoutContainer>
-		<Header />
-		<Content />
-		<MenuWrapper>
-			<Menu />
-		</MenuWrapper>
-	</LayoutContainer>
-);
+const Layout = () => {
+	const isLoginPage = window.location.pathname === '/login';
+
+	return (
+		<LayoutContainer>
+			{!isLoginPage && <Header />}
+			<Content />
+			{!isLoginPage && (
+				<MenuWrapper>
+					<Menu />
+				</MenuWrapper>
+			)}
+		</LayoutContainer>
+	);
+};
 
 export default Layout;
 

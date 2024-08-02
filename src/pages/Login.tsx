@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import logo from '@/assets/logo.svg';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import login from '@/api/auth/login';
 import { messages } from '@/constants/messages';
 import { colors } from '@/constants/colors';
 import { useState } from 'react';
@@ -17,14 +18,19 @@ const Login = () => {
 		};
 
 	const loginBtnHandler = () => {
-		// 로그인 로직 작성 예정
+		login(id, pw);
 	};
 
 	return (
 		<Container>
 			<Logo src={logo} alt="logo" />
 			<Input value={id} onChange={inputHandler(setId)} placeholder="아이디" />
-			<Input value={pw} onChange={inputHandler(setPw)} placeholder="비밀번호" />
+			<Input
+				type="password"
+				value={pw}
+				onChange={inputHandler(setPw)}
+				placeholder="비밀번호"
+			/>
 			<Button label="로그인" onClick={loginBtnHandler} />
 			<InfoMassage>
 				{messages.loginInfoMessage}
