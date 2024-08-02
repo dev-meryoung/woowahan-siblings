@@ -33,10 +33,10 @@ const WageCheckDetail = () => {
 			<HeaderWrapper>
 				<Title>급여 상세 내역</Title>
 				<WorkPlaceRow>
-					<Value>{item.workPlace}</Value>
+					<WorkValue>{item.workPlace}</WorkValue>
 				</WorkPlaceRow>
 				<WageRow>
-					<Label>{item.amount.toLocaleString()}원</Label>
+					<WageLabel>{item.amount.toLocaleString()}원</WageLabel>
 				</WageRow>
 			</HeaderWrapper>
 			<Divider />
@@ -63,21 +63,22 @@ const WageCheckDetail = () => {
 };
 
 const Container = styled.div`
-	padding: 20px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 `;
 
 const HeaderWrapper = styled.div`
 	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	flex: 0 0 auto;
 `;
 
 const DetailWrapper = styled.div`
 	padding: 20px;
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 `;
 
 const Title = styled.h2`
@@ -89,15 +90,16 @@ const DetailRow = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 0;
+	flex-grow: 1;
 `;
+
 const WageRow = styled.div`
-	display: flex;
-	justify-content: space-between;
 	padding: 10px 0;
 	margin-bottom: 20px;
-	font-size: 30px;
+	font-size: ${fontSize.xl};
 	font-weight: bold;
 `;
+
 const WorkPlaceRow = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -108,11 +110,23 @@ const WorkPlaceRow = styled.div`
 const Label = styled.div`
 	margin-bottom: 20px;
 	font-weight: 600;
+	font-size: ${fontSize.xl};
+`;
+const WageLabel = styled.div`
+	margin-bottom: 10px;
+	font-weight: 600;
+	font-size: ${fontSize.xxxl};
 `;
 
 const Value = styled.div`
 	text-align: right;
 	font-weight: bold;
+	font-size: ${fontSize.xl};
+`;
+const WorkValue = styled.div`
+	text-align: right;
+	font-weight: bold;
+	font-size: ${fontSize.lg};
 `;
 
 export default WageCheckDetail;
