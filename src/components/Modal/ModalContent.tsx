@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colors } from '@/constants/colors.ts';
+import { colors } from '@/constants/colors';
 
 const ModalContent = styled.div`
 	background-color: ${colors.white};

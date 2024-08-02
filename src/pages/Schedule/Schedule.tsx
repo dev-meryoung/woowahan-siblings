@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/stores/modalSlice';
-import ScheduleModal from '@/components/SheduleModal/ScheduleModal.tsx';
+import ScheduleModal from '@/components/SheduleModal/ScheduleModal';
 
 const Schedule = () => {
 	const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { X } from 'lucide-react';
-import { colors } from '@/constants/colors.ts';
+import { colors } from '@/constants/colors';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/stores/modalSlice.ts';
+import { closeModal } from '@/stores/modalSlice';
 
 const ModalHeader = styled.div`
 	display: flex;

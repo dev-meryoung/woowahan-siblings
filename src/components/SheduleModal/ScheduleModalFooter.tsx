@@ -1,6 +1,5 @@
-// `woowahan-siblings/src/components/Modal/ScheduleModalFooter.tsx`
 import styled from '@emotion/styled';
-import { colors } from '@/constants/colors.ts';
+import { colors } from '@/constants/colors';
 
 const ButtonContainer = styled.div`
 	display: flex;

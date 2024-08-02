@@ -10,8 +10,8 @@ import WageCheckDetail from '@/pages/Wage/WageCheck/WageCheckDetail';
 import Correction from '@/pages/Wage/Correction/Correction';
 import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
 import Profile from '@/pages/Profile';
-import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest.tsx';
-import GlobalStyles from '@/styles/GlobalStyles.tsx';
+import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
+import GlobalStyles from '@/styles/GlobalStyles';
 import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
 
