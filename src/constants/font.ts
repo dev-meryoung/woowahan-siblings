@@ -1,4 +1,5 @@
 export const fontSize = {
+	xxxl: '24px',
 	xxl: '20px',
 	xl: '18px',
 	lg: '16px',
