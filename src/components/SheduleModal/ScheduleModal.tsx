@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/stores/store';
 import { closeModal, openModal } from '@/stores/modalSlice';
 import { addSchedule, deleteSchedule, scheduleData, updateSchedule } from '@/data/mockdata';
-import ModalOverlay from '@/components/Modal/ModalOverlay';
-import ModalContent from '@/components/Modal/ModalContent';
-import ModalHeaderComponent from '@/components/Modal/ModalHeader';
+import ModalOverlay from '@/components/common/Modal/ModalOverlay';
 import ModalFormComponent from '@/components/SheduleModal/ScheduleModalForm';
 import ModalFooterComponent from '@/components/SheduleModal/ScheduleModalFooter';
+import ModalContent from '../common/Modal/ModalContent';
+import ModalHeaderComponent from '../common/Modal/ModalHeader';
 
 type ModalContentType = 'add' | 'edit' | 'view' | null;
 
