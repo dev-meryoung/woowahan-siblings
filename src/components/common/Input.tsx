@@ -1,5 +1,6 @@
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
+import { FC } from 'react';
 
 export interface IInputProps {
 	value: string;
@@ -10,7 +11,7 @@ export interface IInputProps {
 	disabled?: boolean;
 }
 
-const Input = ({
+const Input: FC<IInputProps> = ({
 	value,
 	onChange,
 	inputWidth = '100%',

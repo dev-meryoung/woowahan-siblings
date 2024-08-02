@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
 
@@ -10,14 +11,14 @@ export interface IButtonProps {
 	disabled?: boolean;
 }
 
-const Button = ({
+const Button: FC<IButtonProps> = ({
 	label,
 	onClick,
 	size = 'normal',
 	theme = 'primary',
 	buttonWidth = '100%',
 	disabled = false,
-}: IButtonProps) => {
+}) => {
 	return (
 		<ButtonComponent
 			onClick={onClick}

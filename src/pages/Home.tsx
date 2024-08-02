@@ -1,5 +1,5 @@
 import SummaryInfoCard from '@/components/Home/SummaryInfoCard';
-import Calendar from '@/components/Calendar/Calendar';
+import Calendar from '@/components/common/Calendar/Calendar';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
 

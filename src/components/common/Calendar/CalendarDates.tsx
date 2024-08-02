@@ -1,6 +1,6 @@
 import { mockdata, IMockDate } from '@/data/mockdata';
 import { colors } from '@/constants/colors';
-import CalendarBadge from '@/components/Calendar/CalendarBadge';
+import CalendarBadge from '@/components/common/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
 
 export interface ICalendarDatesProps {

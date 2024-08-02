@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { fontSize } from '@/constants/font';
-import IconButton from '@/components/IconButton';
+import IconButton from '../Button/IconButton';
 import styled from '@emotion/styled';
 
 export interface IControlDateProps {

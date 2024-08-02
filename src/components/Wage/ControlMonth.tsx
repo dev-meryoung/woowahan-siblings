@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import IconButton from '@/components/IconButton';
+
+import IconButton from '../common/Button/IconButton';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

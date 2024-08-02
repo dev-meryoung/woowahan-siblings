@@ -1,5 +1,5 @@
-import CalendarWeek from '@/components/Calendar/CalendarWeek';
-import CalendarDates from '@/components/Calendar/CalendarDates';
+import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
+import CalendarDates from '@/components/common/Calendar/CalendarDates';
 import monthList from '@/utils/getMonthList';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';

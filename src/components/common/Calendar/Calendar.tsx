@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ControlDate from '@/components/Calendar/ControlDate';
-import CalenderContents from '@/components/Calendar/CalenderContents';
+import ControlDate from '@/components/common/Calendar/ControlDate';
+import CalenderContents from '@/components/common/Calendar/CalenderContents';
 import styled from '@emotion/styled';
 
 export interface ICalendarProps {
