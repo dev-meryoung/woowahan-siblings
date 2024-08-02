@@ -6,8 +6,8 @@ import { addSchedule, deleteSchedule, scheduleData, updateSchedule } from '@/dat
 import ModalOverlay from '@/components/common/Modal/ModalOverlay';
 import ModalFormComponent from '@/components/SheduleModal/ScheduleModalForm';
 import ModalFooterComponent from '@/components/SheduleModal/ScheduleModalFooter';
-import ModalContent from '../common/Modal/ModalContent';
-import ModalHeaderComponent from '../common/Modal/ModalHeader';
+import ModalContent from '@/components/common/Modal/ModalContent';
+import ModalHeaderComponent from '@/components/common/Modal/ModalHeader';
 
 type ModalContentType = 'add' | 'edit' | 'view' | null;
 

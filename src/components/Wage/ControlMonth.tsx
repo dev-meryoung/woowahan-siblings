@@ -1,4 +1,4 @@
-import IconButton from '../common/Button/IconButton';
+import IconButton from '@/components/common/Button/IconButton';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

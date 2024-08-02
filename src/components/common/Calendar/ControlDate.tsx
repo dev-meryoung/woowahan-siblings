@@ -1,8 +1,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { fontSize } from '@/constants/font';
-import IconButton from '../Button/IconButton';
 import styled from '@emotion/styled';
 import { FC } from 'react';
+import IconButton from '@/components/common/Button/IconButton';
 
 export interface IControlDateProps {
 	nowDate: Date;
