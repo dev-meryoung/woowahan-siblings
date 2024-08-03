@@ -13,6 +13,7 @@ import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
 import GlobalStyles from '@/styles/GlobalStyles';
 import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
+import UnderConstruction from './pages/UnderConstruction';
 
 export interface IPrivateRouteProps {
 	element: JSX.Element;
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 			},
 			{ path: 'profile', element: <PrivateRoute element={<Profile />} /> },
 			{ path: 'login', element: <Login /> },
+			{ path: 'guide', element: <UnderConstruction /> },
+			{ path: 'customer-service', element: <UnderConstruction /> },
+			{ path: 'notification-settings', element: <UnderConstruction /> },
+			{ path: 'settings', element: <UnderConstruction /> },
 		],
 	},
 ]);
