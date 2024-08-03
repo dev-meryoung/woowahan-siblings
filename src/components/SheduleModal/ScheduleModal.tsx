@@ -25,7 +25,7 @@ const ScheduleModal = () => {
 	const [workDate, setWorkDate] = useState(today);
 	const [wage, setWage] = useState(defaultWage);
 	const [workTime, setWorkTime] = useState(defaultWorkTime);
-	const [breakTime, setBreakTime] = useState('');
+	const [breakTime, setBreakTime] = useState('30분');
 	const [memo, setMemo] = useState(defaultMemo);
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ const ScheduleModal = () => {
 			setWorkDate(today);
 			setWage(defaultWage);
 			setWorkTime(defaultWorkTime);
-			setBreakTime('');
+			setBreakTime('30분');
 			setMemo(defaultMemo);
 		} else if (content === 'edit' || content === 'view') {
 			const schedule = scheduleData.find((s) => s.userId === scheduleData[0].userId);
