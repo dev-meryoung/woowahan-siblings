@@ -8,7 +8,7 @@ const getOfficialWage = async (year: number, month: number) => {
 	const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
 	const q = query(
-		collection(db, 'Officialschedules'),
+		collection(db, 'OfficialSchedules'),
 		where('userId', '==', getUserId()),
 		where('date', '>=', startOfMonth),
 		where('date', '<=', endOfMonth),

@@ -1,7 +1,7 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-type TDocName = 'User' | 'Officialschedules' | 'PersonalSchedules' | 'WorkCorrections';
+type TDocName = 'User' | 'OfficialSchedules' | 'PersonalSchedules' | 'WorkCorrections';
 
 // Firestore DB에서 UID 값에 해당하는 데이터를 조회하는 로직
 const getDocsByUserId = async (docName: TDocName, userId: string) => {
