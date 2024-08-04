@@ -5,10 +5,30 @@ import { fontSize, fontWeight } from '@/constants/font';
 interface IUserProfileProps {
 	name: string;
 	workPlace: string;
-	workTime: string;
+	workTime: { times: string[]; weeks: string[] };
 }
 
+const dayMap: { [key: string]: string } = {
+	mon: '월',
+	tue: '화',
+	wed: '수',
+	thu: '목',
+	fri: '금',
+	sat: '토',
+	sun: '일',
+};
+
+const timeMap: { [key: string]: string } = {
+	open: '오픈',
+	middle: '미들',
+	close: '마감',
+};
+
 const UserProfile = ({ name, workPlace, workTime }: IUserProfileProps) => {
+	const workSchedules = workTime.weeks.map(
+		(day, index) => `${dayMap[day]}(${timeMap[workTime.times[index]]})`,
+	);
+
 	return (
 		<ProfileContainer>
 			<Header>
@@ -20,13 +40,12 @@ const UserProfile = ({ name, workPlace, workTime }: IUserProfileProps) => {
 			</Header>
 			<Schedule>
 				<ScheduleTitle>근무스케줄</ScheduleTitle>
-				<ScheduleDetails>{workTime}</ScheduleDetails>
+				<ScheduleDetails>{workSchedules.join(', ')}</ScheduleDetails>
 			</Schedule>
 		</ProfileContainer>
 	);
 };
 
-// 스타일 정의
 const ProfileContainer = styled.div`
 	padding: 20px;
 `;
