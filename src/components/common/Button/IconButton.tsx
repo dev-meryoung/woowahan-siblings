@@ -8,6 +8,7 @@ export interface IIconButtonProps {
 	color?: 'gray' | 'black';
 	size?: number;
 	onClick?: () => void;
+	disabled?: boolean;
 }
 
 const IconButton: FC<IIconButtonProps> = ({
@@ -16,9 +17,16 @@ const IconButton: FC<IIconButtonProps> = ({
 	color = 'gray',
 	size = 28,
 	onClick,
+	disabled = false,
 }: IIconButtonProps) => {
 	return (
-		<StyledIconButton shape={shape} color={color} size={size} onClick={onClick}>
+		<StyledIconButton
+			shape={shape}
+			color={color}
+			size={size}
+			onClick={!disabled ? onClick : undefined}
+			disabled={disabled}
+		>
 			<IconComponent />
 		</StyledIconButton>
 	);
@@ -26,7 +34,12 @@ const IconButton: FC<IIconButtonProps> = ({
 
 export default IconButton;
 
-const StyledIconButton = styled.div<{ shape: string; color: string; size: number }>`
+const StyledIconButton = styled.div<{
+	shape: string;
+	color: string;
+	size: number;
+	disabled: boolean;
+}>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -55,4 +68,5 @@ const StyledIconButton = styled.div<{ shape: string; color: string; size: number
 				return colors.gray;
 		}
 	}};
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;

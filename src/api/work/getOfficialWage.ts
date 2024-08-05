@@ -13,6 +13,7 @@ const getOfficialWage = async (year: number, month: number) => {
 		where('date', '>=', startOfMonth),
 		where('date', '<=', endOfMonth),
 	);
+
 	const querySnapshot = await getDocs(q);
 	const docData = querySnapshot.docs.map((doc) => doc.data());
 	const officialWageArray = docData.map((obj) => {
