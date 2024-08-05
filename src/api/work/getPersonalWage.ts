@@ -2,7 +2,7 @@ import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import getUserId from '@/api/common/getUserId';
 
-// 개인 스케줄에 따른 특정 달의 예상 급여액 조회
+// 개인 스케줄에 따른 특정 달의 예상 급여액 조회 API
 const getPersonalWage = async (year: number, month: number) => {
 	const startOfMonth = new Date(year, month - 1, 1);
 	const endOfMonth = new Date(year, month, 0, 23, 59, 59);
