@@ -34,11 +34,6 @@ const WageCheck = () => {
 		}
 	};
 
-	useEffect(() => {
-		fetchPersonalWage(year, month);
-		fetchOfficialWage(year, month);
-	}, [year, month]);
-
 	const handleMonthChange = (newYear: number, newMonth: number) => {
 		setYear(newYear);
 		setMonth(newMonth);
@@ -46,24 +41,31 @@ const WageCheck = () => {
 		fetchOfficialWage(newYear, newMonth);
 	};
 
-	if (error) {
-		return <div>{error}</div>;
-	}
+	useEffect(() => {
+		fetchPersonalWage(year, month);
+		fetchOfficialWage(year, month);
+	}, [year, month]);
 
 	return (
 		<>
 			<ControlMonth onMonthChange={handleMonthChange} />
-			<SalaryCard
-				title="개인근무 일정표에 따른 예상 급여액"
-				wagecount={personalWage}
-				workinghours={workHours}
-			/>
-			<SalaryCard
-				title="공식 근무 스케줄에 따른 예상 급여액"
-				wagecount={officialWage}
-				workinghours={officialWorkHours}
-			/>
-			<WorkHistory year={year} month={month} />
+			{error ? (
+				<div>{error}</div>
+			) : (
+				<>
+					<SalaryCard
+						title="개인근무 일정표에 따른 예상 급여액"
+						wagecount={personalWage}
+						workinghours={workHours}
+					/>
+					<SalaryCard
+						title="공식 근무 스케줄에 따른 예상 급여액"
+						wagecount={officialWage}
+						workinghours={officialWorkHours}
+					/>
+					<WorkHistory year={year} month={month} />
+				</>
+			)}
 		</>
 	);
 };

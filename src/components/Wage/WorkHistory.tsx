@@ -42,17 +42,17 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 	const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const fetchOfficialWage = async () => {
-			try {
-				const data = await getOfficialWage(year, month);
-				setOfficialWage(data.officialWage);
-			} catch (error) {
-				setError('Failed to fetch wage data');
-			}
-		};
+	const fetchOfficialWage = async (year: number, month: number) => {
+		try {
+			const data = await getOfficialWage(year, month);
+			setOfficialWage(data.officialWage);
+		} catch (error) {
+			setError('Failed to fetch wage data');
+		}
+	};
 
-		fetchOfficialWage();
+	useEffect(() => {
+		fetchOfficialWage(year, month);
 	}, [year, month]);
 
 	const handleLoadMore = () => {
@@ -63,31 +63,33 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 		navigate(`/wage/check/${index}`);
 	};
 
-	if (error) {
-		return <div>{error}</div>;
-	}
-
 	return (
 		<Container>
 			<Title>급여 내역</Title>
-			{officialWage.slice(0, visibleItems).map((item, index: number) => (
-				<HistoryItem key={index} onClick={() => handleItemClick(index)}>
-					<Date>{formatDate(item.date)}</Date>
-					<Details>
-						<div>강남점</div>
-						<span>{formatWorkingTimes(item.workingTimes)}</span>
-					</Details>
-					<Amount>{(item.workingTimes.length * 45135).toLocaleString()}원</Amount>
-				</HistoryItem>
-			))}
-			{visibleItems < officialWage.length && (
-				<Button
-					label="더보기"
-					onClick={handleLoadMore}
-					size="normal"
-					theme="primary"
-					buttonWidth="100%"
-				/>
+			{error ? (
+				<div>{error}</div>
+			) : (
+				<>
+					{officialWage.slice(0, visibleItems).map((item, index: number) => (
+						<HistoryItem key={index} onClick={() => handleItemClick(index)}>
+							<Date>{formatDate(item.date)}</Date>
+							<Details>
+								<div>강남점</div>
+								<span>{formatWorkingTimes(item.workingTimes)}</span>
+							</Details>
+							<Amount>{(item.workingTimes.length * 45135).toLocaleString()}원</Amount>
+						</HistoryItem>
+					))}
+					{visibleItems < officialWage.length && (
+						<Button
+							label="더보기"
+							onClick={handleLoadMore}
+							size="normal"
+							theme="primary"
+							buttonWidth="100%"
+						/>
+					)}
+				</>
 			)}
 		</Container>
 	);
