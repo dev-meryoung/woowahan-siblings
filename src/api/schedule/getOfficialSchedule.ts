@@ -20,6 +20,7 @@ const getOfficialSchedule = async (year: number, month: number) => {
 		const newObj = {
 			date: `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`,
 			workingTimes: obj.workingTimes,
+			isSub: obj.isSub,
 		};
 		return newObj;
 	});
