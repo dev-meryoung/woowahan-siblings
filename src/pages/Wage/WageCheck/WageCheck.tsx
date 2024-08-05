@@ -6,6 +6,8 @@ import getOfficialWage from '@/api/work/getOfficialWage';
 import { useEffect, useState } from 'react';
 
 const WageCheck = () => {
+	const [year, setYear] = useState(new Date().getFullYear());
+	const [month, setMonth] = useState(new Date().getMonth() + 1);
 	const [personalWage, setPersonalWage] = useState(0);
 	const [workHours, setWorkHours] = useState(0);
 	const [error, setError] = useState<string | null>(null);
@@ -33,14 +35,15 @@ const WageCheck = () => {
 	};
 
 	useEffect(() => {
-		const currentDate = new Date();
-		fetchPersonalWage(currentDate.getFullYear(), currentDate.getMonth() + 1);
-		fetchOfficialWage(currentDate.getFullYear(), currentDate.getMonth() + 1);
-	}, []);
-
-	const handleMonthChange = (year: number, month: number) => {
 		fetchPersonalWage(year, month);
 		fetchOfficialWage(year, month);
+	}, [year, month]);
+
+	const handleMonthChange = (newYear: number, newMonth: number) => {
+		setYear(newYear);
+		setMonth(newMonth);
+		fetchPersonalWage(newYear, newMonth);
+		fetchOfficialWage(newYear, newMonth);
 	};
 
 	if (error) {
@@ -60,7 +63,7 @@ const WageCheck = () => {
 				wagecount={officialWage}
 				workinghours={officialWorkHours}
 			/>
-			<WorkHistory />
+			<WorkHistory year={year} month={month} />
 		</>
 	);
 };
