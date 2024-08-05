@@ -2,9 +2,13 @@ import IconButton from '@/components/common/Button/IconButton';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ControlMonth = () => {
+interface IControlMonthProps {
+	onMonthChange: (year: number, month: number) => void;
+}
+
+const ControlMonth = ({ onMonthChange }: IControlMonthProps) => {
 	const [date, setDate] = useState(new Date());
 
 	const handlePreviousMonth = () => {
@@ -18,6 +22,10 @@ const ControlMonth = () => {
 	const formatDate = (date: Date) => {
 		return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
 	};
+
+	useEffect(() => {
+		onMonthChange(date.getFullYear(), date.getMonth() + 1);
+	}, [date, onMonthChange]);
 
 	return (
 		<CalendarContainer>
