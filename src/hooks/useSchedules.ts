@@ -25,7 +25,7 @@ const useSchedules = (year: number, month: number, isOfficial: boolean): ISchedu
 
 				const formattedSchedules = fetchedData.map((schedule) => ({
 					...schedule,
-					date: `${year}-${month.toString().padStart(2, '0')}-${schedule.date.split('-')[2]}`,
+					date: `${year}-${month.toString().padStart(2, '0')}-${schedule.date.split('-')[2].padStart(2, '0')}`,
 				}));
 
 				setSchedules(formattedSchedules);

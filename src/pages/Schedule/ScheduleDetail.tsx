@@ -75,20 +75,25 @@ const ScheduleDetail = () => {
 	return (
 		<Container>
 			<Title>{formattedDate}</Title>
-			<ul>
-				{schedules.map((schedule, index) => (
-					<li key={index} onClick={() => dispatch(openModal('view'))}>
-						<InfoContainer>
-							<Color workingTimes={schedule.workingTimes[0]}></Color>
-							<Info>
-								<span>{error ? error : workingHours(schedule.workingTimes)}</span>
-								<span>강남점</span>
-							</Info>
-						</InfoContainer>
-						<Hour>4.5 시간</Hour>
-					</li>
-				))}
-			</ul>
+			{schedules.length > 0 && (
+				<ul>
+					{schedules.map((schedule, index) => (
+						<li key={index} onClick={() => dispatch(openModal('view'))}>
+							<InfoContainer>
+								<Color workingTimes={schedule.workingTimes[0]}></Color>
+								<Info>
+									<span>
+										{error ? error : workingHours(schedule.workingTimes)}
+									</span>
+									<span>강남점</span>
+								</Info>
+							</InfoContainer>
+							<Hour>4.5 시간</Hour>
+						</li>
+					))}
+				</ul>
+			)}
+
 			<AddBtn onClick={() => dispatch(openModal('add'))}>
 				<IconButton IconComponent={Plus} shape="line" size={24} />
 				<span>일정 추가</span>

@@ -23,7 +23,7 @@ const CalendarDates: FC<ICalendarDatesProps> = ({ date, isOfficial, schedules })
 
 	const handleDateClick = () => {
 		const dateString = formatDateWithLeadingZeros(date);
-		if (filteredSchedules.length > 0 && !isOfficial) {
+		if (!isOfficial) {
 			navigate(`/schedule/${dateString}`);
 		}
 	};
