@@ -51,10 +51,6 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 		}
 	};
 
-	useEffect(() => {
-		fetchOfficialWage(year, month);
-	}, [year, month]);
-
 	const handleLoadMore = () => {
 		setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
 	};
@@ -62,6 +58,10 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 	const handleItemClick = (index: number) => {
 		navigate(`/wage/check/${index}`);
 	};
+
+	useEffect(() => {
+		fetchOfficialWage(year, month);
+	}, [year, month]);
 
 	return (
 		<Container>
