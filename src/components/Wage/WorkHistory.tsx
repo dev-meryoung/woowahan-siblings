@@ -1,9 +1,9 @@
-import workHistoryData, { IWorkHistoryItem } from '@/data/workHistoryData';
+// import workHistoryData, { IWorkHistoryItem } from '@/data/workHistoryData';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import getOfficialWage from '@/api/work/getOfficialWage';
 import { fontSize } from '@/constants/font';
 import { colors } from '@/constants/colors';
 import Button from '@/components/common/Button/Button';
@@ -13,9 +13,33 @@ const formatTimestamp = (timestamp: Timestamp) => {
 	return `${(date.getMonth() + 1).toString().padStart(2, '0')}. ${date.getDate().toString().padStart(2, '0')}`;
 };
 
+interface IOfficialWageItem {
+	date: string;
+	workingTimes: string;
+	isSub: boolean;
+}
+
 const WorkHistory = () => {
 	const [visibleItems, setVisibleItems] = useState(8);
+	const [officialWage, setOfficialWage] = useState<IOfficialWageItem[]>([]);
+	const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchOfficialWage = async () => {
+			try {
+				const currentDate = new Date();
+				const year = currentDate.getFullYear();
+				const month = currentDate.getMonth() + 1;
+				const data = await getOfficialWage(year, month);
+				setOfficialWage(data.officialWage);
+			} catch (error) {
+				setError('Failed to fetch wage data');
+			}
+		};
+
+		fetchOfficialWage();
+	}, []);
 
 	const handleLoadMore = () => {
 		setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
@@ -24,6 +48,10 @@ const WorkHistory = () => {
 	const handleItemClick = (index: number) => {
 		navigate(`/wage/check/${index}`);
 	};
+
+	if (error) {
+		return <div>{error}</div>;
+	}
 
 	return (
 		<Container>
