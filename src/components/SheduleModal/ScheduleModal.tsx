@@ -149,6 +149,18 @@ const ScheduleModal: React.FC = () => {
 		}
 	}, [content]);
 
+	const getFormattedWorkTime = useCallback((workTime: string) => {
+		if (workTime === 'open') {
+			return '오픈 (07:00~12:00)';
+		} else if (workTime === 'middle') {
+			return '미들 (12:00~17:00)';
+		} else if (workTime === 'close') {
+			return '마감 (17:00~22:00)';
+		} else {
+			return workTime;
+		}
+	}, []);
+
 	if (!isOpen) return null;
 
 	return (
@@ -158,7 +170,7 @@ const ScheduleModal: React.FC = () => {
 				<ModalFormComponent
 					workDate={workDate}
 					wage={wage}
-					workTime={workTime}
+					workTime={getFormattedWorkTime(workTime)}
 					breakTime={breakTime}
 					memo={memo}
 					isFieldDisabled={isFieldDisabled}

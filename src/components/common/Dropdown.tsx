@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 
@@ -18,7 +18,6 @@ const Dropdown: React.FC<IDropdownProps> = ({
 	className,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [currentOption, setCurrentOption] = useState(selectedOption);
 
 	const handleToggle = useCallback(() => {
 		if (!disabled) {
@@ -36,17 +35,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 		[disabled, onSelect],
 	);
 
-	useEffect(() => {
-		if (selectedOption === 'open') {
-			setCurrentOption('오픈 설정');
-		} else if (selectedOption === 'middle') {
-			setCurrentOption('미들 설정');
-		} else {
-			setCurrentOption(selectedOption);
-		}
-	}, [selectedOption]);
-
-	const selectedOptionData = options.find((opt) => opt.value === currentOption);
+	const selectedOptionData = options.find((opt) => opt.value === selectedOption);
 
 	return (
 		<DropdownContainer className={className}>

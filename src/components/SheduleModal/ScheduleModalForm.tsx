@@ -51,7 +51,8 @@ const ModalFormComponent: React.FC<IModalFormProps> = ({
 		} else if (workTime === 'close') {
 			setWorkTime('마감 (17:00~22:00)');
 		}
-	}, [workTime, setWorkTime]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [workTime]);
 
 	return (
 		<AddScheduleForm>
