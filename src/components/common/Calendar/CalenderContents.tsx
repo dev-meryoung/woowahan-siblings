@@ -16,9 +16,10 @@ const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 	const calendarDates = monthList(nowDate);
 
-	const year = nowDate.toDate().getFullYear();
-	const month = nowDate.toDate().getMonth() + 1;
-	const schedules = useSchedules(year, month, isOfficial);
+	const currentDate = nowDate.toDate();
+	const currentYear = currentDate.getFullYear();
+	const currentMonth = currentDate.getMonth();
+	const schedules = useSchedules(currentYear, currentMonth + 1, isOfficial);
 
 	return (
 		<Container>
@@ -29,6 +30,8 @@ const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 				<CalendarDates
 					key={date.toMillis().toString()}
 					date={date}
+					currentYear={currentYear}
+					currentMonth={currentMonth}
 					isOfficial={isOfficial}
 					schedules={schedules}
 				/>

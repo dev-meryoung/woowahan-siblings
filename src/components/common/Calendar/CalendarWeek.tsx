@@ -15,8 +15,10 @@ export default CalendarWeek;
 const Container = styled.span`
 	border-bottom: 1px solid ${colors.lightGray};
 	padding: 6px 0;
-	&:nth-of-type(1),
+	&:nth-of-type(1) {
+		color: ${colors.red};
+	}
 	&:nth-of-type(7) {
-		color: ${colors.gray};
+		color: ${colors.blue};
 	}
 `;
