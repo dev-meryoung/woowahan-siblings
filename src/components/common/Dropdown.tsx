@@ -48,7 +48,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 					{selectedOptionData?.color && <ColorCircle color={selectedOptionData.color} />}
 					{selectedOptionData?.label || <span>{defaultLabel}</span>}
 				</div>
-				<ChevronDown />
+				<ChevronDown style={{ marginLeft: 'auto', strokeWidth: 1.2 }} />
 			</DropdownButton>
 			{isOpen && (
 				<DropdownMenu>
@@ -112,6 +112,7 @@ const DropdownItem = styled.li`
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	&:hover {
 		background-color: ${colors.lightestGray};
 	}
