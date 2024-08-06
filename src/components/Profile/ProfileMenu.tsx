@@ -29,7 +29,6 @@ const MenuContainer = styled.div`
 	padding: 0 20px;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
 `;
 const MenuItem = styled(Link)`
 	display: flex;
