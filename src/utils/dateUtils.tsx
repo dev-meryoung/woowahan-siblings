@@ -12,9 +12,11 @@ export const formatDateWithoutLeadingZeros = (timestamp: Timestamp) => {
 	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
-export const isWeekend = (timestamp: Timestamp): boolean => {
+export const getDayType = (timestamp: Timestamp): 'weekday' | 'saturday' | 'sunday' => {
 	const day = timestamp.toDate().getDay();
-	return day === 0 || day === 6;
+	if (day === 0) return 'sunday';
+	if (day === 6) return 'saturday';
+	return 'weekday';
 };
 
 export const sortByWorkType = (a: ISchedule, b: ISchedule) => {
