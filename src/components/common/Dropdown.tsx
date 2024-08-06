@@ -1,6 +1,8 @@
+// TODO: 하나의 드롭다운만 열리고, 다른 드롭다운을 열면 이전에 열린 드롭다운이 자동 닫히는 기능 만들 예정
 import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
+import { ChevronDown } from 'lucide-react';
 
 interface IDropdownProps {
 	options: { value: string; label: string; color?: string }[];
@@ -8,6 +10,7 @@ interface IDropdownProps {
 	onSelect: (option: string) => void;
 	disabled?: boolean;
 	className?: string;
+	defaultLabel: string;
 }
 
 const Dropdown: React.FC<IDropdownProps> = ({
@@ -16,6 +19,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 	onSelect,
 	disabled,
 	className,
+	defaultLabel,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -40,8 +44,11 @@ const Dropdown: React.FC<IDropdownProps> = ({
 	return (
 		<DropdownContainer className={className}>
 			<DropdownButton onClick={handleToggle} disabled={disabled} className={className}>
-				{selectedOptionData?.color && <ColorCircle color={selectedOptionData.color} />}
-				{selectedOptionData?.label || '선택'}
+				<div>
+					{selectedOptionData?.color && <ColorCircle color={selectedOptionData.color} />}
+					{selectedOptionData?.label || <span>{defaultLabel}</span>}
+				</div>
+				<ChevronDown />
 			</DropdownButton>
 			{isOpen && (
 				<DropdownMenu>
@@ -65,8 +72,12 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownButton = styled.button<{ disabled?: boolean }>`
-	width: 100%;
 	padding: 8px;
+	width: 100%;
+	height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	border: ${(props) => (props.disabled ? 'none' : `1px solid ${colors.lightGray}`)};
 	border-radius: 8px;
 	background-color: ${(props) => (props.disabled ? colors.lightestGray : colors.white)};
@@ -76,13 +87,7 @@ const DropdownButton = styled.button<{ disabled?: boolean }>`
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	height: 44px;
-	display: flex;
-	align-items: center;
-	&:after {
-		content: '▼';
-		margin-left: auto;
-	}
+
 	&.error {
 		border: 1px solid ${colors.red};
 	}
@@ -108,7 +113,7 @@ const DropdownItem = styled.li`
 	display: flex;
 	align-items: center;
 	&:hover {
-		background-color: ${colors.lightGray};
+		background-color: ${colors.lightestGray};
 	}
 `;
 
