@@ -14,6 +14,12 @@ const useLogin = () => {
 			setter(e.target.value);
 		};
 
+	const inputKeyDownHandler = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter') {
+			loginBtnHandler();
+		}
+	};
+
 	const loginBtnHandler = async () => {
 		const isLoginSuccess = await login(id, pw);
 
@@ -33,6 +39,7 @@ const useLogin = () => {
 		setId,
 		setPw,
 		inputHandler,
+		inputKeyDownHandler,
 		loginBtnHandler,
 	};
 };

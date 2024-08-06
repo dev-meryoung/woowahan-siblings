@@ -7,16 +7,39 @@ import { colors } from '@/constants/colors';
 import useLogin from '@/hooks/useLogin';
 
 const Login = () => {
-	const { id, pw, isLoginError, setId, setPw, inputHandler, loginBtnHandler } = useLogin();
+	const {
+		id,
+		pw,
+		isLoginError,
+		setId,
+		setPw,
+		inputHandler,
+		inputKeyDownHandler,
+		loginBtnHandler,
+	} = useLogin();
 
 	return (
 		<Container>
 			<Logo src={logo} alt="logo" />
-			<Input value={id} onChange={inputHandler(setId)} placeholder="아이디" />
+			<Input
+				value={id}
+				onChange={inputHandler(setId)}
+				onKeyDown={(e) => {
+					if (id && pw) {
+						inputKeyDownHandler(e);
+					}
+				}}
+				placeholder="아이디"
+			/>
 			<Input
 				type="password"
 				value={pw}
 				onChange={inputHandler(setPw)}
+				onKeyDown={(e) => {
+					if (id && pw) {
+						inputKeyDownHandler(e);
+					}
+				}}
 				placeholder="비밀번호"
 			/>
 			{isLoginError && <ErrorMassage>{messages.loginErrorMessage}</ErrorMassage>}
