@@ -16,9 +16,7 @@ const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 	const calendarDates = monthList(nowDate);
 
-	const year = nowDate.toDate().getFullYear();
-	const month = nowDate.toDate().getMonth() + 1;
-	const schedules = useSchedules(year, month, isOfficial);
+	const schedules = useSchedules(nowDate, isOfficial);
 
 	return (
 		<Container>
