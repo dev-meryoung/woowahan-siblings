@@ -1,11 +1,12 @@
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import React, { forwardRef } from 'react';
 
 export interface IInputProps {
 	value: string;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onKeyDown?: (event: React.KeyboardEvent) => void;
+	name?: string;
 	inputWidth?: string;
 	placeholder?: string;
 	type?: 'text' | 'password' | 'date';
@@ -13,29 +14,35 @@ export interface IInputProps {
 	className?: string;
 }
 
-const Input: FC<IInputProps> = ({
-	value,
-	onChange,
-	onKeyDown,
-	inputWidth = '100%',
-	placeholder = '',
-	type = 'text',
-	disabled = false,
-	className,
-}: IInputProps) => {
-	return (
+const Input = forwardRef<HTMLInputElement, IInputProps>(
+	(
+		{
+			value,
+			onChange,
+			onKeyDown,
+			name,
+			inputWidth = '100%',
+			placeholder = '',
+			type = 'text',
+			disabled = false,
+			className,
+		},
+		ref,
+	) => (
 		<InputComponent
 			value={value}
 			onChange={onChange}
 			onKeyDown={onKeyDown}
+			name={name}
 			inputWidth={inputWidth}
 			placeholder={placeholder}
 			type={type}
 			disabled={disabled}
 			className={className}
+			ref={ref}
 		/>
-	);
-};
+	),
+);
 
 const InputComponent = styled.input<IInputProps>`
 	width: ${(props) => props.inputWidth};
@@ -55,6 +62,7 @@ const InputComponent = styled.input<IInputProps>`
 
 	&:focus {
 		outline: none;
+		border: 1px solid ${colors.primaryYellow};
 	}
 
 	&:disabled {
@@ -65,3 +73,5 @@ const InputComponent = styled.input<IInputProps>`
 `;
 
 export default Input;
+
+Input.displayName = 'Input';
