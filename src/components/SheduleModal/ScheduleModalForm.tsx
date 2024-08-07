@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import Input from '@/components/common/Input';
 import Dropdown from '@/components/common/Dropdown';
+import { workTimeOption } from '@/constants/options';
 
 interface IModalFormProps {
 	workDate: string;
@@ -35,6 +36,7 @@ const ModalFormComponent: React.FC<IModalFormProps> = ({
 	content,
 	errors,
 }) => {
+	const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 	const handleInputChange = useCallback(
 		(setter: (value: string) => void) =>
 			(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,23 +79,10 @@ const ModalFormComponent: React.FC<IModalFormProps> = ({
 			<FormGroup>
 				<label>근무시간</label>
 				<Dropdown
-					options={[
-						{
-							value: '오픈 (07:00~12:00)',
-							label: '오픈 (07:00~12:00)',
-							color: '#FFC700',
-						},
-						{
-							value: '미들 (12:00~17:00)',
-							label: '미들 (12:00~17:00)',
-							color: '#F39ACD',
-						},
-						{
-							value: '마감 (17:00~22:00)',
-							label: '마감 (17:00~22:00)',
-							color: '#1DC18D',
-						},
-					]}
+					id="workTime"
+					openDropdownId={openDropdownId}
+					setOpenDropdownId={setOpenDropdownId}
+					options={workTimeOption}
 					selectedOption={workTime}
 					onSelect={setWorkTime}
 					disabled={isFieldDisabled('workTime') || content === 'view'}
