@@ -11,8 +11,8 @@ const getCorrection = async () => {
 		const workDate = new Date(obj.workDate.seconds * 1000);
 		const reqDate = new Date(obj.requestDate.seconds * 1000);
 		const newObj = {
-			workDate: `${workDate.getUTCFullYear()}-${workDate.getUTCMonth() + 1}-${workDate.getUTCDate()}`,
-			reqDate: `${reqDate.getUTCFullYear()}-${reqDate.getUTCMonth() + 1}-${reqDate.getUTCDate()}`,
+			workDate: `${workDate.getFullYear()}-${workDate.getMonth() + 1}-${workDate.getDate()}`,
+			reqDate: `${reqDate.getFullYear()}-${reqDate.getMonth() + 1}-${reqDate.getDate()}`,
 			workingTimes: obj.workingTimes,
 			type: obj.type,
 			approveStatus: obj.approveStatus,
