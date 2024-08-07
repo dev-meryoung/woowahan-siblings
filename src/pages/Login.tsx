@@ -2,49 +2,52 @@ import styled from '@emotion/styled';
 import logo from '@/assets/logo.svg';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button/Button';
-import login from '@/api/auth/login';
 import { messages } from '@/constants/messages';
 import { colors } from '@/constants/colors';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import useLogin from '@/hooks/useLogin';
 
 const Login = () => {
-	const [id, setId] = useState<string>('');
-	const [pw, setPw] = useState<string>('');
-	const [isLoginError, setIsLoginError] = useState<boolean>(false);
-	const navigate = useNavigate();
-
-	const inputHandler =
-		(setter: React.Dispatch<React.SetStateAction<string>>) =>
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			setter(e.target.value);
-		};
-
-	const loginBtnHandler = async () => {
-		const isLoginSuccess = await login(id, pw);
-
-		if (isLoginSuccess) {
-			navigate('/');
-		} else {
-			// 로그인 실패 시, 기존 입력한 로그인 데이터 초기화
-			setIsLoginError(true);
-			setId('');
-			setPw('');
-		}
-	};
+	const {
+		id,
+		pw,
+		isLoginError,
+		setId,
+		setPw,
+		inputHandler,
+		inputKeyDownHandler,
+		loginBtnHandler,
+	} = useLogin();
 
 	return (
 		<Container>
 			<Logo src={logo} alt="logo" />
-			<Input value={id} onChange={inputHandler(setId)} placeholder="아이디" />
+			<Input
+				value={id}
+				onChange={inputHandler(setId)}
+				onKeyDown={(e) => {
+					if (id && pw) {
+						inputKeyDownHandler(e);
+					}
+				}}
+				placeholder="아이디"
+			/>
 			<Input
 				type="password"
 				value={pw}
 				onChange={inputHandler(setPw)}
+				onKeyDown={(e) => {
+					if (id && pw) {
+						inputKeyDownHandler(e);
+					}
+				}}
 				placeholder="비밀번호"
 			/>
 			{isLoginError && <ErrorMassage>{messages.loginErrorMessage}</ErrorMassage>}
-			<Button label="로그인" onClick={loginBtnHandler} />
+			{!!id && !!pw ? (
+				<Button label="로그인" onClick={loginBtnHandler} />
+			) : (
+				<Button label="로그인" onClick={loginBtnHandler} disabled />
+			)}
 			<InfoMassage>
 				{messages.loginInfoMessage}
 				<br />

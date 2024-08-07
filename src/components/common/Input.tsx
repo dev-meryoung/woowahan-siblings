@@ -5,6 +5,7 @@ import { FC } from 'react';
 export interface IInputProps {
 	value: string;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onKeyDown?: (event: React.KeyboardEvent) => void;
 	inputWidth?: string;
 	placeholder?: string;
 	type?: 'text' | 'password' | 'date';
@@ -15,6 +16,7 @@ export interface IInputProps {
 const Input: FC<IInputProps> = ({
 	value,
 	onChange,
+	onKeyDown,
 	inputWidth = '100%',
 	placeholder = '',
 	type = 'text',
@@ -25,6 +27,7 @@ const Input: FC<IInputProps> = ({
 		<InputComponent
 			value={value}
 			onChange={onChange}
+			onKeyDown={onKeyDown}
 			inputWidth={inputWidth}
 			placeholder={placeholder}
 			type={type}
