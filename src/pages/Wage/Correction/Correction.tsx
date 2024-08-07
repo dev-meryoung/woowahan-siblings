@@ -7,8 +7,10 @@ import { colors } from '@/constants/colors';
 import Dropdown from '@/components/common/Dropdown';
 import CorrectionTable from '@/components/Wage/CorrectionTable';
 import { getApprovedStatusLabel, getWorkTypeLabel } from '@/utils/labelUtils';
+import { approvedStatusOption, correctionTypeOptionAll } from '@/constants/options';
 
 const Correction = () => {
+	const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 	const [correctionType, setCorrectionType] = useState('');
 	const [approvedStatus, setApprovedStatus] = useState('');
 	const navigate = useNavigate();
@@ -33,30 +35,30 @@ const Correction = () => {
 			/>
 			<div className="dropdown-container border">
 				<Dropdown
+					id="correctionType"
+					openDropdownId={openDropdownId}
+					setOpenDropdownId={setOpenDropdownId}
 					defaultLabel="근무정정 유형"
-					options={[
-						{ value: '대타근무', label: '대타근무' },
-						{ value: '특별근무', label: '특별근무' },
-						{ value: '휴가', label: '휴가' },
-						{ value: '조퇴', label: '조퇴' },
-					]}
+					options={correctionTypeOptionAll}
 					selectedOption={getWorkTypeLabel(correctionType)}
 					onSelect={setCorrectionType}
 					className="small-dropdown correction"
 				/>
 				<Dropdown
+					id="ApprovedStatus"
+					openDropdownId={openDropdownId}
+					setOpenDropdownId={setOpenDropdownId}
 					defaultLabel="승인상태"
-					options={[
-						{ value: '대기', label: '대기' },
-						{ value: '승인', label: '승인' },
-						{ value: '반려', label: '반려' },
-					]}
+					options={approvedStatusOption}
 					selectedOption={getApprovedStatusLabel(approvedStatus)}
 					onSelect={setApprovedStatus}
 					className="small-dropdown approved"
 				/>
 			</div>
-			<CorrectionTable approvedFilter={approvedStatus} typeFilter={correctionType} />
+			<CorrectionTable
+				approvedFilter={approvedStatus === 'all' ? '' : approvedStatus}
+				typeFilter={correctionType === 'all' ? '' : correctionType}
+			/>
 		</Container>
 	);
 };

@@ -1,35 +1,23 @@
-// TODO: 목데이터로 적용중, 추후 파이어베이스로 변경 예정
-// import getCorrection from '@/api/work/getCorrection';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import ApprovedStatusBadge from './ApprovedStatusBadge';
 import { useNavigate } from 'react-router-dom';
-import mockData from '@/data/correctionMockData.json';
+import getCorrection from '@/api/work/getCorrection';
 import { getApprovedStatusLabel, getWorkTypeLabel } from '@/utils/labelUtils';
 import Button from '../common/Button/Button';
 
-// TODO: 추후 타입 좁힐 예정임.
-// type TApproveStatus = 'pending' | 'approved' | 'rejected';
-// type TType = 'cover' | 'special' | 'vacation' | 'early';
-// type TWorkingTimes = 'open' | 'middle' | 'close';
-
-// interface ICorrectionItem {
-// 	approveStatus: TApproveStatus;
-// 	description: string;
-// 	reqDate: string;
-// 	type: TType;
-// 	workDate: string;
-// 	workingTimes: TWorkingTimes;
-// }
+type TApproveStatus = 'pending' | 'approved' | 'rejected';
+type TType = 'cover' | 'special' | 'vacation' | 'early';
+type TWorkingTimes = 'open' | 'middle' | 'close';
 
 interface ICorrectionItem {
-	approveStatus: string;
+	approveStatus: TApproveStatus | string;
 	description: string;
 	reqDate: string;
-	type: string;
+	type: TType | string;
 	workDate: string;
-	workingTimes: string;
+	workingTimes: TWorkingTimes | string;
 }
 
 interface ICorrectionTableProps {
@@ -53,9 +41,8 @@ export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTable
 	};
 
 	const fetchCorrection = async () => {
-		// TODO: 목데이터로 적용중, 추후 파이어베이스로 변경 예정
-		// const data = await getCorrection();
-		const filteredCorrections = mockData.workCorrections
+		const data = await getCorrection();
+		const filteredCorrections = data.workCorrections
 			.filter((correction) => {
 				return (
 					(!approvedFilter ||
@@ -67,7 +54,9 @@ export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTable
 				...correction,
 				reqDate: formatDate(correction.reqDate),
 				workDate: formatDate(correction.workDate),
-			}));
+			}))
+			// 추가: 요청 날짜 기준으로 정렬
+			.sort((a, b) => new Date(b.reqDate).getTime() - new Date(a.reqDate).getTime());
 
 		setCorrections(filteredCorrections);
 	};
