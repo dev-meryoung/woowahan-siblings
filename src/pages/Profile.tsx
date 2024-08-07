@@ -1,20 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserInfo, clearUserInfo } from '@/stores/userInfoSlice';
 import { AppDispatch, RootState } from '@/stores/store';
+import { useEffect, Suspense } from 'react';
+import { clearUserInfo } from '@/stores/userInfoSlice';
+import ProfileMenu from '@/components/Profile/ProfileMenu';
+import Loading from '@/components/Loading';
+import UserProfileWrapper from '@/components/Profile/UserProfileWrapper';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import ProfileMenu from '@/components/Profile/ProfileMenu';
 import UserProfile from '@/components/Profile/UserProfile';
 import UnderlineTextButton from '@/components/common/Button/UnderlineTextButton';
 import logout from '@/api/auth/logout';
 
+
 const Profile = () => {
 	const navigate = useNavigate();
 	const dispatch: AppDispatch = useDispatch();
-	const { name, workPlace, workingSets, error } = useSelector(
-		(state: RootState) => state.userInfo,
-	);
+
+	const { error } = useSelector((state: RootState) => state.userInfo);
+
 
 	const logoutBtnHandler = async () => {
 		const isLogoutSuccess = await logout();
@@ -23,8 +27,6 @@ const Profile = () => {
 	};
 
 	useEffect(() => {
-		dispatch(fetchUserInfo());
-
 		return () => {
 			dispatch(clearUserInfo());
 		};
@@ -35,17 +37,13 @@ const Profile = () => {
 			{error ? (
 				<div>{error}</div>
 			) : (
-				<>
-					<UserProfile
-						workPlace={workPlace || ''}
-						name={name || ''}
-						workTime={workingSets || { times: [], weeks: [] }}
-					/>
-					<ProfileMenu />
-					<UTButtonWrapper>
-						<UnderlineTextButton label="로그아웃" onClick={logoutBtnHandler} />
-					</UTButtonWrapper>
-				</>
+<Suspense fallback={<Loading />}>
+          <UserProfileWrapper />
+          <ProfileMenu />
+          <UTButtonWrapper>
+            <UnderlineTextButton label="로그아웃" onClick={logoutBtnHandler} />
+          </UTButtonWrapper>
+        </Suspense>
 			)}
 		</>
 	);

@@ -1,13 +1,17 @@
-import Calendar from '@/components/common/Calendar/Calendar';
+import Loading from '@/components/Loading';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
+import { Suspense, lazy } from 'react';
+const Calendar = lazy(() => import('@/components/common/Calendar/Calendar'));
 
 const Schedule = () => {
 	return (
-		<Container>
-			<Title>개인근무 일정표</Title>
-			<Calendar isOfficial={false} />
-		</Container>
+		<Suspense fallback={<Loading />}>
+			<Container>
+				<Title>개인근무 일정표</Title>
+				<Calendar isOfficial={false} />
+			</Container>
+		</Suspense>
 	);
 };
 

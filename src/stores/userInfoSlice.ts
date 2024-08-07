@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import getUserInfo from '@/api/user/getUserInfo';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IUserInfo {
 	name: string;
@@ -20,22 +19,17 @@ const initialState: IUserInfoState = {
 	error: null,
 };
 
-export const fetchUserInfo = createAsyncThunk<IUserInfo, void, { rejectValue: string }>(
-	'userInfo/fetchUserInfo',
-	async (_, thunkAPI) => {
-		try {
-			const userInfo = await getUserInfo();
-			return userInfo as IUserInfo;
-		} catch (error: any) {
-			return thunkAPI.rejectWithValue(error.message);
-		}
-	},
-);
-
 const userInfoSlice = createSlice({
 	name: 'userInfo',
 	initialState,
 	reducers: {
+		setUserInfo: (state, action: PayloadAction<IUserInfo>) => {
+			state.name = action.payload.name;
+			state.workPlace = action.payload.workPlace;
+			state.workingSets = action.payload.workingSets;
+			state.loading = false;
+			state.error = null;
+		},
 		clearUserInfo: (state) => {
 			state.name = '';
 			state.workPlace = '';
@@ -44,24 +38,7 @@ const userInfoSlice = createSlice({
 			state.error = null;
 		},
 	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(fetchUserInfo.pending, (state) => {
-				state.loading = true;
-				state.error = null;
-			})
-			.addCase(fetchUserInfo.fulfilled, (state, action: PayloadAction<IUserInfo>) => {
-				state.name = action.payload.name;
-				state.workPlace = action.payload.workPlace;
-				state.workingSets = action.payload.workingSets;
-				state.loading = false;
-			})
-			.addCase(fetchUserInfo.rejected, (state, action: PayloadAction<string | undefined>) => {
-				state.loading = false;
-				state.error = action.payload ?? 'Unknown error';
-			});
-	},
 });
 
-export const { clearUserInfo } = userInfoSlice.actions;
+export const { setUserInfo, clearUserInfo } = userInfoSlice.actions;
 export default userInfoSlice.reducer;
