@@ -1,21 +1,21 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import checkAuth from '@/api/auth/checkAuth';
+import Layout from '@/layout/Layout';
 import Home from '@/pages/Home';
+import Login from '@/pages/Login';
+import Profile from '@/pages/Profile';
 import Schedule from '@/pages/Schedule/Schedule';
 import ScheduleDetail from '@/pages/Schedule/ScheduleDetail';
+import Correction from '@/pages/Wage/Correction/Correction';
+import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
+import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
 import Wage from '@/pages/Wage/Wage';
 import WageCheck from '@/pages/Wage/WageCheck/WageCheck';
 import WageCheckDetail from '@/pages/Wage/WageCheck/WageCheckDetail';
-import Correction from '@/pages/Wage/Correction/Correction';
-import CorrectionDetail from '@/pages/Wage/Correction/CorrectionDetail';
-import Profile from '@/pages/Profile';
-import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
 import GlobalStyles from '@/styles/GlobalStyles';
-import Layout from '@/layout/Layout';
-import Login from '@/pages/Login';
-import UnderConstruction from './pages/UnderConstruction';
-import { NotFoundPage } from './components/NotFound';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { NotFoundPage } from './components/NotFound';
+import UnderConstruction from './pages/UnderConstruction';
 
 export interface IPrivateRouteProps {
 	element: JSX.Element;
