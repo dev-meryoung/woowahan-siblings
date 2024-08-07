@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import getCorrection from '@/api/work/getCorrection';
 import { getApprovedStatusLabel, getWorkTypeLabel } from '@/utils/labelUtils';
 import Button from '../common/Button/Button';
+import { fontSize } from '@/constants/font';
 
 type TApproveStatus = 'pending' | 'approved' | 'rejected';
 type TType = 'cover' | 'special' | 'vacation' | 'early';
@@ -79,22 +80,28 @@ export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTable
 				</tr>
 			</thead>
 			<tbody>
-				{corrections.slice(0, visibleItems).map((correction, index) => {
-					const workLabel = getWorkTypeLabel(correction.type);
-
-					return (
-						<tr key={index} onClick={handleCorrection(index + 1)}>
-							<td>{correction.reqDate}</td>
-							<td>{workLabel}</td>
-							<td>
-								{' '}
-								<ApprovedStatusBadge
-									approvedStatus={correction.approveStatus}
-								></ApprovedStatusBadge>{' '}
-							</td>
-						</tr>
-					);
-				})}
+				{corrections.length === 0 ? (
+					<tr>
+						<td className="no-data" colSpan={3} style={{ textAlign: 'center' }}>
+							데이터가 없습니다.
+						</td>
+					</tr>
+				) : (
+					corrections.slice(0, visibleItems).map((correction, index) => {
+						const workLabel = getWorkTypeLabel(correction.type);
+						return (
+							<tr key={index} onClick={handleCorrection(index + 1)}>
+								<td>{correction.reqDate}</td>
+								<td>{workLabel}</td>
+								<td>
+									<ApprovedStatusBadge
+										approvedStatus={correction.approveStatus}
+									/>
+								</td>
+							</tr>
+						);
+					})
+				)}
 			</tbody>
 
 			{visibleItems < corrections.length && (
@@ -137,6 +144,10 @@ const TableContainer = styled.table`
 			height: 60px;
 			text-align: center;
 			cursor: pointer;
+		}
+		.no-data {
+			padding-top: 100px;
+			font-size: ${fontSize.lg};
 		}
 	}
 
