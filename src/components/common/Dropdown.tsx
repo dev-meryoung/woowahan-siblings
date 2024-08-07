@@ -1,70 +1,93 @@
-// TODO: 하나의 드롭다운만 열리고, 다른 드롭다운을 열면 이전에 열린 드롭다운이 자동 닫히는 기능 만들 예정
-import React, { useState, useCallback } from 'react';
+import { forwardRef, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { ChevronDown } from 'lucide-react';
-
 interface IDropdownProps {
+	id: string;
+	openDropdownId: string | null;
+	setOpenDropdownId: (id: string | null) => void;
+	defaultLabel: string;
 	options: { value: string; label: string; color?: string }[];
 	selectedOption: string;
 	onSelect: (option: string) => void;
 	disabled?: boolean;
 	className?: string;
-	defaultLabel: string;
+	name?: string;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({
-	options,
-	selectedOption,
-	onSelect,
-	disabled,
-	className,
-	defaultLabel,
-}) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const handleToggle = useCallback(() => {
-		if (!disabled) {
-			setIsOpen((prev) => !prev);
-		}
-	}, [disabled]);
-
-	const handleSelect = useCallback(
-		(option: string) => {
-			if (!disabled) {
-				onSelect(option);
-				setIsOpen(false);
-			}
+const Dropdown = forwardRef<HTMLButtonElement, IDropdownProps>(
+	(
+		{
+			id,
+			openDropdownId,
+			selectedOption,
+			defaultLabel,
+			options,
+			setOpenDropdownId,
+			onSelect,
+			disabled,
+			className,
+			name,
 		},
-		[disabled, onSelect],
-	);
+		ref,
+	) => {
+		const isOpen = openDropdownId === id;
+		const handleToggle = useCallback(() => {
+			if (!disabled && setOpenDropdownId && typeof id !== 'undefined') {
+				setOpenDropdownId(isOpen ? null : id);
+			}
+		}, [disabled, id, isOpen, setOpenDropdownId]);
 
-	const selectedOptionData = options.find((opt) => opt.value === selectedOption);
+		const handleSelect = useCallback(
+			(option: string) => {
+				if (!disabled && setOpenDropdownId) {
+					onSelect(option);
+					setOpenDropdownId(null);
+				}
+			},
+			[disabled, onSelect, setOpenDropdownId],
+		);
 
-	return (
-		<DropdownContainer className={className}>
-			<DropdownButton onClick={handleToggle} disabled={disabled} className={className}>
-				<div>
-					{selectedOptionData?.color && <ColorCircle color={selectedOptionData.color} />}
-					{selectedOptionData?.label || <span>{defaultLabel}</span>}
-				</div>
-				<ChevronDown style={{ marginLeft: 'auto', strokeWidth: 1.2 }} />
-			</DropdownButton>
-			{isOpen && (
-				<DropdownMenu>
-					{options.map((option) => (
-						<DropdownItem key={option.value} onClick={() => handleSelect(option.value)}>
-							{option.color && <ColorCircle color={option.color} />}
-							{option.label}
-						</DropdownItem>
-					))}
-				</DropdownMenu>
-			)}
-		</DropdownContainer>
-	);
-};
+		const selectedOptionData = options.find((opt) => opt.value === selectedOption);
+
+		return (
+			<DropdownContainer className={className}>
+				<DropdownButton
+					ref={ref}
+					onClick={handleToggle}
+					disabled={disabled}
+					className={className}
+					name={name}
+				>
+					<div>
+						{selectedOptionData?.color && (
+							<ColorCircle color={selectedOptionData.color} />
+						)}
+						{selectedOptionData?.label || <span>{defaultLabel}</span>}
+					</div>
+					<ChevronDown style={{ marginLeft: 'auto', strokeWidth: 1.2 }} />
+				</DropdownButton>
+				{isOpen && (
+					<DropdownMenu>
+						{options.map((option) => (
+							<DropdownItem
+								key={option.value}
+								onClick={() => handleSelect(option.value)}
+							>
+								{option.color && <ColorCircle color={option.color} />}
+								{option.label}
+							</DropdownItem>
+						))}
+					</DropdownMenu>
+				)}
+			</DropdownContainer>
+		);
+	},
+);
 
 export default Dropdown;
+
+Dropdown.displayName = 'Dropdown';
 
 const DropdownContainer = styled.div`
 	position: relative;
@@ -94,6 +117,7 @@ const DropdownButton = styled.button<{ disabled?: boolean }>`
 `;
 
 const DropdownMenu = styled.ul`
+	z-index: 99;
 	position: absolute;
 	top: 100%;
 	left: 0;
