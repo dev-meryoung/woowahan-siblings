@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/stores/modalSlice';
@@ -9,18 +8,10 @@ import { Plus } from 'lucide-react';
 import getPersonalSchedule from '@/api/schedule/getPersonalSchedule';
 import ScheduleModal from '@/components/SheduleModal/ScheduleModal';
 import IconButton from '@/components/common/Button/IconButton';
-import { colors } from '@/constants/colors';
-import { fontSize, fontWeight } from '@/constants/font';
-import { openModal } from '@/stores/modalSlice';
 import { formatDateWithoutLeadingZeros, sortByWorkType } from '@/utils/dateUtils';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
-import { Plus } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { RootState } from '@/stores/store';
-
 
 export interface ISchedule {
 	userId: string;
