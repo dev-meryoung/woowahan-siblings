@@ -5,7 +5,7 @@ const Loading = () => {
 	return (
 		<Container>
 			<img src={Spinner} alt="Loading..." />
-			<Message>기다려봐!!</Message>
+			<Message>뚜벅뚜벅</Message>
 		</Container>
 	);
 };
@@ -15,7 +15,7 @@ const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
+	height: 100%;
 	text-align: center;
 `;
 

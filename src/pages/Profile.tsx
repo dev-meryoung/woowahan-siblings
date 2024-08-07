@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserInfo, clearUserInfo } from '@/stores/userInfoSlice';
 import { AppDispatch, RootState } from '@/stores/store';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
+import { clearUserInfo } from '@/stores/userInfoSlice';
 import ProfileMenu from '@/components/Profile/ProfileMenu';
-import UserProfile from '@/components/Profile/UserProfile';
+import Loading from '@/components/Loading';
+import UserProfileWrapper from '@/components/Profile/UserProfileWrapper';
 
 const Profile = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const { name, workPlace, workingSets, loading, error } = useSelector(
-		(state: RootState) => state.userInfo,
-	);
+	const { error } = useSelector((state: RootState) => state.userInfo);
 
 	useEffect(() => {
-		dispatch(fetchUserInfo());
-
 		return () => {
 			dispatch(clearUserInfo());
 		};
@@ -24,14 +21,10 @@ const Profile = () => {
 			{error ? (
 				<div>{error}</div>
 			) : (
-				<>
-					<UserProfile
-						workPlace={workPlace || '근무지 없음'}
-						name={name || '미정'}
-						workTime={workingSets || { times: [], weeks: [] }}
-					/>
+				<Suspense fallback={<Loading />}>
+					<UserProfileWrapper />
 					<ProfileMenu />
-				</>
+				</Suspense>
 			)}
 		</>
 	);

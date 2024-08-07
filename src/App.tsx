@@ -15,10 +15,13 @@ import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
 import UnderConstruction from './pages/UnderConstruction';
 import { NotFoundPage } from './components/NotFound';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export interface IPrivateRouteProps {
 	element: JSX.Element;
 }
+
+const queryClient = new QueryClient();
 
 // 로그인한 사용자만 접근할 수 있는 라우팅 페이지를 관리하기 위한 PrivateRoute
 const PrivateRoute = ({ element }: IPrivateRouteProps) => {
@@ -64,7 +67,9 @@ const router = createBrowserRouter([
 const App = () => (
 	<>
 		<GlobalStyles />
-		<RouterProvider router={router} />
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />
+		</QueryClientProvider>
 	</>
 );
 
