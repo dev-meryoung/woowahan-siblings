@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
-import NotFoundImage from '../../public/404_Logo.svg';
+import NotFoundImage from '@/assets/logo_404.svg';
 
 export const NotFoundPage = () => {
 	return (
