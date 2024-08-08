@@ -28,7 +28,7 @@ const Correction = () => {
 						label="근무정정 신청"
 						onClick={handleCorrection}
 						size="small"
-						buttonWidth="110px"
+						buttonWidth="120px"
 					/>
 				}
 				className="title border"
@@ -41,7 +41,7 @@ const Correction = () => {
 					defaultLabel="근무정정 유형"
 					options={correctionTypeOptionAll}
 					selectedOption={getWorkTypeLabel(correctionType)}
-					onSelect={setCorrectionType}
+					onSelect={(value) => setCorrectionType(value === '전체' ? '' : value)}
 					className="small-dropdown correction"
 				/>
 				<Dropdown
@@ -51,7 +51,7 @@ const Correction = () => {
 					defaultLabel="승인상태"
 					options={approvedStatusOption}
 					selectedOption={getApprovedStatusLabel(approvedStatus)}
-					onSelect={setApprovedStatus}
+					onSelect={(value) => setApprovedStatus(value === '전체' ? '' : value)}
 					className="small-dropdown approved"
 				/>
 			</div>
@@ -78,13 +78,13 @@ const Container = styled.div`
 		display: flex;
 		gap: 8px;
 		.small-dropdown.approved {
-			width: 100px;
+			width: 120px;
 		}
 		.small-dropdown.correction {
-			width: 130px;
+			width: 150px;
 		}
 		.small-dropdown {
-			height: 38px;
+			height: 40px;
 		}
 
 		button.small-dropdown {

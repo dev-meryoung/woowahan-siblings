@@ -56,7 +56,6 @@ export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTable
 				reqDate: formatDate(correction.reqDate),
 				workDate: formatDate(correction.workDate),
 			}))
-			// 추가: 요청 날짜 기준으로 정렬
 			.sort((a, b) => new Date(b.reqDate).getTime() - new Date(a.reqDate).getTime());
 
 		setCorrections(filteredCorrections);

@@ -24,8 +24,6 @@ const LayoutContainer = styled.div`
 	width: 100%;
 	max-width: 430px;
 	height: 100%;
-	display: flex;
-	flex-direction: column;
 	position: relative;
 
 	&::before {

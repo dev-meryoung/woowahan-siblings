@@ -26,6 +26,7 @@ const WageTab = () => {
 
 const StyledUl = styled.ul`
 	height: 50px;
+	margin-top: 20px;
 	display: flex;
 	border-bottom: 1px solid ${colors.lightestGray};
 `;
@@ -33,7 +34,7 @@ const StyledUl = styled.ul`
 const StyledLi = styled.li`
 	margin-left: 20px;
 	& + & {
-		margin-left: 10px;
+		margin-left: 12px;
 	}
 `;
 

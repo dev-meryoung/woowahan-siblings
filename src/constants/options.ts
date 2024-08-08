@@ -26,7 +26,7 @@ export const correctionTypeOption = [
 ];
 
 export const correctionTypeOptionAll = [
-	{ value: '', label: '전체' },
+	{ value: '전체', label: '전체' },
 	{ value: '대타근무', label: '대타근무' },
 	{ value: '특별근무', label: '특별근무' },
 	{ value: '휴가', label: '휴가' },
@@ -34,7 +34,7 @@ export const correctionTypeOptionAll = [
 ];
 
 export const approvedStatusOption = [
-	{ value: '', label: '전체' },
+	{ value: '전체', label: '전체' },
 	{ value: '대기', label: '대기' },
 	{ value: '승인', label: '승인' },
 	{ value: '반려', label: '반려' },

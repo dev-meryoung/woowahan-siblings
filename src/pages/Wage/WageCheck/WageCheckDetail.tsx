@@ -1,4 +1,6 @@
-import { fontSize } from '@/constants/font';
+import Title from '@/components/common/Title';
+import { colors } from '@/constants/colors';
+import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
 
@@ -33,97 +35,72 @@ const WageCheckDetail = () => {
 
 	return (
 		<Container>
-			<HeaderWrapper>
-				<Title>급여 상세 내역</Title>
-				<WorkPlaceRow>
-					<WorkValue>강남점</WorkValue>
-				</WorkPlaceRow>
-				<WageRow>
-					<WageLabel>{(item.workingTimes.length * 45135).toLocaleString()}원</WageLabel>
-				</WageRow>
-			</HeaderWrapper>
-			<DetailWrapper>
-				<DetailRow>
-					<Label>근무일</Label>
-					<Value>{formatDate(item.date)}</Value>
-				</DetailRow>
-				<DetailRow>
-					<Label>근무 시간</Label>
-					<Value>{extractWorkingTimes(item.workingTimes)}</Value>
-				</DetailRow>
-				<DetailRow>
-					<Label>휴게 시간</Label>
-					<Value>30분</Value>
-				</DetailRow>
-				<DetailRow>
-					<Label>시급</Label>
-					<Value>{(10030).toLocaleString()}원</Value>
-				</DetailRow>
-			</DetailWrapper>
+			<Title title="급여 상세 내역" className="title" />
+			<div className="header-wrapper">
+				<h3 className="work-place">강남점</h3>
+				<h4 className="day-wage">
+					{(item.workingTimes.length * 45135).toLocaleString()}원
+				</h4>
+			</div>
+			<div className="detail-wrapper">
+				<div className="detail-row">
+					<p className="detail-key">근무일</p>
+					<p className="detail-value">{formatDate(item.date)}</p>
+				</div>
+				<div className="detail-row">
+					<p className="detail-key">근무 시간</p>
+					<p className="detail-value">{extractWorkingTimes(item.workingTimes)}</p>
+				</div>
+				<div className="detail-row">
+					<p className="detail-key">휴게 시간</p>
+					<p className="detail-value">30분</p>
+				</div>
+				<div className="detail-row">
+					<p className="detail-key">시급</p>
+					<p className="detail-value">{(10030).toLocaleString()}원</p>
+				</div>
+			</div>
 		</Container>
 	);
 };
 
 const Container = styled.div`
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-`;
+	.title {
+		padding-top: 20px;
+	}
+	.header-wrapper {
+		padding: 20px 20px 50px;
+		margin-top: 38px;
+		border-bottom: 1px solid ${colors.lightGray};
+		.work-place {
+			margin-bottom: 5px;
+			font-size: ${fontSize.lg};
+			font-weight: ${fontWeight.regular};
+		}
+		.day-wage {
+			font-size: ${fontSize.xxxl};
+			font-weight: ${fontWeight.semiBold};
+		}
+	}
 
-const HeaderWrapper = styled.div`
-	padding: 20px;
-	flex: 0 0 auto;
-`;
+	.detail-wrapper {
+		padding: 22px 20px 0;
+		.detail-row {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 22px;
 
-const DetailWrapper = styled.div`
-	padding: 20px;
-	flex: 1 1 auto;
-`;
+			/* .detail-key {
+				font-size: ${fontSize.lg};
+			}
 
-const Title = styled.h2`
-	font-size: ${fontSize.xxl};
-	margin-bottom: 40px;
-`;
-
-const DetailRow = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-	flex-grow: 1;
-`;
-
-const WageRow = styled.div`
-	padding: 10px 0;
-	font-size: ${fontSize.lg};
-	font-weight: bold;
-`;
-
-const WorkPlaceRow = styled.div`
-	display: flex;
-	justify-content: space-between;
-	padding: 10px 0;
-	font-size: ${fontSize.lg};
-`;
-
-const Label = styled.div`
-	font-weight: 600;
-	font-size: ${fontSize.lg};
-`;
-
-const WageLabel = styled.div`
-	font-weight: 600;
-	font-size: 32px;
-`;
-
-const Value = styled.div`
-	text-align: right;
-	font-weight: bold;
-	font-size: ${fontSize.lg};
-`;
-
-const WorkValue = styled.div`
-	text-align: right;
-	font-weight: bold;
+			.detail-value {
+				text-align: right;
+				font-weight: bold;
+				font-size: ${fontSize.lg};
+			} */
+		}
+	}
 `;
 
 export default WageCheckDetail;
