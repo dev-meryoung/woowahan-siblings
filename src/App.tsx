@@ -13,9 +13,11 @@ import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
 import GlobalStyles from '@/styles/GlobalStyles';
 import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
-import UnderConstruction from './pages/UnderConstruction';
-import { NotFoundPage } from './components/NotFound';
+import UnderConstruction from '@/pages/UnderConstruction';
+import ScrollToTop from '@/components/ScrollToTop';
+import { NotFoundPage } from '@/components/NotFound';
 import { QueryClient, QueryClientProvider } from 'react-query';
+
 export interface IPrivateRouteProps {
 	element: JSX.Element;
 }
@@ -28,6 +30,7 @@ const PrivateRoute = () => {
 const App = () => (
 	<BrowserRouter>
 		<GlobalStyles />
+		<ScrollToTop />
 		<QueryClientProvider client={queryClient}>
 			<Routes>
 				<Route path="/" element={<Layout />}>
