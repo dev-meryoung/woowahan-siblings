@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import LoadingDuck from './loadingDuck';
+import LoadingDuck from './LoadingDuck';
 
 const Loading = () => {
 	return (
