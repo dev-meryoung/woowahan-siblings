@@ -1,13 +1,13 @@
 export const fontSize = {
-	xxxxl: '24px',
-	xxxl: '22px',
-	xxl: '20px',
-	xl: '18px',
-	lg: '16px',
-	md: '14px',
-	sm: '12px',
-	xs: '10px',
-	xxs: '9px',
+	xxxxl: '32px',
+	xxxl: '28px',
+	xxl: '24px',
+	xl: '20px',
+	lg: '18px',
+	md: '16px',
+	sm: '14px',
+	xs: '12px',
+	xxs: '11px',
 };
 
 export const fontWeight = {
