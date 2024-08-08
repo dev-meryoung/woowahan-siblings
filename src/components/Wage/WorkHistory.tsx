@@ -45,7 +45,11 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 	const fetchOfficialWage = async (year: number, month: number) => {
 		try {
 			const data = await getOfficialWage(year, month);
-			setOfficialWage(data.officialWage);
+			const sortedData = data.officialWage.sort(
+				(a, b) =>
+					new globalThis.Date(b.date).getTime() - new globalThis.Date(a.date).getTime(),
+			);
+			setOfficialWage(sortedData);
 		} catch (error) {
 			setError('Failed to fetch wage data');
 		}
