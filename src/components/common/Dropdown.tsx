@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect } from 'react';
+import { forwardRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { ChevronDown } from 'lucide-react';
