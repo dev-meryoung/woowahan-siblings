@@ -85,7 +85,7 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 							label="더보기"
 							onClick={handleLoadMore}
 							size="normal"
-							theme="primary"
+							theme="secondary"
 							buttonWidth="100%"
 						/>
 					)}
