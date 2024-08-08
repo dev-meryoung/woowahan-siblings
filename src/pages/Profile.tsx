@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from '@/stores/store';
 import { useEffect, Suspense } from 'react';
 import { clearUserInfo } from '@/stores/userInfoSlice';
 import ProfileMenu from '@/components/Profile/ProfileMenu';
-import Loading from '@/components/Loading';
+import Loading from '@/components/Loading/Loading';
 import UserProfileWrapper from '@/components/Profile/UserProfileWrapper';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';

@@ -15,7 +15,7 @@ import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
 import UnderConstruction from '@/pages/UnderConstruction';
 import ScrollToTop from '@/components/ScrollToTop';
-import { NotFoundPage } from '@/components/NotFound';
+import NotFoundPage from './pages/NotFoundPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 export interface IPrivateRouteProps {

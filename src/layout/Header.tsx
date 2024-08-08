@@ -51,10 +51,11 @@ const HeaderContainer = styled.header`
 
 const Logo = styled.h1`
 	margin: 0;
+	margin-top: 3px;
 `;
 
 const StyledLink = styled(Link)`
-	height: 23px;
+	height: 34px;
 	display: flex;
 	align-items: center;
 `;

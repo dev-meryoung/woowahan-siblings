@@ -5,6 +5,7 @@ import Button from '@/components/common/Button/Button';
 import { messages } from '@/constants/messages';
 import { colors } from '@/constants/colors';
 import useLogin from '@/hooks/useLogin';
+import { fontSize } from '@/constants/font';
 
 const Login = () => {
 	const {
@@ -20,28 +21,32 @@ const Login = () => {
 
 	return (
 		<Container>
-			<Logo src={logo} alt="logo" />
-			<Input
-				value={id}
-				onChange={inputHandler(setId)}
-				onKeyDown={(e) => {
-					if (id && pw) {
-						inputKeyDownHandler(e);
-					}
-				}}
-				placeholder="아이디"
-			/>
-			<Input
-				type="password"
-				value={pw}
-				onChange={inputHandler(setPw)}
-				onKeyDown={(e) => {
-					if (id && pw) {
-						inputKeyDownHandler(e);
-					}
-				}}
-				placeholder="비밀번호"
-			/>
+			<div className="logo-container">
+				<img src={logo} alt="logo" />
+			</div>
+			<div className="login-container">
+				<Input
+					value={id}
+					onChange={inputHandler(setId)}
+					onKeyDown={(e) => {
+						if (id && pw) {
+							inputKeyDownHandler(e);
+						}
+					}}
+					placeholder="아이디"
+				/>
+				<Input
+					type="password"
+					value={pw}
+					onChange={inputHandler(setPw)}
+					onKeyDown={(e) => {
+						if (id && pw) {
+							inputKeyDownHandler(e);
+						}
+					}}
+					placeholder="비밀번호"
+				/>
+			</div>
 			{isLoginError && <ErrorMassage>{messages.loginErrorMessage}</ErrorMassage>}
 			{!!id && !!pw ? (
 				<Button label="로그인" onClick={loginBtnHandler} />
@@ -58,29 +63,41 @@ const Login = () => {
 };
 
 const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding: 40px;
-	gap: 10px;
+	height: 100vh;
+	padding: 130px 28px 0;
+
+	.logo-container {
+		margin-bottom: 36px;
+		display: flex;
+		justify-content: center;
+		img {
+			width: 260px;
+		}
+	}
+
+	.login-container {
+		Input {
+			margin-bottom: 10px;
+		}
+		Input:nth-of-type(2) {
+			margin-bottom: 0px;
+		}
+	}
 
 	& > Button {
-		margin: 20px 0;
+		margin: 18px 0;
 	}
-`;
-
-const Logo = styled.img`
-	height: 36px;
-	margin: 150px 0 50px 0;
 `;
 
 const ErrorMassage = styled.span`
 	margin-left: 5px;
 	color: ${colors.red};
-	font-weight: bold;
+	font-size: ${fontSize.sm};
 `;
 
 const InfoMassage = styled.span`
 	color: ${colors.gray};
+	font-size: ${fontSize.sm};
 `;
 
 export default Login;

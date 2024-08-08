@@ -1,13 +1,13 @@
 import getOfficialWage from '@/api/work/getOfficialWage';
 import getPersonalWage from '@/api/work/getPersonalWage';
-import Loading from '@/components/Loading';
 import ControlMonth from '@/components/Wage/ControlMonth';
 import SalaryCard from '@/components/Wage/SalaryCard';
 import { Suspense, lazy, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import character1 from '../../../../public/character01.svg';
-import character2 from '../../../../public/character02.svg';
+import Loading from '@/components/Loading/Loading';
+import characterCheese from '@/assets/character_cheese.svg';
+import characterClock from '@/assets/character_clock.svg';
 import { IOfficialWageItem } from '@/components/Wage/WorkHistory';
 
 const WorkHistory = lazy(() => import('@/components/Wage/WorkHistory'));
@@ -72,13 +72,13 @@ const WageCheck = () => {
 					title="개인근무 일정표에 따른 예상 급여액"
 					wagecount={personalWageData?.totalWage || 0}
 					workinghours={personalWageData?.totalWorkHour || 0}
-					iconSrc={character2}
+					iconSrc={characterClock}
 				/>
 				<SalaryCard
 					title="공식 근무 스케줄에 따른 예상 급여액"
 					wagecount={officialWageData?.totalWage || 0}
 					workinghours={officialWageData?.totalWorkHour || 0}
-					iconSrc={character1}
+					iconSrc={characterCheese}
 				/>
 				<WorkHistory year={year} month={month} onClick={handleItemClick} />
 			</Suspense>

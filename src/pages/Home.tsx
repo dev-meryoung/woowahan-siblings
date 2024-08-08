@@ -1,34 +1,20 @@
-import Loading from '@/components/Loading';
-import { fontSize } from '@/constants/font';
+import SummaryInfoCard from '@/components/Home/SummaryInfoCard';
+import Calendar from '@/components/common/Calendar/Calendar';
+import Title from '@/components/common/Title';
 import styled from '@emotion/styled';
-import { Suspense, lazy } from 'react';
-
-const SummaryInfoCard = lazy(() => import('@/components/Home/SummaryInfoCard'));
-const Calendar = lazy(() => import('@/components/common/Calendar/Calendar'));
 
 const Home = () => {
 	return (
-		<Suspense fallback={<Loading />}>
-			<Container>
-				<SummaryInfoCard />
-				<Title>공식 근무 스케줄</Title>
-				<Calendar isOfficial={true} />
-			</Container>
-		</Suspense>
+		<Container>
+			<SummaryInfoCard />
+			<Title title="공식 근무 스케줄" className="title" />
+			<Calendar isOfficial={true} />
+		</Container>
 	);
 };
 
 export default Home;
 
 const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
 	padding-bottom: 60px;
-`;
-
-const Title = styled.span`
-	font-size: ${fontSize.xl};
-	padding: 0 20px;
-	font-weight: 600;
 `;

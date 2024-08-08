@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import getOfficialWage from '@/api/work/getOfficialWage';
 import { colors } from '@/constants/colors';
-import { fontSize } from '@/constants/font';
-import HomeCharacter from '/character01.svg';
+import { fontSize, fontWeight } from '@/constants/font';
+import characterCheese from '@/assets/character_cheese.svg';
 import styled from '@emotion/styled';
 
 const SummaryInfoCard = () => {
@@ -33,17 +33,17 @@ const SummaryInfoCard = () => {
 		<SummaryCard>
 			<SummaryCardContainer>
 				<FirstSection>
-					<span>
+					<p>
 						공식 근무 스케줄 | {year}년 {monthString}월
-					</span>
-					<span>근무 시간 | {totalWorkHour}시간</span>
+					</p>
+					<p>근무 시간 | {totalWorkHour}시간</p>
 				</FirstSection>
 				<SecondSection>
-					<span>예상 급여액</span>
-					<span>{totalWage.toLocaleString()}원</span>
+					<p>예상 급여액</p>
+					<p>{totalWage.toLocaleString()}원</p>
 				</SecondSection>
 			</SummaryCardContainer>
-			<img src={HomeCharacter} width="95" height="104" alt="캐릭터이미지" />
+			<img src={characterCheese} alt="치즈캐릭터" />
 		</SummaryCard>
 	);
 };
@@ -51,36 +51,42 @@ const SummaryInfoCard = () => {
 export default SummaryInfoCard;
 
 const SummaryCard = styled.div`
+	margin: 20px 20px 40px;
+	padding: 16px;
+	height: 150px;
 	display: flex;
 	justify-content: space-between;
-	padding: 16px;
 	border-radius: 8px;
-	margin: 20px;
 	color: ${colors.white};
 	background-color: ${colors.primaryYellow};
+
+	img {
+		height: 100%;
+	}
 `;
 
 const SummaryCardContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	justify-content: space-between;
+	/*gap: 24px; */
 `;
 
 const FirstSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	font-weight: 600;
-	font-size: ${fontSize.md};
+	/* display: flex;
+	flex-direction: column; */
+	font-weight: ${fontWeight.semiBold};
+	font-size: ${fontSize.sm};
 `;
 
 const SecondSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	font-weight: 700;
-	span:nth-of-type(1) {
+	/* display: flex;
+	flex-direction: column; */
+	font-weight: ${fontWeight.bold};
+	/* div:nth-of-type(1) {
 		font-size: ${fontSize.md};
-	}
-	span:nth-of-type(2) {
+	} */
+	p:nth-of-type(2) {
 		font-size: ${fontSize.xxl};
 	}
 `;

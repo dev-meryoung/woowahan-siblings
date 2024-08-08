@@ -4,13 +4,12 @@ import { colors } from '@/constants/colors';
 const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
-	padding: 10px;
+	gap: 10px;
 	width: 100%;
 `;
 
 const CancelButton = styled.button`
-	height: 44px;
-	margin: 5px;
+	height: 50px;
 	padding: 10px;
 	border: none;
 	border-radius: 8px;
@@ -20,12 +19,10 @@ const CancelButton = styled.button`
 	flex: 1;
 	font-size: 16px;
 	font-weight: 600;
-	max-width: 33%;
 `;
 
 const SaveButton = styled.button`
-	height: 44px;
-	margin: 5px 5px 5px 2px;
+	height: 50px;
 	padding: 10px;
 	border: none;
 	border-radius: 8px;
@@ -35,12 +32,10 @@ const SaveButton = styled.button`
 	flex: 2;
 	font-size: 16px;
 	font-weight: 600;
-	max-width: 66%;
 `;
 
 const DeleteButton = styled.button`
-	height: 44px;
-	margin: 5px;
+	height: 50px;
 	padding: 10px;
 	border: none;
 	border-radius: 8px;
@@ -50,7 +45,6 @@ const DeleteButton = styled.button`
 	flex: 1;
 	font-size: 16px;
 	font-weight: 600;
-	max-width: 33%;
 `;
 
 const ModalFooterComponent = ({

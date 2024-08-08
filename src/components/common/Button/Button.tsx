@@ -34,7 +34,7 @@ const Button: FC<IButtonProps> = ({
 
 const ButtonComponent = styled.button<{ size: string; theme: string; buttonWidth: string }>`
 	width: ${(props) => props.buttonWidth};
-	height: ${(props) => (props.size === 'small' ? '30px' : '44px')};
+	height: ${(props) => (props.size === 'small' ? '40px' : '50px')};
 	padding: ${(props) => (props.size === 'small' ? '8px' : '12px')};
 	background-color: ${(props) =>
 		props.theme === 'primary' ? colors.primaryYellow : colors.lightestGray};
