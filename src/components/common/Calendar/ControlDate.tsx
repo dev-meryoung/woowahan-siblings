@@ -24,7 +24,7 @@ const ControlDate: FC<IControlDateProps> = ({ nowDate, setNowDate }) => {
 
 	return (
 		<Container>
-			<span>{formatDate(nowDate)}</span>
+			<div className="month-txt">{formatDate(nowDate)}</div>
 			<ButtonContainer>
 				<IconButton
 					IconComponent={ChevronLeft}
@@ -49,7 +49,7 @@ const Container = styled.div`
 	align-items: center;
 	padding: 0 20px;
 
-	span {
+	.month-txt {
 		font-size: ${fontSize.lg};
 	}
 `;
