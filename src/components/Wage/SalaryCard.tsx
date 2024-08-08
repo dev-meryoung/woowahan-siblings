@@ -1,3 +1,4 @@
+import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 
 interface ISalaryCardProps {
@@ -10,56 +11,59 @@ interface ISalaryCardProps {
 const SalaryCard = ({ title, wagecount, workinghours, iconSrc }: ISalaryCardProps) => {
 	return (
 		<Card>
-			<TextContainer>
+			<div className="text-container">
 				<Title>{title}</Title>
 				<WageCount>{wagecount.toLocaleString()}원</WageCount>
 				<WorkingHours>근무시간 | {workinghours}시간</WorkingHours>
-			</TextContainer>
+			</div>
 			<IconContainer>{iconSrc && <img src={iconSrc} alt="icon" />}</IconContainer>
 		</Card>
 	);
 };
 
 const Card = styled.div`
-	display: flex;
 	background-color: #ffc700;
 	border-radius: 10px;
 	padding: 20px;
+	height: 140px;
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	margin: 10px 20px;
 	color: white;
-`;
 
-const TextContainer = styled.div`
-	display: flex;
-	flex-direction: column;
+	.text-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	@media (min-width: 400px) {
+		height: 150px;
+	}
 `;
 
 const Title = styled.div`
-	font-size: 14px;
-	font-weight: bold;
+	font-weight: ${fontWeight.bold};
+	width: 155px;
 `;
 
 const WageCount = styled.div`
-	font-size: 24px;
-	font-weight: bold;
-	margin-top: 5px;
+	font-size: ${fontSize.xxl};
+	font-weight: ${fontWeight.bold};
 `;
 
 const WorkingHours = styled.div`
-	font-size: 12px;
-	margin-top: 5px;
+	font-size: ${fontSize.sm};
 `;
 
 const IconContainer = styled.div`
-	width: 84px;
-	height: 84px;
-
+	text-align: center;
+	width: 102px;
 	img {
-		width: 100%;
 		height: 100%;
+	}
+
+	@media (min-width: 400px) {
+		width: 120px;
 	}
 `;
 

@@ -130,7 +130,7 @@ const DropdownMenu = styled.ul`
 `;
 
 const DropdownItem = styled.li`
-	padding: 12px;
+	padding: 10px 12px;
 	margin: 4px;
 	border-radius: 8px;
 	cursor: pointer;
