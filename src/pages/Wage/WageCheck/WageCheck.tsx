@@ -1,12 +1,14 @@
+import getOfficialWage from '@/api/work/getOfficialWage';
+import getPersonalWage from '@/api/work/getPersonalWage';
+import Loading from '@/components/Loading';
 import ControlMonth from '@/components/Wage/ControlMonth';
 import SalaryCard from '@/components/Wage/SalaryCard';
 import { Suspense, lazy, useState } from 'react';
 import { useQuery } from 'react-query';
-import getOfficialWage from '@/api/work/getOfficialWage';
-import getPersonalWage from '@/api/work/getPersonalWage';
-import Loading from '@/components/Loading';
+import { useNavigate } from 'react-router-dom';
 import character1 from '../../../../public/character01.svg';
 import character2 from '../../../../public/character02.svg';
+import { IOfficialWageItem } from '@/components/Wage/WorkHistory';
 
 const WorkHistory = lazy(() => import('@/components/Wage/WorkHistory'));
 
@@ -23,6 +25,7 @@ const fetchOfficialWage = async (year: number, month: number) => {
 const WageCheck = () => {
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [month, setMonth] = useState(new Date().getMonth() + 1);
+	const navigate = useNavigate();
 
 	const { data: personalWageData, error: personalWageError } = useQuery(
 		['personalWage', year, month],
@@ -57,6 +60,10 @@ const WageCheck = () => {
 		);
 	}
 
+	const handleItemClick = (item: IOfficialWageItem) => {
+		navigate(`/wage/check/detail`, { state: { item } });
+	};
+
 	return (
 		<>
 			<ControlMonth onMonthChange={handleMonthChange} />
@@ -73,7 +80,7 @@ const WageCheck = () => {
 					workinghours={officialWageData?.totalWorkHour || 0}
 					iconSrc={character1}
 				/>
-				<WorkHistory year={year} month={month} />
+				<WorkHistory year={year} month={month} onClick={handleItemClick} />
 			</Suspense>
 		</>
 	);

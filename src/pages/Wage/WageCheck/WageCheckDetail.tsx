@@ -1,29 +1,34 @@
-import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
-import workHistoryData from '@/data/workHistoryData';
-import { Timestamp } from 'firebase/firestore';
 import { fontSize } from '@/constants/font';
+import styled from '@emotion/styled';
+import { useLocation } from 'react-router-dom';
 
 const WageCheckDetail = () => {
-	const { id } = useParams<{ id: string }>();
+	const location = useLocation();
+	const { item } = location.state || {};
 
-	if (id === undefined) {
+	if (!item) {
 		return <Container>잘못된 접근입니다.</Container>;
 	}
 
-	const item = workHistoryData[parseInt(id, 10)];
-
-	if (!item) {
-		return <Container>해당 항목을 찾을 수 없습니다.</Container>;
-	}
-
-	const formatDate = (timestamp: Timestamp) => {
-		const date = timestamp.toDate();
+	const formatDate = (timestamp: string) => {
+		const date = new Date(timestamp);
 		return `${date.getFullYear()}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
 	};
 
-	const extractWorkingTimes = (workingTimes: string) => {
-		return workingTimes.split('|')[0].trim();
+	const extractWorkingTimes = (workingTimes: string | string[]) => {
+		const time = Array.isArray(workingTimes)
+			? workingTimes[0].split('|')[0].trim()
+			: workingTimes.split('|')[0].trim();
+		switch (time) {
+			case 'open':
+				return '오픈';
+			case 'middle':
+				return '미들';
+			case 'close':
+				return '마감';
+			default:
+				return time;
+		}
 	};
 
 	return (
@@ -31,10 +36,10 @@ const WageCheckDetail = () => {
 			<HeaderWrapper>
 				<Title>급여 상세 내역</Title>
 				<WorkPlaceRow>
-					<WorkValue>{item.workPlace}</WorkValue>
+					<WorkValue>강남점</WorkValue>
 				</WorkPlaceRow>
 				<WageRow>
-					<WageLabel>{item.amount.toLocaleString()}원</WageLabel>
+					<WageLabel>{(item.workingTimes.length * 45135).toLocaleString()}원</WageLabel>
 				</WageRow>
 			</HeaderWrapper>
 			<DetailWrapper>
@@ -52,7 +57,7 @@ const WageCheckDetail = () => {
 				</DetailRow>
 				<DetailRow>
 					<Label>시급</Label>
-					<Value>{(item.amount / 4.5).toLocaleString()}원</Value>
+					<Value>{(10030).toLocaleString()}원</Value>
 				</DetailRow>
 			</DetailWrapper>
 		</Container>
@@ -104,6 +109,7 @@ const Label = styled.div`
 	font-weight: 600;
 	font-size: ${fontSize.lg};
 `;
+
 const WageLabel = styled.div`
 	font-weight: 600;
 	font-size: 32px;
@@ -114,6 +120,7 @@ const Value = styled.div`
 	font-weight: bold;
 	font-size: ${fontSize.lg};
 `;
+
 const WorkValue = styled.div`
 	text-align: right;
 	font-weight: bold;

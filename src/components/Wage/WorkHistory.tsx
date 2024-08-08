@@ -4,7 +4,6 @@ import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const formatDate = (dateString: string) => {
 	const [, month, day] = dateString.split('-').map(Number);
@@ -28,19 +27,19 @@ const formatWorkingTimes = (workingTimes: string | string[]) => {
 interface IWorkHistoryProps {
 	year: number;
 	month: number;
+	onClick: (item: IOfficialWageItem) => void;
 }
 
-interface IOfficialWageItem {
+export interface IOfficialWageItem {
 	date: string;
 	workingTimes: string | string[];
 	isSub: boolean;
 }
 
-const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
+const WorkHistory = ({ year, month, onClick }: IWorkHistoryProps) => {
 	const [visibleItems, setVisibleItems] = useState(8);
 	const [officialWage, setOfficialWage] = useState<IOfficialWageItem[]>([]);
 	const [error, setError] = useState<string | null>(null);
-	const navigate = useNavigate();
 
 	const fetchOfficialWage = async (year: number, month: number) => {
 		try {
@@ -59,10 +58,6 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 		setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
 	};
 
-	const handleItemClick = (index: number) => {
-		navigate(`/wage/check/${index}`);
-	};
-
 	useEffect(() => {
 		fetchOfficialWage(year, month);
 	}, [year, month]);
@@ -75,7 +70,7 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 			) : (
 				<>
 					{officialWage.slice(0, visibleItems).map((item, index: number) => (
-						<HistoryItem key={index} onClick={() => handleItemClick(index)}>
+						<HistoryItem key={index} onClick={() => onClick(item)}>
 							<Date>{formatDate(item.date)}</Date>
 							<Details>
 								<div>강남점</div>
