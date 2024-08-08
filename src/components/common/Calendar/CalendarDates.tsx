@@ -1,58 +1,109 @@
-import { mockdata, IMockDate } from '@/data/mockdata';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Timestamp } from 'firebase/firestore';
 import { colors } from '@/constants/colors';
+import { formatDateWithLeadingZeros, getDayType, sortByWorkType } from '@/utils/dateUtils';
+import { IScheduleProps } from '@/hooks/useSchedules';
 import CalendarBadge from '@/components/common/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
-import { FC } from 'react';
 
-export interface ICalendarDatesProps {
-	date: Date;
+interface ICalendarDatesProps {
+	date: Timestamp;
 	isOfficial: boolean;
+	schedules: IScheduleProps[];
+	currentMonth: number;
+	currentYear: number;
 }
 
-const CalendarDates: FC<ICalendarDatesProps> = ({ date, isOfficial }) => {
-	// 날짜별 데이터 필터링
-	const filterdDate = (date: Date, isOfficial: boolean) => {
-		return mockdata
-			.filter(
-				(item) =>
-					new Date(item.workDate).toDateString() === date.toDateString() &&
-					item.isOfficial === isOfficial,
-			)
-			.sort(sortByWorkType);
+const CalendarDates: FC<ICalendarDatesProps> = ({
+	date,
+	isOfficial,
+	schedules,
+	currentYear,
+	currentMonth,
+}) => {
+	const navigate = useNavigate();
+
+	const formattedDate = formatDateWithLeadingZeros(date);
+
+	const filteredSchedules = schedules
+		.filter((schedule) => schedule.date === formattedDate)
+		.sort(sortByWorkType)
+		.map((schedule) => ({
+			...schedule,
+			workingTimes: [...schedule.workingTimes].sort((a, b) => {
+				const order = ['open', 'middle', 'close'];
+				return order.indexOf(a) - order.indexOf(b);
+			}),
+		}));
+
+	const handleDateClick = () => {
+		if (isCurrentMonth && !isOfficial) {
+			const dateString = formatDateWithLeadingZeros(date);
+			navigate(`/schedule/${dateString}`);
+		}
 	};
 
-	const isWeekend = (date: Date) => {
-		const day = date.getDay();
-		return day === 0 || day === 6;
-	};
-
-	const workTypeOrder = ['open', 'middle', 'close'];
-	const sortByWorkType = (a: IMockDate, b: IMockDate) => {
-		return workTypeOrder.indexOf(a.workType) - workTypeOrder.indexOf(b.workType);
-	};
+	const isCurrentMonth =
+		date.toDate().getMonth() === currentMonth && date.toDate().getFullYear() === currentYear;
 
 	return (
-		<div>
-			<DayContainer isWeekend={isWeekend(date)}>{date.getDate()}</DayContainer>
-			<DateListContainer>
-				{filterdDate(date, isOfficial).map(
-					(data, index) =>
-						index < 3 && (
-							<CalendarBadge
-								key={data.userId}
-								workType={data.workType as 'open' | 'middle' | 'close'}
-							/>
-						),
-				)}
-			</DateListContainer>
-		</div>
+		<DatesContainer
+			isOfficial={isOfficial}
+			clickable={isCurrentMonth && !isOfficial}
+			onClick={() => {
+				handleDateClick();
+			}}
+		>
+			<DayContainer dayType={getDayType(date)} isCurrentMonth={isCurrentMonth}>
+				{date.toDate().getDate()}
+			</DayContainer>
+			{filteredSchedules.map((data) => (
+				<DateListContainer key={data.date}>
+					{data.workingTimes.map((workingTime, index) => (
+						<CalendarBadge
+							key={`${data.date}-${workingTime}-${index}`}
+							workingTime={workingTime}
+						/>
+					))}
+				</DateListContainer>
+			))}
+		</DatesContainer>
 	);
 };
 
 export default CalendarDates;
 
-const DayContainer = styled.span<{ isWeekend: boolean }>`
-	color: ${(props) => (props.isWeekend ? colors.gray : colors.black)};
+const DatesContainer = styled.div<{
+	isOfficial: boolean;
+	clickable: boolean;
+}>`
+	cursor: ${({ clickable }) => (clickable ? 'pointer' : 'default')};
+	${({ clickable }) =>
+		clickable &&
+		`
+        &:hover {
+            background-color: ${colors.lightestGray};
+        }
+    `}
+`;
+
+const DayContainer = styled.span<{
+	dayType: 'weekday' | 'saturday' | 'sunday';
+	isCurrentMonth: boolean;
+}>`
+	color: ${({ dayType, isCurrentMonth }) => {
+		if (!isCurrentMonth) return colors.lightGray;
+
+		switch (dayType) {
+			case 'sunday':
+				return colors.red;
+			case 'saturday':
+				return colors.blue;
+			default:
+				return colors.black;
+		}
+	}};
 `;
 
 const DateListContainer = styled.ul`

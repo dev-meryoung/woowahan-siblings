@@ -6,13 +6,14 @@ import styled from '@emotion/styled';
 import { FC } from 'react';
 
 export interface ICalendarBadgeProps {
-	workType: 'open' | 'middle' | 'close';
+	workingTime: string;
 }
 
-const CalendarBadge: FC<ICalendarBadgeProps> = ({ workType }) => {
-	const Badge = BadgeContainer[workType];
+const CalendarBadge: FC<ICalendarBadgeProps> = ({ workingTime }) => {
+	const Badge =
+		BadgeContainer[workingTime as keyof typeof BadgeContainer] || BadgeContainer.default;
 
-	const workTypeLabels = {
+	const workTypeLabels: { [key: string]: string } = {
 		open: '오픈',
 		middle: '미들',
 		close: '마감',
@@ -21,7 +22,7 @@ const CalendarBadge: FC<ICalendarBadgeProps> = ({ workType }) => {
 	return (
 		<Badge>
 			<Clock4 size={14} />
-			{workTypeLabels[workType]}
+			{workTypeLabels[workingTime] || workingTime}
 		</Badge>
 	);
 };
@@ -36,6 +37,7 @@ const BaseBadge = styled.li`
 	padding: 2px 4px;
 	font-size: ${fontSize.sm};
 `;
+
 const BadgeContainer = {
 	open: styled(BaseBadge)`
 		background-color: ${badgeColors.primaryYellow};

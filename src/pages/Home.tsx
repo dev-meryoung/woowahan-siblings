@@ -1,15 +1,20 @@
-import SummaryInfoCard from '@/components/Home/SummaryInfoCard';
-import Calendar from '@/components/common/Calendar/Calendar';
+import Loading from '@/components/Loading';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
+import { Suspense, lazy } from 'react';
+
+const SummaryInfoCard = lazy(() => import('@/components/Home/SummaryInfoCard'));
+const Calendar = lazy(() => import('@/components/common/Calendar/Calendar'));
 
 const Home = () => {
 	return (
-		<Container>
-			<SummaryInfoCard />
-			<Title>공식 근무 스케줄</Title>
-			<Calendar isOfficial={true} />
-		</Container>
+		<Suspense fallback={<Loading />}>
+			<Container>
+				<SummaryInfoCard />
+				<Title>공식 근무 스케줄</Title>
+				<Calendar isOfficial={true} />
+			</Container>
+		</Suspense>
 	);
 };
 

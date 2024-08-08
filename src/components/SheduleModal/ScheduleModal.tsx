@@ -2,14 +2,16 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/stores/store';
 import { closeModal, openModal } from '@/stores/modalSlice';
-import { addSchedule, deleteSchedule, scheduleData, updateSchedule } from '@/data/mockdata';
 import ModalOverlay from '@/components/common/Modal/ModalOverlay';
 import ModalFormComponent from '@/components/SheduleModal/ScheduleModalForm';
 import ModalFooterComponent from '@/components/SheduleModal/ScheduleModalFooter';
 import ModalContent from '@/components/common/Modal/ModalContent';
 import ModalHeaderComponent from '@/components/common/Modal/ModalHeader';
-
-type ModalContentType = 'add' | 'edit' | 'view' | null;
+import createPersonalSchedule from '@/api/schedule/createPersonalSchedule';
+import updatePersonalSchedule from '@/api/schedule/updatePersonalSchedule';
+import deletePersonalSchedule from '@/api/schedule/deletePersonalSchedule';
+import { fetchSchedules } from '@/stores/scheduleSlice';
+import { AppDispatch } from '@/stores/store';
 
 interface ISchedule {
 	userId: string;
@@ -17,120 +19,203 @@ interface ISchedule {
 	wage: string;
 	workTime: string;
 	breakTime: string;
-	memo: string;
+	memos: string[];
 }
+const DEFAULT_WAGE = '10,030원';
+const WORK_TIME_OPTIONS = [
+	'선택',
+	'오픈 (07:00~12:00)',
+	'미들 (12:00~17:00)',
+	'마감 (17:00~22:00)',
+];
 
-const ScheduleModal: React.FC = () => {
-	const dispatch = useDispatch();
-	const { isOpen, content } = useSelector(
-		(state: RootState) => state.modal as { isOpen: boolean; content: ModalContentType },
+const DEFAULT_WORK_TIME = WORK_TIME_OPTIONS[0];
+const DEFAULT_BREAK_TIME = '30분';
+
+type TWorkingTimes = 'open' | 'middle' | 'close';
+
+const validateFields = (fields: { [key: string]: string }) => {
+	const errors: { [key: string]: boolean } = {};
+	Object.keys(fields).forEach((key) => {
+		if (!fields[key] || (key === 'workTime' && fields[key] === DEFAULT_WORK_TIME)) {
+			errors[key] = true;
+		}
+	});
+	return errors;
+};
+
+const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISchedule | null }> = ({
+	schedules = [],
+	selectedSchedule,
+}) => {
+	const dispatch = useDispatch<AppDispatch>();
+	const { isOpen, content } = useSelector((state: RootState) => state.modal);
+	const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+	const defaultMemo = useMemo(
+		() => (schedules.length > 0 && schedules[0].memos.length > 0 ? schedules[0].memos[0] : ''),
+		[schedules],
 	);
 
-	const today = useMemo(() => new Date().toISOString().split('T')[0], []);
-	const defaultWage = useMemo(() => scheduleData[0].wage, []);
-	const defaultWorkTime = '';
-	const defaultMemo = '';
-
 	const [workDate, setWorkDate] = useState(today);
-	const [wage, setWage] = useState(defaultWage);
-	const [workTime, setWorkTime] = useState(defaultWorkTime);
-	const [breakTime, setBreakTime] = useState('30분');
+	const [wage, setWage] = useState(DEFAULT_WAGE);
+	const [workTime, setWorkTime] = useState(DEFAULT_WORK_TIME);
+	const [breakTime, setBreakTime] = useState(DEFAULT_BREAK_TIME);
 	const [memo, setMemo] = useState(defaultMemo);
 	const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
-	const resetForm = useCallback(() => {
-		setWorkDate(today);
-		setWage(defaultWage);
-		setWorkTime(defaultWorkTime);
-		setBreakTime('30분');
-		setMemo(defaultMemo);
-		setErrors({});
-	}, [today, defaultWage, defaultWorkTime, defaultMemo]);
+	const resetForm = useCallback(
+		(schedule: ISchedule | null = null) => {
+			if (schedule) {
+				const formattedDate = new Date(schedule.workDate).toISOString().split('T')[0];
+				setWorkDate(formattedDate);
+			} else {
+				const formattedDate = new Date(today).toISOString().split('T')[0];
+				setWorkDate(formattedDate);
+			}
+			setWage(DEFAULT_WAGE);
+			setWorkTime(DEFAULT_WORK_TIME);
+			setBreakTime(DEFAULT_BREAK_TIME);
+			setMemo('');
+			setErrors({});
+		},
+		[today],
+	);
 
 	const setFormValues = useCallback((schedule: ISchedule) => {
-		setWorkDate(schedule.workDate);
-		setWage(schedule.wage);
+		const formattedDate = new Date(schedule.workDate).toISOString().split('T')[0];
+		setWorkDate(formattedDate);
+		setWage(DEFAULT_WAGE);
 		setWorkTime(schedule.workTime);
-		setBreakTime(schedule.breakTime);
-		setMemo(schedule.memo);
+		setBreakTime(DEFAULT_BREAK_TIME);
+		setMemo(schedule.memos[0]);
 		setErrors({});
 	}, []);
 
 	useEffect(() => {
-		if (content === 'add') {
-			resetForm();
-		} else if (content === 'edit' || content === 'view') {
-			const schedule = scheduleData.find((s) => s.userId === '1'); // userId를 실제 값으로 변경 필요
-			if (schedule) {
-				setFormValues(schedule);
+		if (!isOpen || content === 'add' || content === 'edit') {
+			dispatch(
+				fetchSchedules({
+					year: new Date().getFullYear(),
+					month: new Date().getMonth() + 1,
+					isOfficial: false,
+				}),
+			);
+		}
+	}, [isOpen, content, dispatch]);
+
+	useEffect(() => {
+		if (isOpen) {
+			if (content === 'add' && schedules.length > 0) {
+				resetForm(schedules[0]);
+				setTimeout(() => setWorkTime(DEFAULT_WORK_TIME), 0);
+			} else if (selectedSchedule) {
+				setFormValues(selectedSchedule);
 			}
 		}
-	}, [content, resetForm, setFormValues]);
+	}, [isOpen, content, selectedSchedule, resetForm, setFormValues, schedules]);
 
 	const handleOverlayClick = useCallback(
 		(e: React.MouseEvent) => {
 			if (e.target === e.currentTarget) {
 				dispatch(closeModal());
+				resetForm();
 			}
 		},
-		[dispatch],
+		[dispatch, resetForm],
 	);
 
-	const isFieldDisabled = useCallback(
-		(field: string): boolean => {
-			if (content === 'view') return true;
-			if (content === 'add' || content === 'edit') {
-				if (field === 'workTime' || field === 'memo') return false;
-			}
-			return true;
-		},
-		[content],
-	);
+	const isFieldDisabled = useCallback((): boolean => content === 'view', [content]);
 
-	const validateFields = useCallback(() => {
-		const newErrors: { [key: string]: boolean } = {};
-		if (!workDate) newErrors.workDate = true;
-		if (!wage) newErrors.wage = true;
-		if (!workTime) newErrors.workTime = true;
-		if (!breakTime) newErrors.breakTime = true;
-		if (!memo) newErrors.memo = true;
+	const convertWorkTimeForFirestore = (workTime: string): TWorkingTimes => {
+		switch (workTime) {
+			case '오픈 (07:00~12:00)':
+				return 'open';
+			case '미들 (12:00~17:00)':
+				return 'middle';
+			case '마감 (17:00~22:00)':
+				return 'close';
+			default:
+				throw new Error('Invalid work time');
+		}
+	};
+
+	const handleSave = useCallback(async () => {
+		const fields = { workDate, wage, workTime, breakTime, memo };
+		const newErrors = validateFields(fields);
 		setErrors(newErrors);
 
-		const errorFields = Object.keys(newErrors);
-		if (errorFields.length > 0) {
-			const firstErrorElement = document.querySelector(`.${errorFields[0]}`) as
-				| HTMLInputElement
-				| HTMLTextAreaElement;
-			firstErrorElement?.focus();
-		}
-
-		return errorFields.length === 0;
-	}, [workDate, wage, workTime, breakTime, memo]);
-
-	const handleSave = useCallback(() => {
-		if (validateFields()) {
-			if (content === 'edit') {
-				updateSchedule('1', { workDate, wage, workTime, breakTime, memo });
-			} else {
-				addSchedule({ workDate, wage, workTime, breakTime, memo });
-			}
-			dispatch(closeModal());
-		}
-	}, [validateFields, content, workDate, wage, workTime, breakTime, memo, dispatch]);
-
-	const handleDelete = useCallback(() => {
-		const scheduleIndex = scheduleData.findIndex((s) => s.userId === '1'); // userId를 실제 값으로 변경 필요
-		if (scheduleIndex !== -1) {
-			deleteSchedule(scheduleData[scheduleIndex].userId);
-			dispatch(closeModal());
-			const nextSchedule = scheduleData[scheduleIndex + 1] || scheduleData[scheduleIndex - 1];
-			if (nextSchedule) {
-				setFormValues(nextSchedule);
-			} else {
+		if (Object.keys(newErrors).length === 0) {
+			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
+			const success = await createPersonalSchedule(workDate, workingTime, memo);
+			if (success) {
+				dispatch(
+					fetchSchedules({
+						year: new Date(workDate).getFullYear(),
+						month: new Date(workDate).getMonth() + 1,
+						isOfficial: false,
+					}),
+				);
 				dispatch(closeModal());
+				resetForm();
+			} else {
+				console.error('Failed to create personal schedule');
 			}
 		}
-	}, [dispatch, setFormValues]);
+	}, [workDate, wage, workTime, breakTime, memo, dispatch, resetForm]);
+
+	const handleUpdate = useCallback(async () => {
+		const fields = { workDate, wage, workTime, breakTime, memo };
+		const newErrors = validateFields(fields);
+		setErrors(newErrors);
+
+		if (Object.keys(newErrors).length === 0) {
+			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
+			const oldWorkingTime: TWorkingTimes = schedules[0].workTime as TWorkingTimes;
+			const success = await updatePersonalSchedule(
+				workDate,
+				oldWorkingTime,
+				workingTime,
+				memo,
+			);
+			if (success) {
+				dispatch(
+					fetchSchedules({
+						year: new Date(workDate).getFullYear(),
+						month: new Date(workDate).getMonth() + 1,
+						isOfficial: false,
+					}),
+				);
+				dispatch(closeModal());
+				resetForm();
+			} else {
+				console.error('Failed to update personal schedule');
+			}
+		}
+	}, [workDate, wage, workTime, breakTime, memo, schedules, dispatch, resetForm]);
+
+	const handleDelete = useCallback(async () => {
+		const fields = { workDate, workTime };
+		const newErrors = validateFields(fields);
+		setErrors(newErrors);
+
+		if (Object.keys(newErrors).length === 0) {
+			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
+			const success = await deletePersonalSchedule(workDate, workingTime);
+			if (success) {
+				dispatch(
+					fetchSchedules({
+						year: new Date(workDate).getFullYear(),
+						month: new Date(workDate).getMonth() + 1,
+						isOfficial: false,
+					}),
+				);
+				dispatch(closeModal());
+				resetForm();
+			} else {
+				console.error('Failed to delete personal schedule');
+			}
+		}
+	}, [workDate, workTime, dispatch, resetForm]);
 
 	const handleEdit = useCallback(() => {
 		dispatch(openModal('edit'));
@@ -149,28 +234,16 @@ const ScheduleModal: React.FC = () => {
 		}
 	}, [content]);
 
-	const getFormattedWorkTime = useCallback((workTime: string) => {
-		if (workTime === 'open') {
-			return '오픈 (07:00~12:00)';
-		} else if (workTime === 'middle') {
-			return '미들 (12:00~17:00)';
-		} else if (workTime === 'close') {
-			return '마감 (17:00~22:00)';
-		} else {
-			return workTime;
-		}
-	}, []);
-
 	if (!isOpen) return null;
 
 	return (
 		<ModalOverlay onClick={handleOverlayClick}>
-			<ModalContent onClick={(e) => e.stopPropagation()}>
+			<ModalContent>
 				<ModalHeaderComponent title={getTitle()} />
 				<ModalFormComponent
 					workDate={workDate}
 					wage={wage}
-					workTime={getFormattedWorkTime(workTime)}
+					workTime={workTime}
 					breakTime={breakTime}
 					memo={memo}
 					isFieldDisabled={isFieldDisabled}
@@ -186,9 +259,8 @@ const ScheduleModal: React.FC = () => {
 					content={content}
 					handleDelete={handleDelete}
 					handleEdit={handleEdit}
-					handleSave={handleSave}
+					handleSave={content === 'edit' ? handleUpdate : handleSave}
 					closeModal={() => {
-						setErrors({});
 						dispatch(closeModal());
 					}}
 				/>

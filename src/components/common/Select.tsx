@@ -1,21 +1,25 @@
-import { forwardRef, useCallback, useEffect } from 'react';
+import { ChangeEvent, forwardRef, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { ChevronDown } from 'lucide-react';
-interface IDropdownProps {
+
+type TType = 'cover' | 'special' | 'vacation' | 'early';
+type TWorkingTimes = 'open' | 'middle' | 'close';
+
+interface ISelectProps {
 	id: string;
 	openDropdownId: string | null;
 	setOpenDropdownId: (id: string | null) => void;
 	defaultLabel: string;
 	options: { value: string; label: string; color?: string }[];
-	selectedOption: string;
-	onSelect: (option: string) => void;
+	selectedOption: string | TType | TWorkingTimes;
+	onSelect: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 	disabled?: boolean;
 	className?: string;
 	name?: string;
 }
 
-const Dropdown = forwardRef<HTMLButtonElement, IDropdownProps>(
+const Select = forwardRef<HTMLButtonElement, ISelectProps>(
 	(
 		{
 			id,
@@ -25,47 +29,59 @@ const Dropdown = forwardRef<HTMLButtonElement, IDropdownProps>(
 			options,
 			setOpenDropdownId,
 			onSelect,
-			disabled,
 			className,
 			name,
 		},
 		ref,
 	) => {
 		const isOpen = openDropdownId === id;
+
 		const handleToggle = useCallback(() => {
-			if (!disabled && setOpenDropdownId && typeof id !== 'undefined') {
+			if (setOpenDropdownId && typeof id !== 'undefined') {
 				setOpenDropdownId(isOpen ? null : id);
 			}
-		}, [disabled, id, isOpen, setOpenDropdownId]);
+		}, [id, isOpen, setOpenDropdownId]);
 
 		const handleSelect = useCallback(
-			(option: string) => {
-				if (!disabled && setOpenDropdownId) {
-					onSelect(option);
+			(value: string) => {
+				if (setOpenDropdownId) {
+					const pseudoEvent = {
+						target: {
+							name,
+							value,
+						},
+					} as ChangeEvent<HTMLInputElement>;
+					onSelect(pseudoEvent);
 					setOpenDropdownId(null);
 				}
 			},
-			[disabled, onSelect, setOpenDropdownId],
+			[onSelect, setOpenDropdownId, name],
 		);
 
 		const selectedOptionData = options.find((opt) => opt.value === selectedOption);
 
+		useEffect(() => {
+			if (isOpen) {
+				if (ref && typeof ref !== 'function' && ref.current) {
+					ref.current.focus();
+				}
+			}
+		}, [isOpen, ref]);
+
 		return (
 			<DropdownContainer className={className}>
-				<DropdownButton
-					ref={ref}
-					onClick={handleToggle}
-					disabled={disabled}
-					className={className}
-					name={name}
-				>
+				<DropdownButton ref={ref} onClick={handleToggle} className={className} name={name}>
 					<div>
 						{selectedOptionData?.color && (
 							<ColorCircle color={selectedOptionData.color} />
 						)}
-						{selectedOptionData?.label || <span>{defaultLabel}</span>}
+						{selectedOptionData?.label ? (
+							<span>{selectedOptionData.label}</span>
+						) : (
+							<span>{defaultLabel}</span>
+						)}
 					</div>
-					<ChevronDown style={{ marginLeft: 'auto', strokeWidth: 1.2 }} />
+					<ChevronDown />
 				</DropdownButton>
 				{isOpen && (
 					<DropdownMenu>
@@ -85,9 +101,9 @@ const Dropdown = forwardRef<HTMLButtonElement, IDropdownProps>(
 	},
 );
 
-export default Dropdown;
+export default Select;
 
-Dropdown.displayName = 'Dropdown';
+Select.displayName = 'Select';
 
 const DropdownContainer = styled.div`
 	position: relative;
@@ -110,6 +126,10 @@ const DropdownButton = styled.button<{ disabled?: boolean }>`
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+
+	&:focus {
+		border: 1px solid ${colors.primaryYellow};
+	}
 
 	&.error {
 		border: 1px solid ${colors.red};

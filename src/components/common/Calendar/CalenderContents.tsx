@@ -1,12 +1,14 @@
+import { FC } from 'react';
+import { Timestamp } from 'firebase/firestore';
 import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
 import CalendarDates from '@/components/common/Calendar/CalendarDates';
 import monthList from '@/utils/getMonthList';
 import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import useSchedules from '@/hooks/useSchedules';
 
 export interface ICalenderDateProps {
-	nowDate: Date;
+	nowDate: Timestamp;
 	isOfficial: boolean;
 }
 
@@ -14,13 +16,25 @@ const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
 	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 	const calendarDates = monthList(nowDate);
 
+	const currentDate = nowDate.toDate();
+	const currentYear = currentDate.getFullYear();
+	const currentMonth = currentDate.getMonth();
+	const schedules = useSchedules(currentYear, currentMonth + 1, isOfficial);
+
 	return (
 		<Container>
 			{weeks.map((week) => (
 				<CalendarWeek key={week} weekName={week} />
 			))}
-			{calendarDates.map((date: Date) => (
-				<CalendarDates key={date.toDateString()} date={date} isOfficial={isOfficial} />
+			{calendarDates.map((date: Timestamp) => (
+				<CalendarDates
+					key={date.toMillis().toString()}
+					date={date}
+					currentYear={currentYear}
+					currentMonth={currentMonth}
+					isOfficial={isOfficial}
+					schedules={schedules}
+				/>
 			))}
 		</Container>
 	);

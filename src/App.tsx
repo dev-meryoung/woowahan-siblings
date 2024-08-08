@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import checkAuth from '@/api/auth/checkAuth';
 import Home from '@/pages/Home';
 import Schedule from '@/pages/Schedule/Schedule';
@@ -13,57 +13,50 @@ import CorrectionRequest from '@/pages/Wage/Correction/CorrectionRequest';
 import GlobalStyles from '@/styles/GlobalStyles';
 import Layout from '@/layout/Layout';
 import Login from '@/pages/Login';
-import UnderConstruction from './pages/UnderConstruction';
+import UnderConstruction from '@/pages/UnderConstruction';
+import ScrollToTop from '@/components/ScrollToTop';
+import { NotFoundPage } from '@/components/NotFound';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export interface IPrivateRouteProps {
 	element: JSX.Element;
 }
+const queryClient = new QueryClient();
 
-// 로그인한 사용자만 접근할 수 있는 라우팅 페이지를 관리하기 위한 PrivateRoute
-const PrivateRoute = ({ element }: IPrivateRouteProps) => {
-	return checkAuth() ? element : <Navigate to="/login" replace />;
+const PrivateRoute = () => {
+	return checkAuth() ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <Layout />,
-		children: [
-			{ index: true, element: <PrivateRoute element={<Home />} /> },
-			{ path: 'schedule', element: <PrivateRoute element={<Schedule />} /> },
-			{ path: 'schedule/:id', element: <PrivateRoute element={<ScheduleDetail />} /> },
-			{
-				path: 'wage',
-				element: <PrivateRoute element={<Wage />} />,
-				children: [
-					{ path: 'check', element: <PrivateRoute element={<WageCheck />} /> },
-					{ path: 'correction', element: <PrivateRoute element={<Correction />} /> },
-				],
-			},
-			{ path: 'wage/check/:id', element: <PrivateRoute element={<WageCheckDetail />} /> },
-			{
-				path: 'wage/correction/create',
-				element: <PrivateRoute element={<CorrectionRequest />} />,
-			},
-			{
-				path: 'wage/correction/:id',
-				element: <PrivateRoute element={<CorrectionDetail />} />,
-			},
-			{ path: 'profile', element: <PrivateRoute element={<Profile />} /> },
-			{ path: 'login', element: <Login /> },
-			{ path: 'guide', element: <UnderConstruction /> },
-			{ path: 'customer-service', element: <UnderConstruction /> },
-			{ path: 'notification-settings', element: <UnderConstruction /> },
-			{ path: 'settings', element: <UnderConstruction /> },
-		],
-	},
-]);
-
 const App = () => (
-	<>
+	<BrowserRouter>
 		<GlobalStyles />
-		<RouterProvider router={router} />
-	</>
+		<ScrollToTop />
+		<QueryClientProvider client={queryClient}>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route element={<PrivateRoute />}>
+						<Route index element={<Home />} />
+						<Route path="schedule" element={<Schedule />} />
+						<Route path="schedule/:date" element={<ScheduleDetail />} />
+						<Route path="wage" element={<Wage />}>
+							<Route path="check" element={<WageCheck />} />
+							<Route path="correction" element={<Correction />} />
+						</Route>
+						<Route path="wage/check/:id" element={<WageCheckDetail />} />
+						<Route path="wage/correction/create" element={<CorrectionRequest />} />
+						<Route path="wage/correction/:id" element={<CorrectionDetail />} />
+						<Route path="profile" element={<Profile />} />
+						<Route path="guide" element={<UnderConstruction />} />
+						<Route path="customer-service" element={<UnderConstruction />} />
+						<Route path="notification-settings" element={<UnderConstruction />} />
+						<Route path="settings" element={<UnderConstruction />} />
+					</Route>
+					<Route path="login" element={<Login />} />
+				</Route>
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+		</QueryClientProvider>
+	</BrowserRouter>
 );
 
 export default App;
