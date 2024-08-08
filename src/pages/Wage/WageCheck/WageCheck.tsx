@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import getOfficialWage from '@/api/work/getOfficialWage';
 import getPersonalWage from '@/api/work/getPersonalWage';
 import Loading from '@/components/Loading';
+import character1 from '../../../../public/character01.svg';
+import character2 from '../../../../public/character02.svg';
 
 const WorkHistory = lazy(() => import('@/components/Wage/WorkHistory'));
 
@@ -63,11 +65,13 @@ const WageCheck = () => {
 					title="개인근무 일정표에 따른 예상 급여액"
 					wagecount={personalWageData?.totalWage || 0}
 					workinghours={personalWageData?.totalWorkHour || 0}
+					iconSrc={character2}
 				/>
 				<SalaryCard
 					title="공식 근무 스케줄에 따른 예상 급여액"
 					wagecount={officialWageData?.totalWage || 0}
 					workinghours={officialWageData?.totalWorkHour || 0}
+					iconSrc={character1}
 				/>
 				<WorkHistory year={year} month={month} />
 			</Suspense>

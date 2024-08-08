@@ -45,7 +45,11 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 	const fetchOfficialWage = async (year: number, month: number) => {
 		try {
 			const data = await getOfficialWage(year, month);
-			setOfficialWage(data.officialWage);
+			const sortedData = data.officialWage.sort(
+				(a, b) =>
+					new globalThis.Date(b.date).getTime() - new globalThis.Date(a.date).getTime(),
+			);
+			setOfficialWage(sortedData);
 		} catch (error) {
 			setError('Failed to fetch wage data');
 		}
@@ -85,7 +89,7 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 							label="더보기"
 							onClick={handleLoadMore}
 							size="normal"
-							theme="primary"
+							theme="secondary"
 							buttonWidth="100%"
 						/>
 					)}
@@ -127,6 +131,8 @@ const Date = styled.div`
 	font-size: ${fontSize.lg};
 	font-weight: bold;
 	color: #8b95a1;
+	width: 60px;
+	text-align: center;
 `;
 
 const Details = styled.div`
