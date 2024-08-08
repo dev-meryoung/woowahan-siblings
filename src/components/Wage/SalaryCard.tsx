@@ -4,9 +4,10 @@ interface ISalaryCardProps {
 	title: string;
 	wagecount: number;
 	workinghours: number;
+	iconSrc?: string;
 }
 
-const SalaryCard = ({ title, wagecount, workinghours }: ISalaryCardProps) => {
+const SalaryCard = ({ title, wagecount, workinghours, iconSrc }: ISalaryCardProps) => {
 	return (
 		<Card>
 			<TextContainer>
@@ -14,7 +15,7 @@ const SalaryCard = ({ title, wagecount, workinghours }: ISalaryCardProps) => {
 				<WageCount>{wagecount.toLocaleString()}원</WageCount>
 				<WorkingHours>근무시간 | {workinghours}시간</WorkingHours>
 			</TextContainer>
-			<IconContainer>{/* TODO 일러스트 추가*/}</IconContainer>
+			<IconContainer>{iconSrc && <img src={iconSrc} alt="icon" />}</IconContainer>
 		</Card>
 	);
 };
@@ -53,7 +54,13 @@ const WorkingHours = styled.div`
 `;
 
 const IconContainer = styled.div`
-	font-size: 48px;
+	width: 84px;
+	height: 84px;
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
 `;
 
 export default SalaryCard;
