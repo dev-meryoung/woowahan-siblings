@@ -1,11 +1,12 @@
+import { colors } from '@/constants/colors';
 import Spinner from '../../public/XOsX.gif';
 import styled from '@emotion/styled';
 
 const Loading = () => {
 	return (
 		<Container>
-			<img src={Spinner} alt="Loading..." />
-			<Message>뚜벅뚜벅</Message>
+			<StyledImg src={Spinner} alt="Loading..." />
+			<Message>로딩중 ...</Message>
 		</Container>
 	);
 };
@@ -19,9 +20,15 @@ const Container = styled.div`
 	text-align: center;
 `;
 
+const StyledImg = styled.img`
+	width: 240px;
+	height: 240px;
+`;
+
 const Message = styled.h1`
-	font-size: 24px;
-	margin-top: 16px;
+	font-size: 18px;
+	margin-top: 60px;
+	/* color: ${colors.primaryYellow}; */
 `;
 
 export default Loading;
