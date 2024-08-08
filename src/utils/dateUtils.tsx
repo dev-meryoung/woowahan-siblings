@@ -22,8 +22,8 @@ export const getDayType = (timestamp: Timestamp): 'weekday' | 'saturday' | 'sund
 export const sortByWorkType = (a: ISchedule, b: ISchedule) => {
 	const workTypeOrder = ['open', 'middle', 'close'];
 
-	const aWorkType = a.workTime || '';
-	const bWorkType = b.workTime || '';
+	const aWorkType = a.workTime[0] || '';
+	const bWorkType = b.workTime[0] || '';
 
 	return workTypeOrder.indexOf(aWorkType) - workTypeOrder.indexOf(bWorkType);
 };

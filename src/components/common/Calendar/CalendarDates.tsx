@@ -25,9 +25,17 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 	const navigate = useNavigate();
 
 	const formattedDate = formatDateWithLeadingZeros(date);
+
 	const filteredSchedules = schedules
 		.filter((schedule) => schedule.date === formattedDate)
-		.sort(sortByWorkType);
+		.sort(sortByWorkType)
+		.map((schedule) => ({
+			...schedule,
+			workingTimes: [...schedule.workingTimes].sort((a, b) => {
+				const order = ['open', 'middle', 'close'];
+				return order.indexOf(a) - order.indexOf(b);
+			}),
+		}));
 
 	const handleDateClick = () => {
 		if (isCurrentMonth && !isOfficial) {
@@ -50,14 +58,16 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 			<DayContainer dayType={getDayType(date)} isCurrentMonth={isCurrentMonth}>
 				{date.toDate().getDate()}
 			</DayContainer>
-			<DateListContainer>
-				{filteredSchedules.map((data) => (
-					<CalendarBadge
-						key={`${data.date}-${data.workingTimes}`}
-						workingTimes={data.workingTimes}
-					/>
-				))}
-			</DateListContainer>
+			{filteredSchedules.map((data) => (
+				<DateListContainer key={data.date}>
+					{data.workingTimes.map((workingTime, index) => (
+						<CalendarBadge
+							key={`${data.date}-${workingTime}-${index}`}
+							workingTime={workingTime}
+						/>
+					))}
+				</DateListContainer>
+			))}
 		</DatesContainer>
 	);
 };
