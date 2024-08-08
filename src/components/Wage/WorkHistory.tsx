@@ -127,6 +127,8 @@ const Date = styled.div`
 	font-size: ${fontSize.lg};
 	font-weight: bold;
 	color: #8b95a1;
+	width: 60px;
+	text-align: center;
 `;
 
 const Details = styled.div`
