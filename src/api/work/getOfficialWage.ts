@@ -19,7 +19,7 @@ const getOfficialWage = async (year: number, month: number) => {
 	const officialWageArray = docData.map((obj) => {
 		const date = new Date(obj.date.seconds * 1000);
 		const newObj = {
-			date: `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`,
+			date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
 			workingTimes: obj.workingTimes,
 			isSub: obj.isSub,
 		};
