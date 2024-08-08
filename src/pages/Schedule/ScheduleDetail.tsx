@@ -133,7 +133,11 @@ const ScheduleDetail = () => {
 				<span>일정 추가</span>
 			</AddBtn>
 			<div></div>
-			<ScheduleModal schedules={schedules} selectedSchedule={selectedSchedule} />
+			<ScheduleModal
+				schedules={schedules}
+				selectedSchedule={selectedSchedule}
+				formattedDate={formattedDate}
+			/>
 		</Container>
 	);
 };

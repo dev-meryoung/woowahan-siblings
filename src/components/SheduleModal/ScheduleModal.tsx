@@ -44,11 +44,13 @@ const validateFields = (fields: { [key: string]: string }) => {
 	return errors;
 };
 
-const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISchedule | null }> = ({
-	schedules = [],
-	selectedSchedule,
-}) => {
+const ScheduleModal: React.FC<{
+	schedules: ISchedule[];
+	selectedSchedule: ISchedule | null;
+	formattedDate: string;
+}> = ({ schedules = [], selectedSchedule, formattedDate }) => {
 	const dispatch = useDispatch<AppDispatch>();
+
 	const { isOpen, content } = useSelector((state: RootState) => state.modal);
 	const today = useMemo(() => new Date().toISOString().split('T')[0], []);
 	const defaultMemo = useMemo(
@@ -56,7 +58,23 @@ const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISched
 		[schedules],
 	);
 
-	const [workDate, setWorkDate] = useState(today);
+	const convertDateToServerFormat = (date: string): string => {
+		if (date.includes('년') || date.includes('월') || date.includes('일')) {
+			const parts = date
+				.split(/년|월|일/)
+				.map((part) => part.trim())
+				.filter(Boolean);
+			if (parts.length !== 3) {
+				throw new Error(`Invalid date format: ${date}`);
+			}
+			const [year, month, day] = parts;
+			return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+		} else {
+			return date;
+		}
+	};
+
+	const [workDate, setWorkDate] = useState(convertDateToServerFormat(formattedDate) || today);
 	const [wage, setWage] = useState(DEFAULT_WAGE);
 	const [workTime, setWorkTime] = useState(DEFAULT_WORK_TIME);
 	const [breakTime, setBreakTime] = useState(DEFAULT_BREAK_TIME);
@@ -146,12 +164,13 @@ const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISched
 
 		if (Object.keys(newErrors).length === 0) {
 			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
-			const success = await createPersonalSchedule(workDate, workingTime, memo);
+			const serverFormattedDate = convertDateToServerFormat(workDate);
+			const success = await createPersonalSchedule(serverFormattedDate, workingTime, memo);
 			if (success) {
 				dispatch(
 					fetchSchedules({
-						year: new Date(workDate).getFullYear(),
-						month: new Date(workDate).getMonth() + 1,
+						year: new Date(serverFormattedDate).getFullYear(),
+						month: new Date(serverFormattedDate).getMonth() + 1,
 						isOfficial: false,
 					}),
 				);
@@ -170,9 +189,10 @@ const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISched
 
 		if (Object.keys(newErrors).length === 0) {
 			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
+			const serverFormattedDate = convertDateToServerFormat(workDate);
 			const oldWorkingTime: TWorkingTimes = schedules[0].workTime as TWorkingTimes;
 			const success = await updatePersonalSchedule(
-				workDate,
+				serverFormattedDate,
 				oldWorkingTime,
 				workingTime,
 				memo,
@@ -180,8 +200,8 @@ const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISched
 			if (success) {
 				dispatch(
 					fetchSchedules({
-						year: new Date(workDate).getFullYear(),
-						month: new Date(workDate).getMonth() + 1,
+						year: new Date(serverFormattedDate).getFullYear(),
+						month: new Date(serverFormattedDate).getMonth() + 1,
 						isOfficial: false,
 					}),
 				);
@@ -200,12 +220,13 @@ const ScheduleModal: React.FC<{ schedules: ISchedule[]; selectedSchedule: ISched
 
 		if (Object.keys(newErrors).length === 0) {
 			const workingTime: TWorkingTimes = convertWorkTimeForFirestore(workTime);
-			const success = await deletePersonalSchedule(workDate, workingTime);
+			const serverFormattedDate = convertDateToServerFormat(workDate);
+			const success = await deletePersonalSchedule(serverFormattedDate, workingTime);
 			if (success) {
 				dispatch(
 					fetchSchedules({
-						year: new Date(workDate).getFullYear(),
-						month: new Date(workDate).getMonth() + 1,
+						year: new Date(serverFormattedDate).getFullYear(),
+						month: new Date(serverFormattedDate).getMonth() + 1,
 						isOfficial: false,
 					}),
 				);
