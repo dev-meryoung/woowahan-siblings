@@ -46,7 +46,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
 
 const InputComponent = styled.input<IInputProps>`
 	width: ${(props) => props.inputWidth};
-	height: 44px;
+	height: 50px;
 	padding: 12px;
 	border: 1px solid ${colors.lightGray};
 	border-radius: 8px;

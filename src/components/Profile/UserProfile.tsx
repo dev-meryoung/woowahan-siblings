@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { fontSize, fontWeight } from '@/constants/font';
+import profileImage from '@/assets/profile_image.svg';
 
 interface IUserProfileProps {
 	name: string;
@@ -32,7 +33,9 @@ const UserProfile = ({ name, workPlace, workTime }: IUserProfileProps) => {
 	return (
 		<ProfileContainer>
 			<Header>
-				<Avatar />
+				<Avatar>
+					<img src={profileImage} alt="기본이미지" />
+				</Avatar>
 				<UserInfo>
 					<UserName>{name}</UserName>
 					<UserWorkPlace>{workPlace} 근무</UserWorkPlace>
@@ -47,21 +50,26 @@ const UserProfile = ({ name, workPlace, workTime }: IUserProfileProps) => {
 };
 
 const ProfileContainer = styled.div`
-	padding: 20px;
+	padding: 30px 20px 0px;
 `;
 
 const Header = styled.div`
 	display: flex;
 	align-items: center;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 `;
 
 const Avatar = styled.div`
-	width: 60px;
-	height: 60px;
+	width: 68px;
+	height: 68px;
 	border-radius: 50%;
-	background-color: #f2f3f6;
+	background-color: ${colors.lightestGray};
 	margin-right: 20px;
+	overflow: hidden;
+
+	img {
+		width: 100%;
+	}
 `;
 
 const UserInfo = styled.div`
@@ -70,35 +78,35 @@ const UserInfo = styled.div`
 `;
 
 const UserName = styled.div`
-	font-size: ${fontSize.xxxxl};
+	font-size: ${fontSize.xl};
 	font-weight: ${fontWeight.bold};
 `;
 
 const UserWorkPlace = styled.div`
-	padding: 5px 10px;
+	padding: 4px 10px;
 	border-radius: 5px;
-	margin-top: 5px;
+	margin-top: px;
 	background-color: ${colors.primaryYellow};
 	color: white;
+	font-size: ${fontSize.sm};
+	font-weight: ${fontWeight.medium};
 `;
 
 const Schedule = styled.div`
 	background-color: ${colors.lightestGray};
-	padding: 20px;
-	border-radius: 5px;
+	padding: 22px 20px;
+	border-radius: 8px;
 	margin-bottom: 20px;
 `;
 
 const ScheduleTitle = styled.div`
-	font-size: ${fontSize.lg};
-	font-weight: ${fontWeight.medium};
 	color: ${colors.gray};
 	margin-bottom: 5px;
 `;
 
 const ScheduleDetails = styled.div`
-	font-size: ${fontSize.xl};
-	font-weight: ${fontWeight.bold};
+	width: 190px;
+	font-weight: ${fontWeight.medium};
 `;
 
 export default UserProfile;

@@ -68,5 +68,6 @@ const StyledIconButton = styled.div<{
 				return colors.gray;
 		}
 	}};
-	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	color: ${(props) => (props.disabled ? 'lightGray' : 'gray')};
+	cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 `;

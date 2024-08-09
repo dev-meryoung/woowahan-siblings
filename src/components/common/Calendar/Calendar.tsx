@@ -22,6 +22,7 @@ const Calendar: FC<ICalendarProps> = ({ isOfficial }) => {
 export default Calendar;
 
 const Container = styled.span`
+	margin-top: 12px;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;

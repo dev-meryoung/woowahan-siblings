@@ -35,7 +35,7 @@ const BaseBadge = styled.li`
 	border-radius: 4px;
 	gap: 4px;
 	padding: 2px 4px;
-	font-size: ${fontSize.sm};
+	font-size: ${fontSize.xs};
 `;
 
 const BadgeContainer = {

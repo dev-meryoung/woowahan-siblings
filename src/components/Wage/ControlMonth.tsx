@@ -79,10 +79,10 @@ const CalendarContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: 20px 20px;
+	margin: 24px 20px;
 `;
 const MonthDisplay = styled.div`
-	font-size: ${fontSize.xxl};
+	font-size: ${fontSize.xl};
 	font-weight: ${fontWeight.bold};
 `;
 export default ControlMonth;

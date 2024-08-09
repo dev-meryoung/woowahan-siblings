@@ -1,11 +1,11 @@
-import Spinner from '../../public/XOsX.gif';
 import styled from '@emotion/styled';
+import LoadingDuck from './LoadingDuck';
 
 const Loading = () => {
 	return (
 		<Container>
-			<img src={Spinner} alt="Loading..." />
-			<Message>뚜벅뚜벅</Message>
+			<LoadingDuck />
+			<Message>로딩중 ...</Message>
 		</Container>
 	);
 };
@@ -20,8 +20,8 @@ const Container = styled.div`
 `;
 
 const Message = styled.h1`
-	font-size: 24px;
-	margin-top: 16px;
+	font-size: 18px;
+	margin-top: 60px;
 `;
 
 export default Loading;

@@ -4,6 +4,7 @@ import { colors } from '@/constants/colors';
 import Input from '@/components/common/Input';
 import Dropdown from '@/components/common/Dropdown';
 import { workTimeOption } from '@/constants/options';
+import { fontSize, fontWeight } from '@/constants/font';
 
 interface IModalFormProps {
 	workDate: string;
@@ -116,43 +117,45 @@ const ModalFormComponent: React.FC<IModalFormProps> = ({
 export default ModalFormComponent;
 
 const AddScheduleForm = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
-	width: 100%;
-	height: 100%;
+	margin-bottom: 20px;
+	@media (min-width: 400px) {
+		margin: 36px 0;
+	}
 `;
 
 const FormGroup = styled.div`
 	margin-bottom: 10px;
-	display: flex;
-	flex-direction: column;
 	width: 100%;
 
 	label {
+		display: block;
 		margin-bottom: 5px;
-		font-size: 12px;
-		font-weight: 300;
+		font-size: ${fontSize.sm};
+		font-weight: ${fontWeight.light};
 		color: ${colors.gray};
 	}
 
-	input,
-	select {
-		padding: 8px;
+	input {
+		padding: 0 12px;
 		border: 1px solid ${colors.lightGray};
 		border-radius: 8px;
-		height: 44px;
+		height: 50px;
 	}
 
 	textarea {
-		padding: 8px;
+		padding: 12px;
 		border: 1px solid ${colors.lightGray};
 		border-radius: 8px;
+	}
+
+	@media (min-width: 400px) {
+		margin-bottom: 20px;
 	}
 `;
 
 const StyledTextarea = styled.textarea`
-	padding: 8px;
+	width: 100%;
+	display: block;
 	border: ${(props) => (props.disabled ? 'none' : `1px solid ${colors.lightGray}`)};
 	border-radius: 8px;
 	resize: none;
@@ -165,10 +168,14 @@ const StyledTextarea = styled.textarea`
 	&.error {
 		border: 1px solid ${colors.red};
 	}
+
+	&:focus {
+		outline: 0;
+		border: 1px solid ${colors.primaryYellow};
+	}
 `;
 
 const StyledInput = styled(Input)`
-	padding: 8px;
 	border: ${(props) => (props.disabled ? 'none' : `1px solid ${colors.lightGray}`)};
 	border-radius: 8px;
 	background-color: ${(props) => (props.disabled ? colors.lightestGray : 'inherit')};

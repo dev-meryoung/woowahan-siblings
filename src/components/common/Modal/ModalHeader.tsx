@@ -30,7 +30,6 @@ const ModalHeader = styled.div`
 	justify-content: space-between;
 	width: 100%;
 	margin-bottom: 20px;
-	padding: 0 10px;
 `;
 
 const HeaderContent = styled.div`

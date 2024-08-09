@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect } from 'react';
+import { forwardRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { ChevronDown } from 'lucide-react';
@@ -95,9 +95,9 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownButton = styled.button<{ disabled?: boolean }>`
-	padding: 8px;
+	padding: 0px 12px;
 	width: 100%;
-	height: 44px;
+	height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -130,7 +130,7 @@ const DropdownMenu = styled.ul`
 `;
 
 const DropdownItem = styled.li`
-	padding: 12px;
+	padding: 10px 12px;
 	margin: 4px;
 	border-radius: 8px;
 	cursor: pointer;

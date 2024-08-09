@@ -12,6 +12,7 @@ import { formatDateWithoutLeadingZeros, sortByWorkType } from '@/utils/dateUtils
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
 import { RootState } from '@/stores/store';
+import Title from '@/components/common/Title';
 
 export interface ISchedule {
 	userId: string;
@@ -106,43 +107,49 @@ const ScheduleDetail = () => {
 
 	return (
 		<Container>
-			<Title>{formattedDate}</Title>
-			{schedules.length > 0 && (
-				<ul>
-					{schedules.map((schedule, index) => (
-						<li
-							className={'schedule-item'}
-							key={index}
-							onClick={() => handleScheduleClick(schedule)}
-						>
-							<InfoContainer>
-								<Color workingTimes={schedule.workTime}></Color>
-								<Info>
-									<span>{error ? error : workingHours(schedule.workTime)}</span>
-									<span>강남점</span>
-								</Info>
-							</InfoContainer>
-							<Hour>4.5 시간</Hour>
-						</li>
-					))}
-				</ul>
-			)}
-
-			<AddBtn onClick={() => dispatch(openModal('add'))}>
-				<IconButton IconComponent={Plus} shape="line" size={24} />
-				<span>일정 추가</span>
-			</AddBtn>
-			<div></div>
-			<ScheduleModal schedules={schedules} selectedSchedule={selectedSchedule} />
+			<Title title={formattedDate} />
+			<SchedulesContainer>
+				{schedules.length > 0 && (
+					<ul>
+						{schedules.map((schedule, index) => (
+							<li
+								className={'schedule-item'}
+								key={index}
+								onClick={() => handleScheduleClick(schedule)}
+							>
+								<InfoContainer>
+									<Color workingTimes={schedule.workTime}></Color>
+									<Info>
+										<span>
+											{error ? error : workingHours(schedule.workTime)}
+										</span>
+										<span>강남점</span>
+									</Info>
+								</InfoContainer>
+								<Hour>4.5 시간</Hour>
+							</li>
+						))}
+					</ul>
+				)}
+				<AddBtn onClick={() => dispatch(openModal('add'))}>
+					<IconButton IconComponent={Plus} shape="line" size={24} />
+					<span>일정 추가</span>
+				</AddBtn>
+				<div></div>
+				<ScheduleModal
+					schedules={schedules}
+					selectedSchedule={selectedSchedule}
+					formattedDate={formattedDate}
+				/>
+			</SchedulesContainer>
 		</Container>
 	);
 };
 
 export default ScheduleDetail;
 
-const Title = styled.span`
-	font-size: ${fontSize.xl};
-	font-weight: 600;
+const Container = styled.div`
+	padding-top: 20px;
 `;
 
 const AddBtn = styled.span`
@@ -156,8 +163,8 @@ const AddBtn = styled.span`
 	}
 `;
 
-const Container = styled.div`
-	padding: 20px;
+const SchedulesContainer = styled.div`
+	padding: 26px 20px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -168,6 +175,10 @@ const Container = styled.div`
 		justify-content: space-between;
 		border-bottom: 1px solid ${colors.lightGray};
 		cursor: pointer;
+	}
+
+	.schedule-item + .schedule-item {
+		padding-top: 10px;
 	}
 `;
 

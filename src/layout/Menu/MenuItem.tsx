@@ -53,6 +53,6 @@ const IconWrapper = styled.div`
 `;
 
 const LinkText = styled.span<{ isActive: boolean }>`
-	font-size: ${fontSize.sm};
+	font-size: ${fontSize.xs};
 	color: ${({ isActive }) => (isActive ? colors.black : colors.gray)};
 `;

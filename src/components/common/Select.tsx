@@ -113,7 +113,7 @@ const DropdownContainer = styled.div`
 const DropdownButton = styled.button<{ disabled?: boolean }>`
 	padding: 8px;
 	width: 100%;
-	height: 44px;
+	height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

@@ -4,7 +4,7 @@ import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Title from '../common/Title';
 
 const formatDate = (dateString: string) => {
 	const [, month, day] = dateString.split('-').map(Number);
@@ -28,24 +28,28 @@ const formatWorkingTimes = (workingTimes: string | string[]) => {
 interface IWorkHistoryProps {
 	year: number;
 	month: number;
+	onClick: (item: IOfficialWageItem) => void;
 }
 
-interface IOfficialWageItem {
+export interface IOfficialWageItem {
 	date: string;
 	workingTimes: string | string[];
 	isSub: boolean;
 }
 
-const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
+const WorkHistory = ({ year, month, onClick }: IWorkHistoryProps) => {
 	const [visibleItems, setVisibleItems] = useState(8);
 	const [officialWage, setOfficialWage] = useState<IOfficialWageItem[]>([]);
 	const [error, setError] = useState<string | null>(null);
-	const navigate = useNavigate();
 
 	const fetchOfficialWage = async (year: number, month: number) => {
 		try {
 			const data = await getOfficialWage(year, month);
-			setOfficialWage(data.officialWage);
+			const sortedData = data.officialWage.sort(
+				(a, b) =>
+					new globalThis.Date(b.date).getTime() - new globalThis.Date(a.date).getTime(),
+			);
+			setOfficialWage(sortedData);
 		} catch (error) {
 			setError('Failed to fetch wage data');
 		}
@@ -55,88 +59,87 @@ const WorkHistory = ({ year, month }: IWorkHistoryProps) => {
 		setVisibleItems((prevVisibleItems) => prevVisibleItems + 5);
 	};
 
-	const handleItemClick = (index: number) => {
-		navigate(`/wage/check/${index}`);
-	};
-
 	useEffect(() => {
 		fetchOfficialWage(year, month);
 	}, [year, month]);
 
 	return (
 		<Container>
-			<Title>급여 내역</Title>
-			{error ? (
-				<div>{error}</div>
-			) : (
-				<>
-					{officialWage.slice(0, visibleItems).map((item, index: number) => (
-						<HistoryItem key={index} onClick={() => handleItemClick(index)}>
-							<Date>{formatDate(item.date)}</Date>
-							<Details>
-								<div>강남점</div>
-								<span>{formatWorkingTimes(item.workingTimes)}</span>
-							</Details>
-							<Amount>{(item.workingTimes.length * 45135).toLocaleString()}원</Amount>
-						</HistoryItem>
-					))}
-					{visibleItems < officialWage.length && (
-						<Button
-							label="더보기"
-							onClick={handleLoadMore}
-							size="normal"
-							theme="primary"
-							buttonWidth="100%"
-						/>
-					)}
-				</>
-			)}
+			<Title title="급여 내역" />
+			<div className="work-history-container">
+				{error ? (
+					<div>{error}</div>
+				) : (
+					<>
+						{officialWage.slice(0, visibleItems).map((item, index: number) => (
+							<HistoryItem key={index} onClick={() => onClick(item)}>
+								<div className="date-details-container">
+									<Date>{formatDate(item.date)}</Date>
+									<Details>
+										<div>강남점</div>
+										<span>{formatWorkingTimes(item.workingTimes)}</span>
+									</Details>
+								</div>
+								<Amount>
+									{(item.workingTimes.length * 45135).toLocaleString()}원
+								</Amount>
+							</HistoryItem>
+						))}
+						{visibleItems < officialWage.length && (
+							<Button
+								label="더보기"
+								onClick={handleLoadMore}
+								size="normal"
+								theme="secondary"
+								buttonWidth="100%"
+							/>
+						)}
+					</>
+				)}
+			</div>
 		</Container>
 	);
 };
 
 const Container = styled.div`
-	padding: 20px;
-	margin-bottom: 60px;
-	overflow: auto;
-`;
+	margin-bottom: 96px;
 
-const Title = styled.div`
-	font-size: ${fontSize.xxl};
-	font-weight: 700;
-	margin-bottom: 23px;
+	.work-history-container {
+		padding: 0 20px;
+		margin-top: 23px;
+	}
 `;
 
 const HistoryItem = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 26px;
+	margin-bottom: 36px;
 	cursor: pointer;
 
-	div {
-		font-size: ${fontSize.lg};
+	span {
+		font-size: ${fontSize.sm};
+		color: ${colors.gray};
 	}
 
-	span {
-		font-size: ${fontSize.md};
-		color: ${colors.gray};
+	.date-details-container {
+		display: flex;
 	}
 `;
 
 const Date = styled.div`
-	font-size: ${fontSize.lg};
-	font-weight: bold;
-	color: #8b95a1;
+	color: ${colors.gray};
+	width: 60px;
+	flex: 1;
 `;
 
 const Details = styled.div`
-	flex: 1;
-	margin-left: 20px;
+	margin-left: 5px;
+	flex: 3;
 `;
 
 const Amount = styled.div`
-	font-size: 14px;
-	font-weight: bold;
+	text-align: end;
+	flex: 1;
 `;
 
 export default WorkHistory;
