@@ -3,12 +3,12 @@ import Header from '@/layout/Header';
 import Content from '@/layout/Content';
 import Menu from '@/layout/Menu/Menu';
 import { useLocation } from 'react-router-dom';
-import { ScrollToTop } from '@/utils/scrollUtils';
+import { scrollToTop } from '@/utils/scrollUtils';
 
 const Layout = () => {
 	const location = useLocation();
 	const isLoginPage = location.pathname === '/login';
-	ScrollToTop();
+	scrollToTop();
 
 	return (
 		<LayoutContainer>
