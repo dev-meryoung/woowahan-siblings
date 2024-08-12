@@ -1,6 +1,6 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import getUserId from '@/api/common/getUserId';
+import { getUserId } from '@/utils/userDataUtils';
 
 // 공식 스케줄에 따른 특정 달의 급여 내역 및 예상 급여액 조회 API
 const getOfficialWage = async (year: number, month: number) => {

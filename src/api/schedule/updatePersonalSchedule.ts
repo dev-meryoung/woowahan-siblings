@@ -1,6 +1,6 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
-import getUserId from '@/api/common/getUserId';
+import { getUserId } from '@/utils/userDataUtils';
 
 type TWorkingTimes = 'open' | 'middle' | 'close';
 
