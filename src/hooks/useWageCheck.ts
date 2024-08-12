@@ -5,16 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { IOfficialWageItem } from '@/components/Wage/WorkHistory';
 
-const fetchPersonalWage = async (year: number, month: number) => {
-	const wageData = await getPersonalWage(year, month);
-	return wageData;
-};
-
-const fetchOfficialWage = async (year: number, month: number) => {
-	const wageOfficialData = await getOfficialWage(year, month);
-	return wageOfficialData;
-};
-
 const useWageCheck = () => {
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -22,12 +12,12 @@ const useWageCheck = () => {
 
 	const { data: personalWageData, error: personalWageError } = useQuery(
 		['personalWage', year, month],
-		() => fetchPersonalWage(year, month),
+		() => getPersonalWage(year, month),
 	);
 
 	const { data: officialWageData, error: officialWageError } = useQuery(
 		['officialWage', year, month],
-		() => fetchOfficialWage(year, month),
+		() => getOfficialWage(year, month),
 	);
 
 	const handleMonthChange = (newYear: number, newMonth: number) => {
