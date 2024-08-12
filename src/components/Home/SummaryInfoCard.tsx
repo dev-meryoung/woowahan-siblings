@@ -36,12 +36,12 @@ const SummaryInfoCard = () => {
 		fetchWageData();
 	}, [fetchWageData]);
 
-	const renderContent = () => {
-		if (error) return <p>{error}</p>;
-		if (!wageData) return <p>급여정보가 없습니다.</p>;
+	if (error) return <p>{error}</p>;
+	if (!wageData) return <p>급여정보가 없습니다.</p>;
 
-		return (
-			<>
+	return (
+		<SummaryCard>
+			<SummaryCardContainer>
 				<FirstSection>
 					<p>
 						공식 근무 스케줄 | {dateInfo.year}년 {dateInfo.monthString}월
@@ -52,13 +52,7 @@ const SummaryInfoCard = () => {
 					<p>예상 급여액</p>
 					<p>{wageData.totalWage.toLocaleString()}원</p>
 				</SecondSection>
-			</>
-		);
-	};
-
-	return (
-		<SummaryCard>
-			<SummaryCardContainer>{renderContent()}</SummaryCardContainer>
+			</SummaryCardContainer>
 			<img src={characterCheese} alt="치즈캐릭터" />
 		</SummaryCard>
 	);
