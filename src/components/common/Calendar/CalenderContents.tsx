@@ -1,9 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
 import CalendarDates from '@/components/common/Calendar/CalendarDates';
-import monthList from '@/utils/getMonthList';
-import { colors } from '@/constants/colors';
+import monthList from '@/utils/dateUtils';
 import styled from '@emotion/styled';
 import useSchedules from '@/hooks/useSchedules';
 
@@ -13,50 +12,43 @@ export interface ICalenderDateProps {
 }
 
 const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
-	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
-	const calendarDates = monthList(nowDate);
+	const [currentDate, setCurrentDate] = useState(nowDate.toDate());
+	const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+	const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
 
-	const currentDate = nowDate.toDate();
-	const currentYear = currentDate.getFullYear();
-	const currentMonth = currentDate.getMonth();
+	const calendarDates = useMemo(() => monthList(nowDate), [nowDate]);
 	const schedules = useSchedules(currentYear, currentMonth + 1, isOfficial);
 
+	useEffect(() => {
+		const today = nowDate.toDate();
+		setCurrentDate(today);
+		setCurrentYear(today.getFullYear());
+		setCurrentMonth(today.getMonth());
+	}, [nowDate]);
+
 	return (
-		<Container>
-			{weeks.map((week) => (
-				<CalendarWeek key={week} weekName={week} />
-			))}
-			{calendarDates.map((date: Timestamp) => (
-				<CalendarDates
-					key={date.toMillis().toString()}
-					date={date}
-					currentYear={currentYear}
-					currentMonth={currentMonth}
-					isOfficial={isOfficial}
-					schedules={schedules}
-				/>
-			))}
-		</Container>
+		<div>
+			<CalendarWeek />
+			<CalendarDatesWrap>
+				{calendarDates.map((date: Timestamp) => (
+					<CalendarDates
+						key={date.toMillis().toString()}
+						date={date}
+						currentYear={currentYear}
+						currentMonth={currentMonth}
+						isOfficial={isOfficial}
+						schedules={schedules}
+					/>
+				))}
+			</CalendarDatesWrap>
+		</div>
 	);
 };
 
 export default CalenderContents;
 
-const Container = styled.div`
+const CalendarDatesWrap = styled.div`
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	text-align: center;
-
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-		border-bottom: 1px solid ${colors.lightGray};
-		min-height: 96px;
-		padding: 2px;
-
-		&:nth-last-of-type(-n + 7) {
-			border-bottom: 0;
-		}
-	}
 `;

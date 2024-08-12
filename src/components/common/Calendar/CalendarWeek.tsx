@@ -2,23 +2,33 @@ import { colors } from '@/constants/colors';
 import styled from '@emotion/styled';
 import { FC } from 'react';
 
-export interface ICalendarWeekProps {
-	weekName: string;
-}
+const weeks = ['일', '월', '화', '수', '목', '금', '토'];
 
-const CalendarWeek: FC<ICalendarWeekProps> = ({ weekName }) => {
-	return <Container>{weekName}</Container>;
+const CalendarWeek: FC = () => {
+	return (
+		<Container>
+			{weeks.map((weekName) => (
+				<span key={weekName}>{weekName}</span>
+			))}
+		</Container>
+	);
 };
 
 export default CalendarWeek;
 
-const Container = styled.span`
+const Container = styled.div`
+	display: flex;
 	border-bottom: 1px solid ${colors.lightGray};
 	padding: 6px 0;
-	&:nth-of-type(1) {
+	text-align: center;
+
+	span {
+		flex: 1;
+	}
+	span:nth-of-type(1) {
 		color: ${colors.red};
 	}
-	&:nth-of-type(7) {
+	span:nth-of-type(7) {
 		color: ${colors.blue};
 	}
 `;

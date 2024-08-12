@@ -8,7 +8,7 @@ import { Plus } from 'lucide-react';
 import getPersonalSchedule from '@/api/schedule/getPersonalSchedule';
 import ScheduleModal from '@/components/SheduleModal/ScheduleModal';
 import IconButton from '@/components/common/Button/IconButton';
-import { formatDateWithoutLeadingZeros, sortByWorkType } from '@/utils/dateUtils';
+import { formatDate, sortByWorkType } from '@/utils/dateUtils';
 import styled from '@emotion/styled';
 import { Timestamp } from 'firebase/firestore';
 import { RootState } from '@/stores/store';
@@ -32,13 +32,13 @@ const ScheduleDetail = () => {
 	const [error, setError] = useState<string | null>(null);
 	const { status } = useSelector((state: RootState) => state.schedules);
 
-	const formatDate = (dateString: string | undefined) => {
+	const formatDateForDisplay = (dateString: string | undefined) => {
 		if (!dateString) return '';
 		const [year, month, day] = dateString.split('-');
 		return `${year}년 ${month}월 ${day}일`;
 	};
 
-	const formattedDate = formatDate(date);
+	const formattedDate = formatDateForDisplay(date);
 
 	const workingHours = (workingTimes: string) => {
 		switch (workingTimes) {
@@ -58,7 +58,7 @@ const ScheduleDetail = () => {
 			if (date) {
 				const [year, month, day] = date.split('-').map(Number);
 				const dateTimestamp = Timestamp.fromDate(new Date(year, month - 1, day));
-				const currentdate = formatDateWithoutLeadingZeros(dateTimestamp);
+				const currentdate = formatDate(dateTimestamp, false, 'line');
 
 				try {
 					const { personalScheduleData } = await getPersonalSchedule(year, month);
