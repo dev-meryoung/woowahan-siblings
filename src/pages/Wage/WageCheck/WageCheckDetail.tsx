@@ -3,6 +3,7 @@ import { colors } from '@/constants/colors';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
+import { formatDate } from '@/utils/dateUtils';
 
 const WageCheckDetail = () => {
 	const location = useLocation();
@@ -11,11 +12,6 @@ const WageCheckDetail = () => {
 	if (!item) {
 		return <Container>잘못된 접근입니다.</Container>;
 	}
-
-	const formatDate = (timestamp: string) => {
-		const date = new Date(timestamp);
-		return `${date.getFullYear()}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
-	};
 
 	const extractWorkingTimes = (workingTimes: string | string[]) => {
 		const time = Array.isArray(workingTimes)
@@ -32,7 +28,6 @@ const WageCheckDetail = () => {
 				return time;
 		}
 	};
-
 	return (
 		<Container>
 			<Title title="급여 상세 내역" className="title" />
@@ -45,7 +40,7 @@ const WageCheckDetail = () => {
 			<div className="detail-wrapper">
 				<div className="detail-row">
 					<p className="detail-key">근무일</p>
-					<p className="detail-value">{formatDate(item.date)}</p>
+					<p className="detail-value">{formatDate(item.date, true, 'dot')}</p>
 				</div>
 				<div className="detail-row">
 					<p className="detail-key">근무 시간</p>

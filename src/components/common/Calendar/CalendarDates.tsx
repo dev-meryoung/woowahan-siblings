@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
 import { colors } from '@/constants/colors';
-import { formatDateWithLeadingZeros, getDayType, sortByWorkType } from '@/utils/dateUtils';
+import { formatDate, getDayType, sortByWorkType } from '@/utils/dateUtils';
 import { IScheduleProps } from '@/hooks/useSchedules';
 import CalendarBadge from '@/components/common/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
@@ -24,7 +24,7 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 }) => {
 	const navigate = useNavigate();
 
-	const formattedDate = formatDateWithLeadingZeros(date);
+	const formattedDate = formatDate(date, true, 'line');
 
 	const filteredSchedules = schedules
 		.filter((schedule) => schedule.date === formattedDate)
@@ -39,7 +39,7 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 
 	const handleDateClick = () => {
 		if (isCurrentMonth && !isOfficial) {
-			const dateString = formatDateWithLeadingZeros(date);
+			const dateString = formatDate(date, true, 'line');
 			navigate(`/schedule/${dateString}`);
 		}
 	};
@@ -78,6 +78,17 @@ const DatesContainer = styled.div<{
 	isOfficial: boolean;
 	clickable: boolean;
 }>`
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	border-bottom: 1px solid ${colors.lightGray};
+	min-height: 96px;
+	padding: 2px;
+
+	&:nth-last-of-type(-n + 7) {
+		border-bottom: 0;
+	}
+
 	cursor: ${({ clickable }) => (clickable ? 'pointer' : 'default')};
 	${({ clickable }) =>
 		clickable &&
