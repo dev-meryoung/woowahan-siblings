@@ -43,22 +43,18 @@ export const sortByWorkType = (
 	return workTypeOrder.indexOf(aWorkType) - workTypeOrder.indexOf(bWorkType);
 };
 
-//해당 월의 총 일수를 반환
 const getDaysInMonth = (year: number, month: number): number => {
 	return new Date(year, month + 1, 0).getDate();
 };
 
-//해당 월의 첫 날의 요일을 반환
 const getFirstDayOfMonth = (year: number, month: number): number => {
 	return new Date(year, month, 1).getDay();
 };
 
-//해당 월의 마지막 날의 요일을 반환
 const getLastDayOfMonth = (year: number, month: number): number => {
 	return new Date(year, month + 1, 0).getDay();
 };
 
-//시작일부터 종료일까지의 Date 객체 배열을 생성
 const generateDateArray = (
 	start: number,
 	end: number,
@@ -70,7 +66,6 @@ const generateDateArray = (
 	);
 };
 
-//특정 날짜(nowDate)를 기반으로 해당 월의 날짜 목록을 생성하는 함수
 const monthList = (nowDate: Timestamp): Timestamp[] => {
 	const date = nowDate.toDate();
 	const nowYear = date.getFullYear();
@@ -79,9 +74,9 @@ const monthList = (nowDate: Timestamp): Timestamp[] => {
 	const firstDayOfMonth = getFirstDayOfMonth(nowYear, nowMonth);
 	const lastDayOfMonth = getLastDayOfMonth(nowYear, nowMonth);
 
-	const prevMonthDays = firstDayOfMonth; //현재 월의 첫 날 전의 요일 수
-	const currentMonthDays = getDaysInMonth(nowYear, nowMonth); //현재 월의 총 일수
-	const nextMonthDays = 6 - lastDayOfMonth; //현재 월의 마지막 날 이후의 요일 수
+	const prevMonthDays = firstDayOfMonth;
+	const currentMonthDays = getDaysInMonth(nowYear, nowMonth);
+	const nextMonthDays = 6 - lastDayOfMonth;
 
 	const prevMonthEndDate = getDaysInMonth(nowYear, nowMonth - 1);
 
@@ -95,6 +90,22 @@ const monthList = (nowDate: Timestamp): Timestamp[] => {
 	const nextMonthDates = generateDateArray(1, nextMonthDays, nowYear, nowMonth + 1);
 
 	return [...prevMonthDates, ...currentMonthDates, ...nextMonthDates];
+};
+
+export const convertDateToServerFormat = (date: string): string => {
+	if (date.includes('년') || date.includes('월') || date.includes('일')) {
+		const parts = date
+			.split(/년|월|일/)
+			.map((part) => part.trim())
+			.filter(Boolean);
+		if (parts.length !== 3) {
+			throw new Error(`Invalid date format: ${date}`);
+		}
+		const [year, month, day] = parts;
+		return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+	} else {
+		return date;
+	}
 };
 
 export default monthList;
