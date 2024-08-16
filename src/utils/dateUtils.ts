@@ -66,7 +66,7 @@ const generateDateArray = (
 	);
 };
 
-const monthList = (nowDate: Timestamp): Timestamp[] => {
+export const monthList = (nowDate: Timestamp): Timestamp[] => {
 	const date = nowDate.toDate();
 	const nowYear = date.getFullYear();
 	const nowMonth = date.getMonth();
@@ -108,4 +108,7 @@ export const convertDateToServerFormat = (date: string): string => {
 	}
 };
 
-export default monthList;
+export const convertDateToISOFormat = (dateStr: string): string => {
+	const date = new Date(dateStr);
+	return date.toLocaleDateString('en-CA');
+};

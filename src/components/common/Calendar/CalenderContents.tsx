@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
 import CalendarDates from '@/components/common/Calendar/CalendarDates';
-import monthList from '@/utils/dateUtils';
+import { monthList } from '@/utils/dateUtils';
 import styled from '@emotion/styled';
 import useSchedules from '@/hooks/useSchedules';
 
