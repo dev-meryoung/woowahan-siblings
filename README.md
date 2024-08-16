@@ -6,6 +6,10 @@
  배포사이트: https://woowahan-siblings.web.app
 </h3>
 
+<h3 align="center">  
+ Test ID: woochee &nbsp; | &nbsp; Test PW: woochee123
+</h3>
+
 ## 👨‍👨‍👦‍👦 팀원소개
 
 |                                          이서윤                                           |                                           김대영                                           |                                           김동영                                           |                                           손성오                                           |                                                        권혜지                                                        |
