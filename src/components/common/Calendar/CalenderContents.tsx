@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
 import CalendarDates from '@/components/common/Calendar/CalendarDates';
@@ -11,31 +11,37 @@ export interface ICalenderDateProps {
 	isOfficial: boolean;
 }
 
-const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
-	const [currentDate, setCurrentDate] = useState(nowDate.toDate());
-	const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-	const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
+interface IDateStateProps {
+	date: Date;
+	year: number;
+	month: number;
+}
 
-	const calendarDates = useMemo(() => monthList(nowDate), [nowDate]);
-	const schedules = useSchedules(currentYear, currentMonth + 1, isOfficial);
+const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
+	const [date, setDate] = useState<IDateStateProps>({} as IDateStateProps);
+	const [calendarDates, setCalendarDates] = useState<Timestamp[]>([]);
+	const schedules = useSchedules(date.year, date.month + 1, isOfficial);
 
 	useEffect(() => {
-		const today = nowDate.toDate();
-		setCurrentDate(today);
-		setCurrentYear(today.getFullYear());
-		setCurrentMonth(today.getMonth());
+		const currentDate = nowDate.toDate();
+		setDate({
+			date: currentDate,
+			year: currentDate.getFullYear(),
+			month: currentDate.getMonth(),
+		});
+		setCalendarDates(monthList(nowDate));
 	}, [nowDate]);
 
 	return (
 		<div>
 			<CalendarWeek />
 			<CalendarDatesWrap>
-				{calendarDates.map((date: Timestamp) => (
+				{calendarDates.map((day: Timestamp) => (
 					<CalendarDates
-						key={date.toMillis().toString()}
-						date={date}
-						currentYear={currentYear}
-						currentMonth={currentMonth}
+						key={day.toMillis().toString()}
+						date={day}
+						currentYear={date.year}
+						currentMonth={date.month}
 						isOfficial={isOfficial}
 						schedules={schedules}
 					/>
