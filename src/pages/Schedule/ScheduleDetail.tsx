@@ -6,7 +6,7 @@ import { fontSize, fontWeight } from '@/constants/font';
 import { colors } from '@/constants/colors';
 import { Plus } from 'lucide-react';
 import getPersonalSchedule from '@/api/schedule/getPersonalSchedule';
-import ScheduleModal from '@/components/SheduleModal/ScheduleModal';
+import ScheduleModal from '@/components/ScheduleModal/ScheduleModal';
 import IconButton from '@/components/common/Button/IconButton';
 import { formatDate, sortByWorkType } from '@/utils/dateUtils';
 import styled from '@emotion/styled';
