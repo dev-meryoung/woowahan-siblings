@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modalReducer, { IModalState } from '@/stores/modalSlice';
-import userInfoReducer, { IUserInfoState } from '@/stores/userInfoSlice';
-import scheduleReducer from '@/stores/scheduleSlice';
-import correctionReducer, { ICorrectionState } from '@/stores/correctionSlice';
+import modalReducer, { IModalState } from './modalSlice';
+import userInfoReducer, { IUserInfoState } from './userInfoSlice';
+import scheduleReducer from './scheduleSlice';
+import correctionReducer, { ICorrectionState } from './correctionSlice';
 
 const store = configureStore({
 	reducer: {

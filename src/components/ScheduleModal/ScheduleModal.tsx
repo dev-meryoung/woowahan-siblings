@@ -5,8 +5,6 @@ import { closeModal, openModal } from '@/stores/modalSlice';
 import ModalOverlay from '@/components/common/Modal/ModalOverlay';
 import ModalFormComponent from '@/components/ScheduleModal/ScheduleModalForm';
 import ModalFooterComponent from '@/components/ScheduleModal/ScheduleModalFooter';
-import ModalContent from '@/components/common/Modal/ModalContent';
-import ModalHeaderComponent from '@/components/common/Modal/ModalHeader';
 import createPersonalSchedule from '@/api/schedule/createPersonalSchedule';
 import updatePersonalSchedule from '@/api/schedule/updatePersonalSchedule';
 import deletePersonalSchedule from '@/api/schedule/deletePersonalSchedule';
@@ -14,6 +12,8 @@ import { fetchSchedules } from '@/stores/scheduleSlice';
 import { AppDispatch } from '@/stores/store';
 import { convertDateToServerFormat } from '@/utils/dateUtils';
 import { TWorkingTimes } from '@/types/commonTypes';
+import ModalContent from '../common/Modal/ModalContent';
+import ModalHeaderComponent from '../common/Modal/ModalHeader';
 
 interface ISchedule {
 	userId: string;
