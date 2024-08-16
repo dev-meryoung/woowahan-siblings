@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
 import { colors } from '@/constants/colors';
@@ -23,29 +23,36 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 	currentMonth,
 }) => {
 	const navigate = useNavigate();
-
+	const [filteredSchedules, setFilteredSchedules] = useState<IScheduleProps[]>([]);
+	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 	const formattedDate = formatDate(date, true, 'line');
-
-	const filteredSchedules = schedules
-		.filter((schedule) => schedule.date === formattedDate)
-		.sort(sortByWorkType)
-		.map((schedule) => ({
-			...schedule,
-			workingTimes: [...schedule.workingTimes].sort((a, b) => {
-				const order = ['open', 'middle', 'close'];
-				return order.indexOf(a) - order.indexOf(b);
-			}),
-		}));
 
 	const handleDateClick = () => {
 		if (isCurrentMonth && !isOfficial) {
-			const dateString = formatDate(date, true, 'line');
-			navigate(`/schedule/${dateString}`);
+			navigate(`/schedule/${formattedDate}`);
 		}
 	};
 
-	const isCurrentMonth =
-		date.toDate().getMonth() === currentMonth && date.toDate().getFullYear() === currentYear;
+	useEffect(() => {
+		const filtered = schedules
+			.filter((schedule) => schedule.date === formattedDate)
+			.sort(sortByWorkType)
+			.map((schedule) => ({
+				...schedule,
+				workingTimes: [...schedule.workingTimes].sort((a, b) => {
+					const order = ['open', 'middle', 'close'];
+					return order.indexOf(a) - order.indexOf(b);
+				}),
+			}));
+		setFilteredSchedules(filtered);
+	}, [schedules, formattedDate]);
+
+	useEffect(() => {
+		const cellDate = date.toDate();
+		setIsCurrentMonth(
+			cellDate.getMonth() === currentMonth && cellDate.getFullYear() === currentYear,
+		);
+	}, [date, currentMonth, currentYear]);
 
 	return (
 		<DatesContainer
