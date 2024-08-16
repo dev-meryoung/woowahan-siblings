@@ -1,74 +1,73 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import ApprovedStatusBadge from './ApprovedStatusBadge';
 import { useNavigate } from 'react-router-dom';
-import getCorrection from '@/api/work/getCorrection';
 import { getApprovedStatusLabel, getWorkTypeLabel } from '@/utils/labelUtils';
 import Button from '../common/Button/Button';
 import { fontSize } from '@/constants/font';
-
-type TApproveStatus = 'pending' | 'approved' | 'rejected';
-type TType = 'cover' | 'special' | 'vacation' | 'early';
-type TWorkingTimes = 'open' | 'middle' | 'close';
-
-interface ICorrectionItem {
-	approveStatus: TApproveStatus | string;
-	description: string;
-	reqDate: string;
-	type: TType | string;
-	workDate: string;
-	workingTimes: TWorkingTimes | string;
-}
+import { useCorrections } from '@/hooks/useCorrections';
+import { convertDateToISOFormat } from '@/utils/dateUtils';
+import { ICorrectionItem } from '@/types/correctionInterfaces';
 
 interface ICorrectionTableProps {
 	approvedFilter?: string;
 	typeFilter?: string;
 }
 
-export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTableProps) => {
+const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTableProps) => {
 	const columns = ['요청날짜', '근무정정 유형', '승인상태'];
+	const { data, error, isLoading } = useCorrections();
 	const [corrections, setCorrections] = useState<ICorrectionItem[]>([]);
 	const [visibleItems, setVisibleItems] = useState(10);
 	const navigate = useNavigate();
 
-	const handleCorrection = (index: number) => () => {
-		navigate(`/wage/correction/${index}`);
-	};
+	const handleCorrection = useCallback(
+		(index: string) => () => {
+			navigate(`/wage/correction/${index}`);
+		},
+		[navigate],
+	);
 
-	const formatDate = (dateStr: string): string => {
-		const date = new Date(dateStr);
-		return date.toLocaleDateString('en-CA');
-	};
+	const filterAndSortCorrections = useCallback(() => {
+		if (data?.workCorrections) {
+			const filteredCorrections = data.workCorrections
+				.filter((correction: ICorrectionItem) => {
+					return (
+						(!approvedFilter ||
+							getApprovedStatusLabel(correction.approveStatus) === approvedFilter) &&
+						(!typeFilter || getWorkTypeLabel(correction.type) === typeFilter)
+					);
+				})
+				.map((correction: ICorrectionItem) => ({
+					...correction,
+					reqDate: convertDateToISOFormat(correction.reqDate),
+					workDate: convertDateToISOFormat(correction.workDate),
+				}))
+				.sort((a, b) => new Date(b.reqDate).getTime() - new Date(a.reqDate).getTime());
 
-	const fetchCorrection = async () => {
-		const data = await getCorrection();
-		const filteredCorrections = data.workCorrections
-			.filter((correction) => {
-				return (
-					(!approvedFilter ||
-						getApprovedStatusLabel(correction.approveStatus) === approvedFilter) &&
-					(!typeFilter || getWorkTypeLabel(correction.type) === typeFilter)
-				);
-			})
-			.map((correction: ICorrectionItem) => ({
-				...correction,
-				reqDate: formatDate(correction.reqDate),
-				workDate: formatDate(correction.workDate),
-			}))
-			.sort((a, b) => new Date(b.reqDate).getTime() - new Date(a.reqDate).getTime());
-
-		setCorrections(filteredCorrections);
-	};
+			setCorrections(filteredCorrections);
+		}
+	}, [data, approvedFilter, typeFilter]);
 
 	const handleLoadMore = () => {
 		setVisibleItems((prev) => prev + 5);
 	};
 
 	useEffect(() => {
-		fetchCorrection();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [approvedFilter, typeFilter]);
+		if (data && !isLoading && !error) {
+			filterAndSortCorrections();
+		}
+	}, [data, isLoading, error, approvedFilter, typeFilter, filterAndSortCorrections]);
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>Error:</div>;
+	}
+
 	return (
 		<TableContainer>
 			<thead>
@@ -86,10 +85,10 @@ export const CorrectionTable = ({ approvedFilter, typeFilter }: ICorrectionTable
 						</td>
 					</tr>
 				) : (
-					corrections.slice(0, visibleItems).map((correction, index) => {
+					corrections.slice(0, visibleItems).map((correction) => {
 						const workLabel = getWorkTypeLabel(correction.type);
 						return (
-							<tr key={index} onClick={handleCorrection(index + 1)}>
+							<tr key={correction.id} onClick={handleCorrection(correction.id)}>
 								<td>{correction.reqDate}</td>
 								<td>{workLabel}</td>
 								<td>

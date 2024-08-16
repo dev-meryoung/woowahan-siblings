@@ -1,24 +1,16 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { colors } from '@/constants/colors';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button/Button';
-import { correctionTypeOption, workTimeOption } from '@/constants/options';
 import Select from '@/components/common/Select';
 import Title from '@/components/common/Title';
-import { useNavigate } from 'react-router-dom';
 import createCorrection from '@/api/work/createCorrection';
+import { correctionTypeOption, workTimeOption } from '@/constants/options';
 import { getShiftTypeLabelEn, getWorkTypeLabelEn } from '@/utils/labelUtils';
-
-type TType = 'cover' | 'special' | 'vacation' | 'early';
-type TWorkingTimes = 'open' | 'middle' | 'close';
-
-interface ICorrectionRequest {
-	type: TType | string;
-	workDate: string;
-	workingTimes: TWorkingTimes | string;
-	description: string;
-}
+import { colors } from '@/constants/colors';
+import { IBaseCorrection } from '@/types/correctionInterfaces';
 
 const CorrectionRequest = () => {
 	const navigate = useNavigate();
@@ -27,7 +19,8 @@ const CorrectionRequest = () => {
 	const typeSelect = useRef<HTMLButtonElement>(null);
 	const descriptionInput = useRef<HTMLTextAreaElement>(null);
 
-	const [correctionRequestData, setCorrectionRequestData] = useState<ICorrectionRequest>({
+	const [correctionRequestData, setCorrectionRequestData] = useState<IBaseCorrection>({
+		id: '',
 		workDate: '',
 		workingTimes: '',
 		type: '',
@@ -35,9 +28,37 @@ const CorrectionRequest = () => {
 	});
 	const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 
+	const mutation = useMutation(
+		async (correctionData: IBaseCorrection) => {
+			return await createCorrection(
+				correctionData.workDate,
+				getShiftTypeLabelEn(correctionData.workingTimes),
+				getWorkTypeLabelEn(correctionData.type),
+				correctionData.description,
+			);
+		},
+		{
+			onSuccess: () => {
+				setCorrectionRequestData({
+					id: '',
+					workDate: '',
+					workingTimes: '',
+					type: '',
+					description: '',
+				});
+				navigate(-1);
+			},
+			onError: (error) => {
+				console.error('Failed to submit request:', error);
+				alert('요청 제출에 실패했습니다. 다시 시도해주세요.');
+			},
+		},
+	);
+
 	const handleCancel = () => {
 		navigate(-1);
 		setCorrectionRequestData({
+			id: '',
 			workDate: '',
 			workingTimes: '',
 			type: '',
@@ -53,7 +74,7 @@ const CorrectionRequest = () => {
 		}));
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
 		const { workDate, workingTimes, type, description } = correctionRequestData;
 
 		if (!workDate || !workingTimes || !type || !description) {
@@ -64,25 +85,7 @@ const CorrectionRequest = () => {
 			return;
 		}
 
-		try {
-			await createCorrection(
-				workDate,
-				getShiftTypeLabelEn(workingTimes),
-				getWorkTypeLabelEn(type),
-				description,
-			);
-
-			setCorrectionRequestData({
-				workDate: '',
-				workingTimes: '',
-				type: '',
-				description: '',
-			});
-			navigate(-1);
-		} catch (error) {
-			console.error('Failed to submit request:', error);
-			alert('요청 제출에 실패했습니다. 다시 시도해주세요.');
-		}
+		mutation.mutate(correctionRequestData);
 	};
 
 	return (
@@ -139,7 +142,12 @@ const CorrectionRequest = () => {
 				</FormGroup>
 				<div className="button-container">
 					<Button label="취소" theme="secondary" onClick={handleCancel} />
-					<Button label="신청하기" theme="primary" onClick={handleSubmit} />
+					<Button
+						label={mutation.isLoading ? '신청중...' : '신청하기'}
+						theme="primary"
+						onClick={handleSubmit}
+						disabled={mutation.isLoading}
+					/>
 				</div>
 			</div>
 		</Container>
