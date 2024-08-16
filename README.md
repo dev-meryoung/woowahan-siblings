@@ -1,10 +1,18 @@
+# 🧀 우아한 치즈케잌 알바생을 위한 급여 및 업무 관리 플랫폼
+
+<img src="https://github.com/user-attachments/assets/275423fc-e1e2-4fba-973b-3f00f1a552cf" >
+
+<h3 align="center">  
+ 배포사이트: https://woowahan-siblings.web.app
+</h3>
+
 ## 👨‍👨‍👦‍👦 팀원소개
 
-|                                                        이서윤                                                        |                                                        김대영                                                        |                                                        김동영                                                        |                                                        손성오                                                        |                                                        권혜지                                                        |
-| :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/c6368cb6-e896-4566-84ea-37085702b7bb" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/ec1b6dbd-752a-41ea-9046-e17976b620fe" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/33917380-d94e-4bdc-ace3-e025b1408986" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/3cb867b8-5cda-4851-87cd-20f2b82d8c44" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/ff14c4e6-65de-43ec-89a1-26e0192b4151" width="150" height="150"> |
-|                         <div align="center">[@seoyoonyi](https://github.com/seoyoonyi)</div>                         |                      <div align="center">[@dev-meryoung](https://github.com/dev-meryoung)</div>                      |                          <div align="center">[@love1ace](https://github.com/love1ace)</div>                          |                        <div align="center">[@Sonseongoh](https://github.com/Sonseongoh)</div>                        |                           <div align="center">[@hyeppyy](https://github.com/hyeppyy)</div>                           |
-|                             <div align="center">근무정정 페이지 개발<br>UI 디자인</div>                              |                               <div align="center">로그인 페이지 개발<br>API 개발</div>                               |                      <div align="center">일정 추가, 삭제 기능 개발<br>프로젝트 기초 세팅</div>                       |                         <div align="center">프로필 페이지 개발<br>급여확인 페이지 개발</div>                         |                            <div align="center">홈페이지 개발<br>일정표 페이지 개발</div>                             |
+|                                          이서윤                                           |                                           김대영                                           |                                           김동영                                           |                                           손성오                                           |                                                        권혜지                                                        |
+| :---------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/89791868?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/106634493?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/147500032?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/131119152?v=4" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/ff14c4e6-65de-43ec-89a1-26e0192b4151" width="150" height="150"> |
+|           <div align="center">[@seoyoonyi](https://github.com/seoyoonyi)</div>            |         <div align="center">[@dev-meryoung](https://github.com/dev-meryoung)</div>         |             <div align="center">[@love1ace](https://github.com/love1ace)</div>             |           <div align="center">[@Sonseongoh](https://github.com/Sonseongoh)</div>           |                           <div align="center">[@hyeppyy](https://github.com/hyeppyy)</div>                           |
+|                <div align="center">근무정정 페이지 개발<br>UI 디자인</div>                |                  <div align="center">로그인 페이지 개발<br>API 개발</div>                  |         <div align="center">일정 추가, 삭제 기능 개발<br>프로젝트 기초 세팅</div>          |            <div align="center">프로필 페이지 개발<br>급여확인 페이지 개발</div>            |                            <div align="center">홈페이지 개발<br>일정표 페이지 개발</div>                             |
 
 &nbsp;
 
@@ -62,7 +70,7 @@ Test PW: woochee123
 
 | 로그인                                                                                                          |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/48528f7c-2b70-455d-9599-a0a38afca13f"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/53f64f54-c95e-431c-b06f-0cc743080f03"></img> |
 
 ### 로그아웃
 
@@ -70,7 +78,7 @@ Test PW: woochee123
 
 | 로그아웃                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/50597b97-9443-4fbe-a6db-aaefa365c17e"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/16cc3d6b-25c5-414c-8951-5c50bcbda101"></img> |
 
 ### 공식 근무 스케줄
 
@@ -81,7 +89,7 @@ Test PW: woochee123
 
 | 공식 근무 스케줄                                                                                                |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/610afa9c-785e-4dab-8147-2c31f2f370fe"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/4c39b9e0-32e8-44a1-a35e-0bb615552b53"></img> |
 
 ### 개인근무 일정표
 
@@ -92,13 +100,13 @@ Test PW: woochee123
 
 | 개인근무 일정표                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/c714047a-bacc-4d8a-b30f-4067f10fbcf0"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/4383587d-6b41-4a76-be9a-900ef6638a4f"></img> |
 
 ### 개인근무 일정 상세페이지
 
 | 조회                                                                                                            | 추가                                                                                                            | 수정                                                                                                            | 삭제                                                                                                            |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/459f7730-bc1d-44b9-9581-da7090b4b098"></img> | <img width="300px" src="https://github.com/user-attachments/assets/850a6aeb-87f5-4d24-863a-87f94763ac57"></img> | <img width="300px" src="https://github.com/user-attachments/assets/9bb0bfa8-01df-487a-8715-f7cf84db4a35"></img> | <img width="300px" src="https://github.com/user-attachments/assets/32929014-23cf-4433-be1d-6fc052f7bb32"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/c658b164-f62b-421f-bdd2-1afae47e8020"></img> | <img width="300px" src="https://github.com/user-attachments/assets/66f81824-a2f7-4955-9a1b-014b30d06b3d"></img> | <img width="300px" src="https://github.com/user-attachments/assets/0e63ffdf-911b-4272-8937-1621851b0ab0"></img> | <img width="300px" src="https://github.com/user-attachments/assets/7187eb33-e40c-4e22-af88-538ae452d2bb"></img> |
 
 #### [조회]
 
@@ -133,7 +141,7 @@ Test PW: woochee123
 
 | 급여확인                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/c4952a47-b0e9-4286-9150-92cf23f34215"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/30c71404-bc64-4c63-beb5-30aa1476e11f"></img> |
 
 ### 급여 상세 내역
 
@@ -142,7 +150,7 @@ Test PW: woochee123
 
 | 급여 상세 내역                                                                                                  |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/5ca99b5b-37fd-49fc-ad7d-a3eaa97f3e78"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/c1bf638c-a40e-4048-aa38-259ac181e390"></img> |
 
 ### 정정신청 내역
 
@@ -157,7 +165,16 @@ Test PW: woochee123
 
 | 정정신청 내역                                                                                                   |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/92ef181e-5857-4725-a07e-49d6a5265280"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/5e62fe7d-59be-426f-897e-5e6c1961bed3"></img> |
+
+### 정정신청 상세 내역
+
+-   정정신청 내역에서 상세 조회하려는 내역을 클릭하여 정정신청 상세 내역 페이지로 이동합니다.
+-   정정신청 상세 내역에서 근무일(년/월/일), 근무 시간, 사유내용, 설명 정보를 확인할 수 있습니다.
+
+| 정정신청 상세 내역                                                                                              |
+| --------------------------------------------------------------------------------------------------------------- |
+| <img width="300px" src="https://github.com/user-attachments/assets/ae4abaa0-8960-40a0-b77f-1d4eb98b38f1"></img> |
 
 ### 근무 정정신청
 
@@ -169,7 +186,7 @@ Test PW: woochee123
 
 | 정정신청                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/93e63c75-ad50-49f0-8eb6-440dc2d08324"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/aaf7aa30-190f-4d44-b495-3522720973d2"></img> |
 
 ### 프로필
 
@@ -180,7 +197,7 @@ Test PW: woochee123
 
 | 프로필                                                                                                          |
 | --------------------------------------------------------------------------------------------------------------- |
-| <img width="300px" src="https://github.com/user-attachments/assets/de6087e8-5a5a-496d-8b4f-967a0aca3bd7"></img> |
+| <img width="300px" src="https://github.com/user-attachments/assets/404b7d96-ef14-41a1-9af4-a2f234f6dd57"></img> |
 
 &nbsp;
 
