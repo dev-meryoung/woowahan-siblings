@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/stores/store';
 import { closeModal, openModal } from '@/stores/modalSlice';
 import ModalOverlay from '@/components/common/Modal/ModalOverlay';
-import ModalFormComponent from '@/components/SheduleModal/ScheduleModalForm';
-import ModalFooterComponent from '@/components/SheduleModal/ScheduleModalFooter';
-import ModalContent from '@/components/common/Modal/ModalContent';
-import ModalHeaderComponent from '@/components/common/Modal/ModalHeader';
+import ModalFormComponent from '@/components/ScheduleModal/ScheduleModalForm';
+import ModalFooterComponent from '@/components/ScheduleModal/ScheduleModalFooter';
 import createPersonalSchedule from '@/api/schedule/createPersonalSchedule';
 import updatePersonalSchedule from '@/api/schedule/updatePersonalSchedule';
 import deletePersonalSchedule from '@/api/schedule/deletePersonalSchedule';
 import { fetchSchedules } from '@/stores/scheduleSlice';
 import { AppDispatch } from '@/stores/store';
 import { convertDateToServerFormat } from '@/utils/dateUtils';
+import { TWorkingTimes } from '@/types/commonTypes';
+import ModalContent from '../common/Modal/ModalContent';
+import ModalHeaderComponent from '../common/Modal/ModalHeader';
 
 interface ISchedule {
 	userId: string;
@@ -28,8 +29,6 @@ const DEFAULT_DATA = {
 	workTime: '선택',
 	breakTime: '30분',
 };
-
-type TWorkingTimes = 'open' | 'middle' | 'close';
 
 const validateFields = (fields: { [key: string]: string }) => {
 	const errors: { [key: string]: boolean } = {};

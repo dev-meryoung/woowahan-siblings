@@ -3,7 +3,7 @@ import { Timestamp } from 'firebase/firestore';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
-import IconButton from '@/components/common/Button/IconButton';
+import IconButton from '../Button/IconButton';
 
 export interface IControlDateProps {
 	nowDate: Timestamp;

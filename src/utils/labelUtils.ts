@@ -23,6 +23,17 @@ export const getApprovedStatusLabel = (type: string) => {
 	return approvedStatusLabels[type] || type;
 };
 
+const workTypeLabelsEn: { [key: string]: string } = {
+	대타근무: 'cover',
+	특별근무: 'special',
+	휴가: 'vacation',
+	조퇴: 'early',
+};
+
+export const getWorkTypeLabelEn = (type: string) => {
+	return workTypeLabelsEn[type] || type;
+};
+
 const shiftTypeLabels: { [key: string]: { value: string; label: string; color: string } } = {
 	open: {
 		value: '오픈 (07:00~12:00)',
@@ -45,17 +56,6 @@ export const getShiftTypeLabel = (type: string) => {
 	return shiftTypeLabels[type] || { value: type, label: type, color: '#000000' };
 };
 
-const workTypeLabelsEn: { [key: string]: string } = {
-	대타근무: 'cover',
-	특별근무: 'special',
-	휴가: 'vacation',
-	조퇴: 'early',
-};
-
-export const getWorkTypeLabelEn = (type: string) => {
-	return workTypeLabelsEn[type] || type;
-};
-
 const shiftTypeLabelsEn: { [key: string]: string } = {
 	'오픈 (07:00~12:00)': 'open',
 	'미들 (12:00~17:00)': 'middle',
@@ -64,4 +64,14 @@ const shiftTypeLabelsEn: { [key: string]: string } = {
 
 export const getShiftTypeLabelEn = (type: string) => {
 	return shiftTypeLabelsEn[type] || type;
+};
+
+const shiftTypeLabelsKr: { [key: string]: string } = {
+	open: '오픈 (07:00~12:00)',
+	middle: '미들 (12:00~17:00)',
+	close: '마감 (17:00~22:00)',
+};
+
+export const getShiftTypeLabelKr = (type: string) => {
+	return shiftTypeLabelsKr[type] || type;
 };

@@ -1,8 +1,7 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import { getUserId } from '@/utils/userDataUtils';
-
-type TWorkingTimes = 'open' | 'middle' | 'close';
+import { TWorkingTimes } from '@/types/commonTypes';
 
 // 개인 근무 일정 삭제 API
 const deletePersonalSchedule = async (workDate: string, workingTimes: TWorkingTimes) => {

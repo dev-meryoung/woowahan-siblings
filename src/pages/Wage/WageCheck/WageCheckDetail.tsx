@@ -85,15 +85,12 @@ const Container = styled.div`
 			justify-content: space-between;
 			margin-bottom: 22px;
 
-			/* .detail-key {
-				font-size: ${fontSize.lg};
+			.detail-key {
+				color: ${colors.darkestGray};
 			}
-
 			.detail-value {
-				text-align: right;
-				font-weight: bold;
-				font-size: ${fontSize.lg};
-			} */
+				font-weight: ${fontWeight.medium};
+			}
 		}
 	}
 `;

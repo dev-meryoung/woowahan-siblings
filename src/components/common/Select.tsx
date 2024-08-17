@@ -1,10 +1,8 @@
-import { ChangeEvent, forwardRef, useCallback, useEffect } from 'react';
+import { ChangeEvent, forwardRef, useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 import { ChevronDown } from 'lucide-react';
-
-type TType = 'cover' | 'special' | 'vacation' | 'early';
-type TWorkingTimes = 'open' | 'middle' | 'close';
+import { TType, TWorkingTimes } from '@/types/commonTypes';
 
 interface ISelectProps {
 	id: string;
@@ -34,11 +32,14 @@ const Select = forwardRef<HTMLButtonElement, ISelectProps>(
 		},
 		ref,
 	) => {
-		const isOpen = openDropdownId === id;
+		const [isOpen, setIsOpen] = useState(openDropdownId === id);
 
 		const handleToggle = useCallback(() => {
-			if (setOpenDropdownId && typeof id !== 'undefined') {
-				setOpenDropdownId(isOpen ? null : id);
+			setIsOpen(!isOpen);
+			if (!isOpen) {
+				setOpenDropdownId(id);
+			} else {
+				setOpenDropdownId(null);
 			}
 		}, [id, isOpen, setOpenDropdownId]);
 
@@ -61,12 +62,8 @@ const Select = forwardRef<HTMLButtonElement, ISelectProps>(
 		const selectedOptionData = options.find((opt) => opt.value === selectedOption);
 
 		useEffect(() => {
-			if (isOpen) {
-				if (ref && typeof ref !== 'function' && ref.current) {
-					ref.current.focus();
-				}
-			}
-		}, [isOpen, ref]);
+			setIsOpen(openDropdownId === id);
+		}, [openDropdownId, id]);
 
 		return (
 			<DropdownContainer className={className}>

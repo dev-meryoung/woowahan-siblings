@@ -1,10 +1,10 @@
 import getOfficialWage from '@/api/work/getOfficialWage';
-import Button from '@/components/common/Button/Button';
 import { colors } from '@/constants/colors';
 import { fontSize } from '@/constants/font';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import Title from '../common/Title';
+import Button from '../common/Button/Button';
 
 const formatDate = (dateString: string) => {
 	const [, month, day] = dateString.split('-').map(Number);

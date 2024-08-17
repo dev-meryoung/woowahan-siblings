@@ -1,9 +1,7 @@
 import { db } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { getUserId } from '@/utils/userDataUtils';
-
-type TWorkingTimes = 'open' | 'middle' | 'close';
-type TType = 'cover' | 'special' | 'vacation' | 'early';
+import { TType, TWorkingTimes } from '@/types/commonTypes';
 
 // 근무 정정신청 API
 const createCorrection = async (

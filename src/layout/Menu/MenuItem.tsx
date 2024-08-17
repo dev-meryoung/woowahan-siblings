@@ -23,8 +23,10 @@ const MenuItem: FC<IMenuItemProps> = ({ to, icon, label, isActive }) => (
 export default MenuItem;
 
 const MenuItemContainer = styled.li`
+	width: calc(100% / 4);
 	display: flex;
 	align-items: center;
+	justify-content: center;
 `;
 
 const StyledLink = styled(NavLink)`
