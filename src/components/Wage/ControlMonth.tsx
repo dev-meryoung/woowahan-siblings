@@ -1,10 +1,10 @@
-import IconButton from '@/components/common/Button/IconButton';
 import { fontSize, fontWeight } from '@/constants/font';
 import styled from '@emotion/styled';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import getOfficialWage from '@/api/work/getOfficialWage';
 import getPersonalWage from '@/api/work/getPersonalWage';
+import IconButton from '../common/Button/IconButton';
 
 interface IControlMonthProps {
 	onMonthChange: (year: number, month: number) => void;

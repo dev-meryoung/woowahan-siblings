@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
 import { colors } from '@/constants/colors';
-import { formatDateWithLeadingZeros, getDayType, sortByWorkType } from '@/utils/dateUtils';
+import { formatDate, getDayType, sortByWorkType } from '@/utils/dateUtils';
 import { IScheduleProps } from '@/hooks/useSchedules';
 import CalendarBadge from '@/components/common/Calendar/CalendarBadge';
 import styled from '@emotion/styled';
@@ -23,29 +23,36 @@ const CalendarDates: FC<ICalendarDatesProps> = ({
 	currentMonth,
 }) => {
 	const navigate = useNavigate();
-
-	const formattedDate = formatDateWithLeadingZeros(date);
-
-	const filteredSchedules = schedules
-		.filter((schedule) => schedule.date === formattedDate)
-		.sort(sortByWorkType)
-		.map((schedule) => ({
-			...schedule,
-			workingTimes: [...schedule.workingTimes].sort((a, b) => {
-				const order = ['open', 'middle', 'close'];
-				return order.indexOf(a) - order.indexOf(b);
-			}),
-		}));
+	const [filteredSchedules, setFilteredSchedules] = useState<IScheduleProps[]>([]);
+	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
+	const formattedDate = formatDate(date, true, 'line');
 
 	const handleDateClick = () => {
 		if (isCurrentMonth && !isOfficial) {
-			const dateString = formatDateWithLeadingZeros(date);
-			navigate(`/schedule/${dateString}`);
+			navigate(`/schedule/${formattedDate}`);
 		}
 	};
 
-	const isCurrentMonth =
-		date.toDate().getMonth() === currentMonth && date.toDate().getFullYear() === currentYear;
+	useEffect(() => {
+		const filtered = schedules
+			.filter((schedule) => schedule.date === formattedDate)
+			.sort(sortByWorkType)
+			.map((schedule) => ({
+				...schedule,
+				workingTimes: [...schedule.workingTimes].sort((a, b) => {
+					const order = ['open', 'middle', 'close'];
+					return order.indexOf(a) - order.indexOf(b);
+				}),
+			}));
+		setFilteredSchedules(filtered);
+	}, [schedules, formattedDate]);
+
+	useEffect(() => {
+		const cellDate = date.toDate();
+		setIsCurrentMonth(
+			cellDate.getMonth() === currentMonth && cellDate.getFullYear() === currentYear,
+		);
+	}, [date, currentMonth, currentYear]);
 
 	return (
 		<DatesContainer
@@ -78,6 +85,17 @@ const DatesContainer = styled.div<{
 	isOfficial: boolean;
 	clickable: boolean;
 }>`
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	border-bottom: 1px solid ${colors.lightGray};
+	min-height: 96px;
+	padding: 2px;
+
+	&:nth-last-of-type(-n + 7) {
+		border-bottom: 0;
+	}
+
 	cursor: ${({ clickable }) => (clickable ? 'pointer' : 'default')};
 	${({ clickable }) =>
 		clickable &&

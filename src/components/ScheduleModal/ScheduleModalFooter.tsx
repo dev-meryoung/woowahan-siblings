@@ -1,6 +1,36 @@
 import styled from '@emotion/styled';
 import { colors } from '@/constants/colors';
 
+const ModalFooterComponent = ({
+	content,
+	handleDelete,
+	handleEdit,
+	handleSave,
+	closeModal,
+}: {
+	content: 'add' | 'edit' | 'view' | null;
+	handleDelete: () => void;
+	handleEdit: () => void;
+	handleSave: () => void;
+	closeModal: () => void;
+}) => (
+	<ButtonContainer>
+		{content === 'view' ? (
+			<>
+				<DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+				<SaveButton onClick={handleEdit}>수정</SaveButton>
+			</>
+		) : (
+			<>
+				<CancelButton onClick={closeModal}>취소</CancelButton>
+				<SaveButton onClick={handleSave}>{content === 'edit' ? '수정' : '저장'}</SaveButton>
+			</>
+		)}
+	</ButtonContainer>
+);
+
+export default ModalFooterComponent;
+
 const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -46,33 +76,3 @@ const DeleteButton = styled.button`
 	font-size: 16px;
 	font-weight: 600;
 `;
-
-const ModalFooterComponent = ({
-	content,
-	handleDelete,
-	handleEdit,
-	handleSave,
-	closeModal,
-}: {
-	content: 'add' | 'edit' | 'view' | null;
-	handleDelete: () => void;
-	handleEdit: () => void;
-	handleSave: () => void;
-	closeModal: () => void;
-}) => (
-	<ButtonContainer>
-		{content === 'view' ? (
-			<>
-				<DeleteButton onClick={handleDelete}>삭제</DeleteButton>
-				<SaveButton onClick={handleEdit}>수정</SaveButton>
-			</>
-		) : (
-			<>
-				<CancelButton onClick={closeModal}>취소</CancelButton>
-				<SaveButton onClick={handleSave}>{content === 'edit' ? '수정' : '저장'}</SaveButton>
-			</>
-		)}
-	</ButtonContainer>
-);
-
-export default ModalFooterComponent;

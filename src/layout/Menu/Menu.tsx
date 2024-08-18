@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { useLocation } from 'react-router-dom';
 import { Home, Calendar, WalletMinimal, User } from 'lucide-react';
 import { colors } from '@/constants/colors';
-import MenuItem from '@/layout/Menu/MenuItem';
+import MenuItem from './MenuItem';
 
 const Menu = () => {
 	const location = useLocation();
@@ -52,10 +52,10 @@ export default Menu;
 const Nav = styled.nav`
 	position: fixed;
 	bottom: 0;
-	padding: 2px 0 3px 0;
+	padding: 3px 0 3px 0;
 	width: 100%;
 	max-width: 430px;
-	height: 55px;
+	height: 56px;
 	background-color: ${colors.veryLightGray};
 	display: flex;
 	align-items: center;
@@ -64,11 +64,9 @@ const Nav = styled.nav`
 `;
 
 const NavList = styled.ul`
+	padding: 0 20px;
 	display: flex;
-	gap: 54px;
-	list-style: none;
-	padding: 0;
-	margin: 0;
+	width: 100%;
 `;
 
 const iconStyle = (isActive: boolean) => css`

@@ -1,4 +1,6 @@
 import { db } from '@/firebaseConfig';
+import { TWorkingTimes } from '@/types/commonTypes';
+import { getUserId } from '@/utils/userDataUtils';
 import {
 	collection,
 	addDoc,
@@ -8,9 +10,6 @@ import {
 	updateDoc,
 	arrayUnion,
 } from 'firebase/firestore';
-import getUserId from '@/api/common/getUserId';
-
-type TWorkingTimes = 'open' | 'middle' | 'close';
 
 // 개인 근무 일정 생성 API
 const createPersonalSchedule = async (

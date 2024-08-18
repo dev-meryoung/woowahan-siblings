@@ -1,8 +1,7 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
-import getUserId from '@/api/common/getUserId';
-
-type TWorkingTimes = 'open' | 'middle' | 'close';
+import { getUserId } from '@/utils/userDataUtils';
+import { TWorkingTimes } from '@/types/commonTypes';
 
 // 개인 근무 일정 삭제 API
 const deletePersonalSchedule = async (workDate: string, workingTimes: TWorkingTimes) => {
@@ -18,7 +17,7 @@ const deletePersonalSchedule = async (workDate: string, workingTimes: TWorkingTi
 
 		const querySnapshot = await getDocs(q);
 
-		querySnapshot.forEach(async (doc) => {
+		for (const doc of querySnapshot.docs) {
 			const data = doc.data();
 			const workingTimesArray = data.workingTimes || [];
 			const memosArray = data.memos || [];
@@ -39,7 +38,7 @@ const deletePersonalSchedule = async (workDate: string, workingTimes: TWorkingTi
 					});
 				}
 			}
-		});
+		}
 
 		return true;
 	} catch (error) {

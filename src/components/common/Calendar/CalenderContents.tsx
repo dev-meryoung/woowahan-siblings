@@ -1,9 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import CalendarWeek from '@/components/common/Calendar/CalendarWeek';
 import CalendarDates from '@/components/common/Calendar/CalendarDates';
-import monthList from '@/utils/getMonthList';
-import { colors } from '@/constants/colors';
+import { monthList } from '@/utils/dateUtils';
 import styled from '@emotion/styled';
 import useSchedules from '@/hooks/useSchedules';
 
@@ -12,51 +11,50 @@ export interface ICalenderDateProps {
 	isOfficial: boolean;
 }
 
-const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
-	const weeks = ['일', '월', '화', '수', '목', '금', '토'];
-	const calendarDates = monthList(nowDate);
+interface IDateStateProps {
+	date: Date;
+	year: number;
+	month: number;
+}
 
-	const currentDate = nowDate.toDate();
-	const currentYear = currentDate.getFullYear();
-	const currentMonth = currentDate.getMonth();
-	const schedules = useSchedules(currentYear, currentMonth + 1, isOfficial);
+const CalenderContents: FC<ICalenderDateProps> = ({ nowDate, isOfficial }) => {
+	const [date, setDate] = useState<IDateStateProps>({} as IDateStateProps);
+	const [calendarDates, setCalendarDates] = useState<Timestamp[]>([]);
+	const schedules = useSchedules(date.year, date.month + 1, isOfficial);
+
+	useEffect(() => {
+		const currentDate = nowDate.toDate();
+		setDate({
+			date: currentDate,
+			year: currentDate.getFullYear(),
+			month: currentDate.getMonth(),
+		});
+		setCalendarDates(monthList(nowDate));
+	}, [nowDate]);
 
 	return (
-		<Container>
-			{weeks.map((week) => (
-				<CalendarWeek key={week} weekName={week} />
-			))}
-			{calendarDates.map((date: Timestamp) => (
-				<CalendarDates
-					key={date.toMillis().toString()}
-					date={date}
-					currentYear={currentYear}
-					currentMonth={currentMonth}
-					isOfficial={isOfficial}
-					schedules={schedules}
-				/>
-			))}
-		</Container>
+		<div>
+			<CalendarWeek />
+			<CalendarDatesWrap>
+				{calendarDates.map((day: Timestamp) => (
+					<CalendarDates
+						key={day.toMillis().toString()}
+						date={day}
+						currentYear={date.year}
+						currentMonth={date.month}
+						isOfficial={isOfficial}
+						schedules={schedules}
+					/>
+				))}
+			</CalendarDatesWrap>
+		</div>
 	);
 };
 
 export default CalenderContents;
 
-const Container = styled.div`
+const CalendarDatesWrap = styled.div`
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	text-align: center;
-
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-		border-bottom: 1px solid ${colors.lightGray};
-		min-height: 96px;
-		padding: 2px;
-
-		&:nth-last-of-type(-n + 7) {
-			border-bottom: 0;
-		}
-	}
 `;

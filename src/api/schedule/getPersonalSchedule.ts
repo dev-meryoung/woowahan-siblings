@@ -1,6 +1,6 @@
 import { db } from '@/firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import getUserId from '@/api/common/getUserId';
+import { getUserId } from '@/utils/userDataUtils';
 
 // 특정 달의 개인 근무 일정 조회 API
 const getPersonalSchedule = async (year: number, month: number) => {
