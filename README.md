@@ -1,4 +1,4 @@
-# 🧀 우아한 치즈케잌 알바생을 위한 급여 및 업무 관리 플랫폼
+# 🧀 우아한 치즈케잌
 
 <img src="https://github.com/user-attachments/assets/275423fc-e1e2-4fba-973b-3f00f1a552cf" >
 
